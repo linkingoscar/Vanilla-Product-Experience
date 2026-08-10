@@ -618,16 +618,17 @@ body {
 }
 
 .bento-card h3 {
-  font-size: 19px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
   letter-spacing: -0.022em;
-  margin: 0 0 8px;
+  margin: 0 0 10px;
 }
 
 .bento-card p {
   margin: 0;
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 14.5px;
+  line-height: 1.68;
   color: var(--text-secondary);
 }
 
@@ -956,9 +957,15 @@ code {
   gap: 16px;
 }
 
-@media (min-width: 734px) {
+@media (min-width: 640px) {
   .insight-cards {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .insight-cards {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -971,7 +978,8 @@ code {
 
 .insight-card h3 {
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 700;
+  line-height: 1.35;
   margin: 0 0 10px;
   letter-spacing: -0.022em;
 }
@@ -979,7 +987,7 @@ code {
 .insight-card p {
   margin: 0;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.68;
   color: var(--text-secondary);
 }
 
