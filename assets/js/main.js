@@ -9,7 +9,7 @@
   // ============================================
   // Navigation Highlight
   // ============================================
-  const navLinks = document.querySelectorAll(".nav a[href^='#']");
+  const navLinks = document.querySelectorAll(".nav a[href^='#'], .island-nav a[href^='#']");
   const sections = [...navLinks]
     .map((a) => {
       const id = a.getAttribute("href").slice(1);
@@ -168,14 +168,11 @@
   // ============================================
   // Keyboard Shortcut Table Enhancement
   // ============================================
-  const kbdElements = document.querySelectorAll("kbd");
-  kbdElements.forEach((kbd) => {
-    kbd.addEventListener("mouseenter", () => {
-      kbd.style.transform = "scale(1.05)";
-      kbd.style.transition = "transform 0.15s ease";
-    });
-    kbd.addEventListener("mouseleave", () => {
-      kbd.style.transform = "scale(1)";
-    });
+  // ============================================
+  // Sticky Stacking Cards Setup
+  // ============================================
+  const stackCards = document.querySelectorAll(".stack-card");
+  stackCards.forEach((card, index) => {
+    card.style.setProperty("--stack-i", index);
   });
 })();

@@ -52,9 +52,9 @@ cursor3-static/
 |------|------|
 | 🎯 Hero | 产品定位、官方链接 |
 | ✨ 亮点速览 | Agents Window、Design Mode、MCP 等 |
-| 🆕 新功能 (3.1-3.2) | Canvases、Multitask、Worktrees、SDK |
+| 🆕 新功能 (3.1-3.9) | Canvases、Multi-agent Swarm、Deep Research、Sidecar 预览、SDK |
 | 🎬 影像 | 中文页：B 站教程嵌入；英文页：YouTube 官方/社区教程；官方文档链接 |
-| 📅 版本演进 | 1.x → 2.0 → Composer 2 → 3.0 时间线 |
+| 📅 版本演进 | 1.x → 2.0 → 3.0 → 3.6 → 3.9 时间线 |
 | 💰 定价方案 | Hobby / Pro / Pro+ / Ultra / Teams |
 | ⚔️ 竞品对比 | Cursor vs Copilot vs Claude Code (14 维度) |
 | 🚀 如何体验 | 快速上手指南 |

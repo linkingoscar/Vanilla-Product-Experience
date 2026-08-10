@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cursor3-intro-v1';
+const CACHE_NAME = 'cursor3-intro-v2';
 const STATIC_ASSETS = [
   '/',
   '/en/',

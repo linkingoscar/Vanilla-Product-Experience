@@ -9,6 +9,18 @@
   --separator: rgba(0, 0, 0, 0.08);
   --blue: #0071e3;
   --blue-hover: #0077ed;
+  --purple: #af52de;
+  --pink: #ff2d55;
+  --orange: #ff9500;
+  --cyan: #32ade6;
+  --green: #34c759;
+  --mint: #00c7be;
+  --amber: #ff9500;
+  --glass: rgba(255, 255, 255, 0.65);
+  --glass2: rgba(255, 255, 255, 0.85);
+  --gbr: rgba(255, 255, 255, 0.85);
+  --ghi: rgba(255, 255, 255, 0.95);
+  --gsh: 0.12;
   --radius-lg: 22px;
   --radius-md: 14px;
   --radius-sm: 10px;
@@ -23,17 +35,29 @@
 
 /* Dark mode variables */
 [data-theme="dark"] {
-  --bg: #1d1d1f;
-  --bg-tint: #2c2c2e;
-  --surface: #2c2c2e;
+  --bg: #070810;
+  --bg-tint: #121320;
+  --surface: rgba(255, 255, 255, 0.06);
   --text: #f5f5f7;
-  --text-secondary: #a1a1a6;
-  --text-tertiary: #86868b;
-  --separator: rgba(255, 255, 255, 0.1);
+  --text-secondary: rgba(255, 255, 255, 0.68);
+  --text-tertiary: rgba(255, 255, 255, 0.42);
+  --separator: rgba(255, 255, 255, 0.12);
   --blue: #0a84ff;
   --blue-hover: #409cff;
-  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.3);
-  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.2);
+  --purple: #bf5af2;
+  --pink: #ff375f;
+  --orange: #ff9f0a;
+  --cyan: #64d2ff;
+  --green: #30d158;
+  --mint: #59f0be;
+  --amber: #ffb45c;
+  --glass: rgba(255, 255, 255, 0.07);
+  --glass2: rgba(255, 255, 255, 0.13);
+  --gbr: rgba(255, 255, 255, 0.16);
+  --ghi: rgba(255, 255, 255, 0.32);
+  --gsh: 0.45;
+  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.45);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 *,
@@ -1968,5 +1992,327 @@ code {
 .pricing-card:nth-child(4) { transition-delay: 0.3s; }
 .pricing-card:nth-child(5) { transition-delay: 0.4s; }
 .pricing-card:nth-child(6) { transition-delay: 0.5s; }
+
+/* ── 动态流光壁纸与噪点 ─────────────────────── */
+.bg-blobs {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  filter: blur(90px);
+  opacity: 0.42;
+  will-change: transform, border-radius;
+}
+
+[data-theme="dark"] .blob {
+  opacity: 0.52;
+}
+
+.b1 {
+  width: 55vw;
+  height: 55vw;
+  left: -14vw;
+  top: -18vw;
+  background: radial-gradient(circle at 35% 35%, #ff2d78, rgba(255, 45, 120, 0) 68%);
+  animation: drift1 26s ease-in-out infinite alternate;
+}
+
+.b2 {
+  width: 50vw;
+  height: 50vw;
+  right: -15vw;
+  top: -6vw;
+  background: radial-gradient(circle at 60% 40%, #7a5cff, rgba(122, 92, 255, 0) 70%);
+  animation: drift2 31s ease-in-out infinite alternate;
+}
+
+.b3 {
+  width: 45vw;
+  height: 45vw;
+  left: 18vw;
+  bottom: -20vw;
+  background: radial-gradient(circle at 50% 50%, #00c8ff, rgba(0, 200, 255, 0) 70%);
+  animation: drift3 24s ease-in-out infinite alternate;
+}
+
+.b4 {
+  width: 25vw;
+  height: 25vw;
+  right: 15vw;
+  bottom: 8vw;
+  background: radial-gradient(circle at 50% 50%, #ff9f0a, rgba(255, 159, 10, 0) 70%);
+  animation: drift2 19s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes drift1 {
+  0% { transform: translate(0, 0) scale(1); border-radius: 44% 56% 62% 38% / 48% 42% 58% 52%; }
+  100% { transform: translate(8vw, 6vh) scale(1.15); border-radius: 58% 42% 40% 60% / 52% 58% 42% 48%; }
+}
+
+@keyframes drift2 {
+  0% { transform: translate(0, 0) scale(1.05); border-radius: 52% 48% 44% 56% / 58% 44% 56% 42%; }
+  100% { transform: translate(-7vw, 8vh) scale(0.92); border-radius: 40% 60% 58% 42% / 46% 60% 40% 54%; }
+}
+
+@keyframes drift3 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(9vw, -7vh) scale(1.2); }
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── 灵动岛悬浮导航 ─────────────────────── */
+.island {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 900;
+  width: min(840px, calc(100% - 24px));
+  border-radius: 999px;
+  background: var(--glass);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--gbr);
+  box-shadow: inset 0 1px 0 var(--ghi), 0 16px 40px rgba(0, 0, 0, var(--gsh));
+  transition: all 0.4s cubic-bezier(0.3, 0.9, 0.3, 1);
+  padding: 6px 18px;
+}
+
+.island-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.island-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 15.5px;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.island-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 14px;
+  color: #fff;
+  background: conic-gradient(from 210deg, var(--blue), var(--purple), var(--pink), var(--orange), var(--blue));
+  box-shadow: 0 4px 12px rgba(10, 132, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.island-nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.island-nav a {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.25s ease;
+  font-weight: 500;
+}
+
+.island-nav a:hover {
+  color: var(--text);
+}
+
+.island-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+.is-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+  animation: pulseDot 1.8s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  50% { opacity: 0.35; }
+}
+
+@media (max-width: 768px) {
+  .island-nav {
+    display: none;
+  }
+}
+
+/* ── 玻璃材质与扫光特效 ─────────────────────── */
+.glass {
+  position: relative;
+  background: var(--glass);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--gbr);
+  border-radius: var(--radius-lg);
+  box-shadow: inset 0 1px 0 var(--ghi), inset 0 -1px 0 rgba(255, 255, 255, 0.05), 0 20px 50px rgba(0, 0, 0, var(--gsh));
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s, border-color 0.3s;
+}
+
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 30%);
+  pointer-events: none;
+}
+
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.22) 50%, transparent 60%);
+  transform: translateX(-130%);
+  transition: transform 0.8s ease;
+  pointer-events: none;
+}
+
+.shine:hover::after {
+  transform: translateX(130%);
+}
+
+/* ── 粘性堆叠卡片 (Sticky Stacking Cards) ─────────────────────── */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: relative;
+}
+
+.stack-card {
+  position: sticky;
+  top: calc(84px + var(--stack-i, 0) * 20px);
+  margin-bottom: 24px;
+  border-radius: 26px;
+  padding: clamp(24px, 3.5vw, 36px);
+  background: var(--glass);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid var(--gbr);
+  box-shadow: inset 0 1px 0 var(--ghi), 0 24px 60px rgba(0, 0, 0, var(--gsh));
+  transform-origin: top center;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.3, 1), box-shadow 0.3s;
+  will-change: transform;
+}
+
+.stack-card:hover {
+  transform: translateY(-4px) scale(1.006);
+}
+
+.corner-cross {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-tertiary);
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.corner-cross.tl { top: 12px; left: 16px; }
+.corner-cross.tr { top: 12px; right: 16px; }
+.corner-cross.bl { bottom: 12px; left: 16px; }
+.corner-cross.br { bottom: 12px; right: 16px; }
+
+/* ── 高级按纽 ─────────────────────── */
+.btn-p {
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  border-radius: 99px;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff !important;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  box-shadow: 0 12px 32px rgba(10, 132, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-p:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 18px 44px rgba(10, 132, 255, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.btn-p::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.45) 50%, transparent 60%);
+  transform: translateX(-130%);
+  animation: btnshine 3.6s ease-in-out infinite;
+}
+
+@keyframes btnshine {
+  0%, 60% { transform: translateX(-130%); }
+  100% { transform: translateX(130%); }
+}
+
+.btn-g {
+  border-radius: 99px;
+  padding: 14px 26px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text) !important;
+  background: var(--glass);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--gbr);
+  box-shadow: inset 0 1px 0 var(--ghi);
+  transition: transform 0.3s, background 0.3s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-g:hover {
+  transform: translateY(-3px);
+  background: var(--glass2);
+}
+
 
 

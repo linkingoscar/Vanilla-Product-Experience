@@ -42,9 +42,9 @@ cursor3-static/
 |---------|-------------|
 | Hero | Product positioning, official links |
 | Highlights | Agents Window, Design Mode, MCP, etc. |
-| New Features (3.1–3.2) | Canvases, Multitask, Worktrees, SDK |
+| New Features (3.1–3.9) | Canvases, Multi-agent Swarm, Deep Research, Sidecar Preview, SDK |
 | Videos | Chinese: Bilibili tutorials; English: YouTube official/community tutorials; official docs links |
-| Version Timeline | 1.x → 2.0 → Composer 2 → 3.0 evolution |
+| Version Timeline | 1.x → 2.0 → 3.0 → 3.6 → 3.9 evolution |
 | Pricing | Hobby / Pro / Pro+ / Ultra / Teams |
 | Comparison | Cursor vs Copilot vs Claude Code (14 dimensions) |
 | Getting Started | Quick start guide |

@@ -1,5 +1,29 @@
 # 修改日志
 
+## [3.1.0] - 2026-08-10
+
+### 新增
+
+- **3.9 功能板块 (August 05)**
+  - Multi-agent Swarm 多智能体并行协作系统
+  - Sandboxed Browser Action 内置沙盒浏览器联动与 UI 校验
+- **3.8 功能板块 (July 08)**
+  - Workspace Sidecar 侧边栏 Web 组件实时渲染与预览
+  - Terminal Command Auto-Correction 终端命令智能纠错与补全
+- **3.7 功能板块 (June 18)**
+  - Deep Research Mode 深度研究模式（自动检索与架构分析）
+  - Autonomous Debugger 自动排错调试与修复循环
+
+### 优化
+
+- 更新 Hero 区域与 SEO 元数据至 3.9 版本
+- 更新版本演进时间线（新增 3.7 - 3.9 节点）
+- 更新 14+ 维度竞品对比表格（加入 Multi-agent 协作、Deep Research、Sidecar 预览等最新指标）
+- 升级 PWA Service Worker 缓存至 `cursor3-intro-v2`
+- 修正 README 项目结构与功能板块说明
+
+---
+
 ## [3.0.1] - 2026-06-07
 
 ### 变更
