@@ -1,11 +1,11 @@
-const CACHE_NAME = 'cursor3-intro-v4';
+const CACHE_NAME = 'cursor3-intro-v5';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/en/',
   '/en/index.html',
-  '/assets/css/style.css?v=3.9.4',
-  '/assets/js/main.js?v=3.9.4',
+  '/assets/css/style.css?v=3.9.6',
+  '/assets/js/main.js?v=3.9.5',
   '/assets/icons/favicon.svg',
   '/assets/icons/icon-192.png',
   '/assets/icons/icon-512.png',
