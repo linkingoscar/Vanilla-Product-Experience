@@ -1,14 +1,19 @@
-const CACHE_NAME = 'cursor3-intro-v2';
+const CACHE_NAME = 'cursor3-intro-v3';
 const STATIC_ASSETS = [
   '/',
+  '/index.html',
   '/en/',
+  '/en/index.html',
   '/assets/css/style.css',
   '/assets/js/main.js',
+  '/assets/icons/favicon.svg',
+  '/assets/icons/icon-192.png',
+  '/assets/icons/icon-512.png',
   '/manifest.json'
 ];
 
 const EXTERNAL_ASSETS = [
-  'https://fonts.bunny.net/css?family=inter:400,500,600,700|jetbrains-mono:400,500,600&display=swap'
+  'https://fonts.bunny.net/css?family=inter:400,500,600,700,800|jetbrains-mono:400,500,600,700&display=swap'
 ];
 
 // Install: cache static assets
@@ -49,7 +54,7 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Network-first strategy for HTML pages
-  if (request.headers.get('Accept').includes('text/html')) {
+  if (request.headers.get('Accept') && request.headers.get('Accept').includes('text/html')) {
     event.respondWith(
       fetch(request)
         .then((response) => {

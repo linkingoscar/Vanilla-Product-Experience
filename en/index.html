@@ -1,17 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Cursor 3.x intro: Multi-agent Swarm, Deep Research, Sidecar Preview, Auto-review, Composer 3.0, and competitor comparison. 3.0→3.9 evolution." />
+    <meta name="description" content="Cursor 3.x Visual Introduction: Grok 4.6, JetBrains ACP Protocol, Multi-agent Swarm, Deep Research Mode, Sidecar Preview, Auto-review, and comprehensive feature matrix." />
+    <meta name="theme-color" content="#08090e" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#1d1d1f" media="(prefers-color-scheme: dark)" />
+    
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg" />
+    <link rel="apple-touch-icon" href="../assets/icons/icon-192.png" />
+    <link rel="manifest" href="../manifest.json" />
+    
+    <!-- Multi-language Alternate -->
+    <link rel="alternate" hreflang="en" href="/en/" />
+    <link rel="alternate" hreflang="zh-CN" href="/" />
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Cursor 3.x · Visual Introduction" />
+    <meta property="og:description" content="Cursor 3.x Comprehensive Features: Grok 4.6, JetBrains ACP, Multi-agent Swarm, Deep Research, Sidecar Preview, Auto-review, Composer 3.0" />
     <meta property="og:locale" content="en_US" />
-    <link rel="manifest" href="../manifest.json" />
+    <meta property="og:image" content="../assets/icons/icon-512.png" />
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
-    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|jetbrains-mono:400,500,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800|jetbrains-mono:400,500,600,700&display=swap" rel="stylesheet" />
+    
     <link rel="stylesheet" href="../assets/css/style.css" />
     <title>Cursor 3.x · Visual Introduction</title>
   </head>
@@ -25,27 +40,32 @@
     </div>
     <div class="noise" aria-hidden="true"></div>
 
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main">Skip to main content</a>
 
     <!-- Dynamic Island Navigation -->
     <header class="island">
       <div class="island-inner">
-        <a class="island-logo" href="../">
+        <a class="island-logo" href="../" aria-label="Cursor 3.x Home">
           <span class="island-mark">C3</span>
           <span>Cursor <span class="logo-ver">3.x</span></span>
         </a>
-        <nav class="island-nav" aria-label="Page navigation">
+        <nav class="island-nav" aria-label="Page Navigation">
           <a href="#highlights">Highlights</a>
-          <a href="#composer-25">Composer 3.0</a>
-          <a href="#new-features">New Features</a>
+          <a href="#composer-25">Composer Models</a>
+          <a href="#new-features">3.1→3.9 Updates</a>
           <a href="#timeline">Timeline</a>
           <a href="#pricing">Pricing</a>
           <a href="#compare">Compare</a>
         </nav>
         <div class="island-status">
-          <span class="is-dot"></span>
+          <button class="island-search-btn open-cmd-palette" aria-label="Open command palette search">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span>Search</span>
+            <kbd>⌘K</kbd>
+          </button>
+          <span class="is-dot" aria-hidden="true"></span>
           <span>v3.9 Active</span>
-          <a href="../" style="margin-left:8px;color:var(--text-secondary);text-decoration:none;" hreflang="zh">中文</a>
+          <a href="../" class="lang-badge" hreflang="zh" aria-label="Switch to Chinese">中文</a>
         </div>
       </div>
     </header>
@@ -54,32 +74,68 @@
       <!-- Hero -->
       <section class="hero">
         <div class="container hero-grid">
-          <div class="hero-copy">
-            <p class="eyebrow">Changelog 3.9 · Aug 5, 2026</p>
-            <h1>An Agent-centric<br />unified workspace.</h1>
-            <p class="lead">Orchestrate multiple Agents across local, worktree, cloud, and SSH in parallel; instantly return to full IDE depth when needed. Cursor 3.x brings Multi-agent Swarm, Deep Research Mode, Sidecar Preview, Auto-review, Composer 3.0, and more.</p>
-            <div class="hero-actions">
-              <a class="btn-p" href="https://cursor.com/blog/cursor-3" target="_blank" rel="noopener noreferrer">🚀 Official Release</a>
-              <a class="btn-g" href="https://cursor.com/changelog" target="_blank" rel="noopener noreferrer">📄 Changelog</a>
+          <div class="hero-copy animate-on-scroll">
+            <div class="eyebrow">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Changelog 3.9 · August 2026 Latest</span>
             </div>
-            <p class="font-note">Fonts: <strong>Inter</strong>, <strong>JetBrains Mono</strong> (Bunny Fonts · SIL OFL)</p>
+            <h1>An Agent-centric<br /><span class="hero-title-gradient">unified workspace.</span></h1>
+            <p class="lead">Orchestrate multiple Agents across local, worktree, cloud, and SSH in parallel. Featuring <strong>Grok 4.6 (4 effort levels)</strong>, <strong>JetBrains ACP cross-IDE support</strong>, Multi-agent Swarm, Deep Research, and Sidecar Live Preview.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="https://cursor.com/blog/cursor-3" target="_blank" rel="noopener noreferrer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <span>Official Release</span>
+              </a>
+              <a class="btn btn-secondary" href="https://cursor.com/changelog" target="_blank" rel="noopener noreferrer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                <span>Full Changelog</span>
+              </a>
+            </div>
+            <p class="font-note">Typography: <strong>Inter</strong> · <strong>JetBrains Mono</strong> (Bunny Fonts · SIL OFL)</p>
           </div>
-          <div class="hero-visual" aria-hidden="true">
-            <div class="device-frame">
-              <div class="device-notch"></div>
-              <div class="device-screen">
-                <div class="mock-sidebar">
-                  <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
-                  <div class="mock-rows">
-                    <div class="mock-row active"></div>
-                    <div class="mock-row"></div>
-                    <div class="mock-row"></div>
+          <div class="hero-visual animate-on-scroll">
+            <div class="ide-window">
+              <div class="ide-titlebar">
+                <div class="traffic-lights" aria-hidden="true">
+                  <span class="traffic-dot red"></span>
+                  <span class="traffic-dot yellow"></span>
+                  <span class="traffic-dot green"></span>
+                </div>
+                <span class="ide-title">workspace-swarm — Cursor 3.9</span>
+                <span class="ide-swarm-pill">
+                  <span class="agent-status-dot"></span> 3 Agents Parallel
+                </span>
+              </div>
+              <div class="ide-body">
+                <div class="ide-sidebar">
+                  <div class="sidebar-label">Active Swarm</div>
+                  <div class="agent-item active">
+                    <span class="agent-status-dot"></span>
+                    <span>Architect</span>
+                  </div>
+                  <div class="agent-item">
+                    <span class="agent-status-dot"></span>
+                    <span>Coder-1</span>
+                  </div>
+                  <div class="agent-item">
+                    <span class="agent-status-dot"></span>
+                    <span>Tester-2</span>
                   </div>
                 </div>
-                <div class="mock-main">
-                  <div class="mock-chat"></div>
-                  <div class="mock-chat short"></div>
-                  <div class="mock-browser"><span>Design Mode</span></div>
+                <div class="ide-editor">
+                  <div class="code-area">
+                    <div class="code-line"><span class="code-num">1</span><span><span class="code-kw">import</span> { SwarmCoordinator } <span class="code-kw">from</span> <span class="code-str">'@cursor/sdk'</span>;</span></div>
+                    <div class="code-line"><span class="code-num">2</span><span></span></div>
+                    <div class="code-line"><span class="code-num">3</span><span><span class="code-kw">const</span> swarm = <span class="code-kw">new</span> <span class="code-fn">SwarmCoordinator</span>({</span></div>
+                    <div class="code-line"><span class="code-num">4</span><span>  mode: <span class="code-str">'multi-repo-parallel'</span>,</span></div>
+                    <div class="code-line"><span class="code-num">5</span><span>  model: <span class="code-str">'grok-4.6-xhigh'</span>,</span></div>
+                    <div class="code-line"><span class="code-num">6</span><span>  autoReview: <span class="code-kw">true</span></span></div>
+                    <div class="code-line"><span class="code-num">7</span><span>});</span></div>
+                  </div>
+                  <div class="ide-sidecar-preview">
+                    <span>⚡ Sidecar: Live DOM Sync</span>
+                    <strong style="color:var(--emerald);">PASS 12/12</strong>
+                  </div>
                 </div>
               </div>
             </div>
@@ -87,402 +143,820 @@
         </div>
       </section>
 
-      <!-- Highlights -->
+      <!-- Highlights (Bento Grid) -->
       <section id="highlights" class="section section-tint">
         <div class="container">
-          <p class="section-label">Cursor 3.x</p>
-          <h2 class="section-title">Highlight Reel</h2>
+          <p class="section-label">Cursor 3.x Architecture</p>
+          <h2 class="section-title">Highlights at a Glance</h2>
+          <p class="section-desc">A brand new Agent-first interface elevating multi-agent orchestration to a first-class citizen, preserving native developer depth.</p>
           <div class="bento">
             <article class="bento-card bento-large animate-on-scroll">
-              <div class="bento-icon" aria-hidden="true">◇</div>
-              <h3>Agents Window</h3>
-              <p>New Agent-first interface supporting parallel execution across local, worktree, cloud, and SSH. Unified sidebar manages all Agents, including those from mobile, web, Slack, GitHub, Linear, Jira, and Microsoft Teams. Cloud Agents auto-generate demos and screenshots for verification.</p>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/><path d="M14 9h4"/><path d="M14 15h4"/></svg>
+              </div>
+              <h3>Agents Window Unified Workspace</h3>
+              <p>Unified sidebar to run and monitor multiple agents in parallel across local, worktree, cloud, and SSH environments. Integrates seamlessly with iOS/iPadOS, Slack, GitHub, Linear, Jira, and Teams.</p>
               <ul class="bento-list">
-                <li>Native multi-repo support</li>
-                <li>Seamless local↔cloud handoff</li>
-                <li>Switch back to classic IDE anytime</li>
+                <li>Native multi-repo context awareness and reasoning</li>
+                <li>Instant local ↔ cloud execution handoff</li>
+                <li>Retains full VS Code ecosystem for fine-grained editing</li>
               </ul>
             </article>
+
             <article class="bento-card animate-on-scroll">
-              <div class="bento-icon" aria-hidden="true">◎</div>
-              <h3>Design Mode</h3>
-              <p>Annotate and select UI elements directly in the built-in browser for precise Agent feedback. Keyboard shortcuts: ⌘⇧D to toggle, ⇧+drag to select, ⌘L to add to chat.</p>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              </div>
+              <h3>Design Mode Visual Feedback</h3>
+              <p>Inspect, annotate, and select UI elements directly inside the built-in browser to give immediate visual context to agents with <code>⌘⇧D</code> and <code>⌘L</code>.</p>
             </article>
+
             <article class="bento-card animate-on-scroll">
-              <div class="bento-icon" aria-hidden="true">⎔</div>
-              <h3>Auto-review</h3>
-              <p><strong>New in 3.6</strong>: Run mode that reduces approval fatigue. Allowlisted commands run immediately, sandboxed tasks execute safely, other requests routed to a classifier subagent for autonomous decision-making.</p>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              </div>
+              <h3>Agent Tabs Grid View</h3>
+              <p>View parallel sessions side-by-side. Leverage <code>/multitask</code> for asynchronous subagent execution to split complex tasks into concurrent branches.</p>
             </article>
+
             <article class="bento-card animate-on-scroll">
-              <div class="bento-icon" aria-hidden="true">↻</div>
-              <h3><code>/loop</code></h3>
-              <p><strong>New in 3.5</strong>: Run a prompt repeatedly on a schedule until a goal is met or stopped. Great for monitoring deploy status, continuous testing, and long-running tasks.</p>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+              </div>
+              <h3>Auto-review Smart Verification</h3>
+              <p><strong>New in 3.6</strong>: Reduce approval fatigue. Allowlisted commands execute immediately, sandboxed tasks run safely, and high-risk actions are verified by classifier subagents.</p>
             </article>
+
             <article class="bento-card animate-on-scroll">
-              <div class="bento-icon" aria-hidden="true">🧠</div>
-              <h3>Composer 2.5</h3>
-              <p><strong>New in 3.6</strong>: Major intelligence upgrade. Better at sustained work on long-running tasks, follows complex instructions more reliably, smoother collaboration experience.</p>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              </div>
+              <h3><code>/loop</code> Autonomous Schedules</h3>
+              <p><strong>New in 3.5</strong>: Run prompts on recurring schedules or until assertions pass. Ideal for persistent monitoring, deployments, and continuous testing.</p>
             </article>
+
             <article class="bento-card bento-wide animate-on-scroll">
-              <div class="bento-icon" aria-hidden="true">⎘</div>
-              <h3>MCP Structured Output & Marketplace</h3>
-              <p>Tools return richer structured data. Marketplace offers hundreds of plugins (MCP, Skills, Subagents, Rules, Hooks) with one-click install. Teams can create private marketplaces with distribution policies.</p>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4-4-4 4"/><path d="M12 16V8"/></svg>
+              </div>
+              <h3>MCP & JetBrains ACP Ecosystem</h3>
+              <p>Full Model Context Protocol compliance. Marketplace features hundreds of MCPs and Skills. Support for JetBrains IDEs via open <strong>Agent Client Protocol (ACP)</strong>.</p>
             </article>
           </div>
         </div>
       </section>
 
-      <!-- New Features (3.1 - 3.9) -->
+      <!-- New Features (3.1 - 3.9) with Category Tabs -->
       <section id="new-features" class="section">
         <div class="container">
-          <p class="section-label">3.1 → 3.9 Updates</p>
-          <h2 class="section-title">Latest Feature Updates</h2>
-          <p class="section-desc">Cursor 3.0 has been continuously iterating, bringing <strong>Multi-agent Swarm</strong>, <strong>Deep Research Mode</strong>, <strong>Sidecar Preview</strong>, <strong>Auto-review</strong>, and more.</p>
+          <p class="section-label">Evolution Roadmap</p>
+          <h2 class="section-title">3.1 → 3.9 Feature Matrix</h2>
+          <p class="section-desc">Featuring Grok 4.6 (August 2026), JetBrains ACP Protocol, Side Chats, and 26 comprehensive capabilities.</p>
           
+          <!-- Category Filter Tabs -->
+          <div class="feature-tabs" role="tablist" aria-label="Feature categories">
+            <button class="tab-btn is-active" data-filter="all" role="tab" aria-selected="true">All Features <span class="tab-count">26</span></button>
+            <button class="tab-btn" data-filter="swarm" role="tab" aria-selected="false">Multi-Agent Swarm <span class="tab-count">4</span></button>
+            <button class="tab-btn" data-filter="model" role="tab" aria-selected="false">Models & Reasoning <span class="tab-count">5</span></button>
+            <button class="tab-btn" data-filter="workflow" role="tab" aria-selected="false">Dev Workflow <span class="tab-count">10</span></button>
+            <button class="tab-btn" data-filter="enterprise" role="tab" aria-selected="false">Enterprise & Security <span class="tab-count">7</span></button>
+          </div>
+
           <div class="feature-grid">
-            <!-- Multi-agent Swarm -->
-            <article class="feature-card glass shine animate-on-scroll">
-              <span class="corner-cross tl">+</span><span class="corner-cross tr">+</span><span class="corner-cross bl">+</span><span class="corner-cross br">+</span>
-              <div class="feature-icon">🐝</div>
+            <!-- 1. Grok 4.6 (NEW - Aug 2026) -->
+            <article class="feature-card animate-on-scroll" data-category="model">
               <div class="feature-meta">
+                <span class="feature-version" style="background:rgba(244,63,94,0.15); color:var(--rose);">NEW · Aug 2026</span>
+                <span class="feature-date">August 2026</span>
+              </div>
+              <div class="svg-icon-wrap" style="color:var(--rose);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <h3>Grok 4.6 Flagship (4 Effort Levels)</h3>
+              <p>Designed for long-running agents and interactive visual applications. Supports <code>low</code>, <code>medium</code>, <code>high</code>, and <code>xhigh</code> effort levels for surgical compute allocation.</p>
+              <a href="https://cursor.com/changelog" target="_blank" rel="noopener noreferrer">Learn more →</a>
+            </article>
+
+            <!-- 2. JetBrains ACP (NEW - Aug 2026) -->
+            <article class="feature-card animate-on-scroll" data-category="workflow">
+              <div class="feature-meta">
+                <span class="feature-version" style="background:rgba(99,102,241,0.15); color:var(--indigo);">NEW · Aug 2026</span>
+                <span class="feature-date">August 2026</span>
+              </div>
+              <div class="svg-icon-wrap" style="color:var(--indigo);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="8 10 12 14 16 10"/></svg>
+              </div>
+              <h3>JetBrains IDE Support (ACP Protocol)</h3>
+              <p>Powered by the open Agent Client Protocol (ACP). Run Cursor agents and models directly inside IntelliJ IDEA, PyCharm, WebStorm, and GoLand.</p>
+            </article>
+
+            <!-- 3. Side Chats (NEW - Aug 2026) -->
+            <article class="feature-card animate-on-scroll" data-category="workflow">
+              <div class="feature-meta">
+                <span class="feature-version" style="background:rgba(6,182,212,0.15); color:var(--cyan);">NEW · Aug 2026</span>
+                <span class="feature-date">August 2026</span>
+              </div>
+              <div class="svg-icon-wrap" style="color:var(--cyan);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <h3>Side Chats (<code>/side</code>, <code>/btw</code>)</h3>
+              <p>Investigate tangents, lookup API documentation, or ask quick clarifying questions without interrupting or polluting the main agent thread.</p>
+            </article>
+
+            <!-- 4. Cursor for iOS & iPadOS (NEW - Jul/Aug 2026) -->
+            <article class="feature-card animate-on-scroll" data-category="enterprise">
+              <div class="feature-meta">
+                <span class="feature-version">v3.8</span>
+                <span class="feature-date">July 2026</span>
+              </div>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              </div>
+              <h3>Cursor for iOS & iPadOS</h3>
+              <p>Perform full PR reviews, inline annotations, and check CI runs on mobile. Optimized for iPad multitasking with Apple Pencil visual markup.</p>
+            </article>
+
+            <!-- 5. Multi-agent Swarm -->
+            <article class="feature-card animate-on-scroll" data-category="swarm">
+              <div class="feature-meta">
+                <span class="feature-version">v3.9</span>
                 <span class="feature-date">Aug 05, 2026</span>
-                <span class="feature-version">3.9</span>
+              </div>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><circle cx="5" cy="18" r="2"/><line x1="12" y1="9" x2="19" y2="6"/><line x1="12" y1="9" x2="5" y2="6"/><line x1="12" y1="15" x2="19" y2="18"/><line x1="12" y1="15" x2="5" y2="18"/></svg>
               </div>
               <h3>Multi-agent Swarm</h3>
               <p>Swarm-style multi-agent collaboration: architects, coders, and testers work in parallel on medium to large projects with automatic progress consolidation.</p>
               <a href="https://cursor.com/changelog" target="_blank" rel="noopener noreferrer">Learn more →</a>
             </article>
 
-            <!-- Sandboxed Browser Action -->
-            <article class="feature-card glass shine animate-on-scroll">
-              <span class="corner-cross tl">+</span><span class="corner-cross tr">+</span><span class="corner-cross bl">+</span><span class="corner-cross br">+</span>
-              <div class="feature-icon">🌐</div>
+            <!-- 6. Sandboxed Browser Action -->
+            <article class="feature-card animate-on-scroll" data-category="workflow">
               <div class="feature-meta">
+                <span class="feature-version">v3.9</span>
                 <span class="feature-date">Aug 05, 2026</span>
-                <span class="feature-version">3.9</span>
+              </div>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
               </div>
               <h3>Sandboxed Browser Action</h3>
-              <p>Agents interact directly with built-in headless/desktop sandboxed browsers to click UI elements, analyze screenshots, and intercept network traffic for automated Web testing.</p>
+              <p>Agents interact directly with built-in headless/desktop sandboxed browsers to click UI elements, analyze screenshots, and verify Web interactions autonomously.</p>
             </article>
 
-            <!-- Workspace Sidecar Preview -->
-            <article class="feature-card glass shine animate-on-scroll">
-              <span class="corner-cross tl">+</span><span class="corner-cross tr">+</span><span class="corner-cross bl">+</span><span class="corner-cross br">+</span>
-              <div class="feature-icon">📱</div>
+            <!-- 7. Workspace Sidecar -->
+            <article class="feature-card animate-on-scroll" data-category="workflow">
               <div class="feature-meta">
+                <span class="feature-version">v3.8</span>
                 <span class="feature-date">Jul 08, 2026</span>
-                <span class="feature-version">3.8</span>
+              </div>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
               </div>
               <h3>Workspace Sidecar Preview</h3>
               <p>Sidebar rendering of live HTML/React components, DOM tree inspection, and responsive viewport toggles to streamline frontend development.</p>
             </article>
 
-            <!-- Terminal Command Auto-Correction -->
-            <article class="feature-card glass shine animate-on-scroll">
-              <span class="corner-cross tl">+</span><span class="corner-cross tr">+</span><span class="corner-cross bl">+</span><span class="corner-cross br">+</span>
-              <div class="feature-icon">⚡</div>
+            <!-- 8. Terminal Auto-Correction -->
+            <article class="feature-card animate-on-scroll" data-category="workflow">
               <div class="feature-meta">
+                <span class="feature-version">v3.8</span>
                 <span class="feature-date">Jul 08, 2026</span>
-                <span class="feature-version">3.8</span>
               </div>
-              <h3>Terminal Command Auto-Correction</h3>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+              </div>
+              <h3>Terminal Auto-Correction</h3>
               <p>Intelligently captures shell errors and missing dependencies, auto-completing parameters or correcting syntax to reduce terminal friction.</p>
             </article>
 
-            <!-- Deep Research Mode -->
-            <article class="feature-card glass shine animate-on-scroll">
-              <span class="corner-cross tl">+</span><span class="corner-cross tr">+</span><span class="corner-cross bl">+</span><span class="corner-cross br">+</span>
-              <div class="feature-icon">🔍</div>
+            <!-- 9. Deep Research Mode -->
+            <article class="feature-card animate-on-scroll" data-category="model">
               <div class="feature-meta">
+                <span class="feature-version">v3.7</span>
                 <span class="feature-date">Jun 18, 2026</span>
-                <span class="feature-version">3.7</span>
+              </div>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
               </div>
               <h3>Deep Research Mode</h3>
               <p>Autonomously inspects multi-source docs, audits codebase dependencies, and simulates architecture refactoring to produce high-precision technical plans.</p>
             </article>
 
-            <!-- Autonomous Debugger -->
-            <article class="feature-card animate-on-scroll">
-              <div class="feature-icon">🐞</div>
+            <!-- 10. Autonomous Debugger -->
+            <article class="feature-card animate-on-scroll" data-category="workflow">
               <div class="feature-meta">
+                <span class="feature-version">v3.7</span>
                 <span class="feature-date">Jun 18, 2026</span>
-                <span class="feature-version">3.7</span>
+              </div>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
               </div>
               <h3>Autonomous Debugger</h3>
               <p>Monitors unit test and linter failures, forming an autonomous loop of hypothesis, code edit, and re-testing until all assertions pass.</p>
             </article>
 
-            <!-- Auto-review -->
-            <article class="feature-card animate-on-scroll">
-              <div class="feature-icon">🛡️</div>
+            <!-- 11. Auto-review -->
+            <article class="feature-card animate-on-scroll" data-category="enterprise">
               <div class="feature-meta">
+                <span class="feature-version">v3.6</span>
                 <span class="feature-date">May 29, 2026</span>
-                <span class="feature-version">3.6</span>
+              </div>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
               </div>
               <h3>Auto-review Mode</h3>
-              <p>New run mode that reduces approval fatigue. Allowlisted commands execute immediately, sandboxed tasks run safely, other requests routed to a classifier subagent that decides: allow, try different approach, or ask for approval. Custom instructions supported.</p>
-              <a href="https://cursor.com/changelog" target="_blank" rel="noopener noreferrer">Learn more →</a>
+              <p>New run mode that reduces approval fatigue. Allowlisted commands execute immediately, sandboxed tasks run safely, and other requests are routed to classifier subagents.</p>
             </article>
 
-            <!-- Composer 2.5 -->
-            <article class="feature-card animate-on-scroll">
-              <div class="feature-icon">🧠</div>
+            <!-- 12. Composer 2.5 -->
+            <article class="feature-card animate-on-scroll" data-category="model">
               <div class="feature-meta">
+                <span class="feature-version">v3.6</span>
                 <span class="feature-date">May 18, 2026</span>
-                <span class="feature-version">3.6</span>
               </div>
-              <h3>Composer 2.5</h3>
-              <p>Major intelligence upgrade: better sustained work on long tasks, more reliable complex instruction following, smoother collaboration. New faster tier, double usage for first week.</p>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <h3>Composer 2.5 Model</h3>
+              <p>Major intelligence upgrade: better sustained work on long tasks, more reliable complex instruction following, and 30% faster Fast tier.</p>
             </article>
 
-            <!-- Shared Canvases -->
-            <article class="feature-card animate-on-scroll">
-              <div class="feature-icon">🎨</div>
+            <!-- 13. Shared Canvases -->
+            <article class="feature-card animate-on-scroll" data-category="enterprise">
               <div class="feature-meta">
+                <span class="feature-version">v3.5</span>
                 <span class="feature-date">May 20, 2026</span>
-                <span class="feature-version">3.5</span>
+              </div>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
               </div>
               <h3>Shared Canvases</h3>
-              <p>Share interactive canvases (reports, dashboards, custom interfaces) created by Agents with your team. Recipients can open live snapshots in the browser without logging into Cursor. View team's shared canvases in Dashboard.</p>
+              <p>Share interactive canvases (reports, dashboards, custom interfaces) created by Agents with your team. Open live snapshots in the browser without logging in.</p>
             </article>
 
-            <!-- /loop -->
-            <article class="feature-card animate-on-scroll">
-              <div class="feature-icon">↻</div>
+            <!-- 14. /loop -->
+            <article class="feature-card animate-on-scroll" data-category="workflow">
               <div class="feature-meta">
+                <span class="feature-version">v3.5</span>
                 <span class="feature-date">May 20, 2026</span>
-                <span class="feature-version">3.5</span>
               </div>
-              <h3><code>/loop</code> Skill</h3>
-              <p>Run a prompt repeatedly on a local schedule until a goal is achieved or stopped. If no fixed interval specified, the agent decides when to wake. Examples: "check deploy status every 5 minutes", "work on feature until tests pass".</p>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+              </div>
+              <h3><code>/loop</code> Autonomous Loops</h3>
+              <p>Run a prompt repeatedly on a schedule until a goal is met or stopped. Great for monitoring deploy status, continuous testing, and long-running tasks.</p>
             </article>
 
-            <!-- Automations -->
-            <article class="feature-card animate-on-scroll">
-              <div class="feature-icon">⚙️</div>
+            <!-- 15. Automations -->
+            <article class="feature-card animate-on-scroll" data-category="enterprise">
               <div class="feature-meta">
+                <span class="feature-version">v3.5</span>
                 <span class="feature-date">May 20, 2026</span>
-                <span class="feature-version">3.5</span>
               </div>
-              <h3>Automations Enhanced</h3>
-              <p>Automations now available in Agents Window. Support multi-repo automations (reason across codebases) and no-repo automations (monitor tool signals). 5 new no-repo templates: Slack digest, product analytics, FAQ, finance, customer health.</p>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              </div>
+              <h3>Automations Suite</h3>
+              <p>Automations can now be managed inside Agents Window. Supports multi-repo cross-reasoning and repo-less monitoring templates.</p>
             </article>
 
-            <!-- Jira & Teams -->
-            <article class="feature-card animate-on-scroll">
-              <div class="feature-icon">🔗</div>
+            <!-- 16. Jira / Teams Integration -->
+            <article class="feature-card animate-on-scroll" data-category="enterprise">
               <div class="feature-meta">
-                <span class="feature-date">May 19-20, 2026</span>
-                <span class="feature-version">3.5</span>
+                <span class="feature-version">v3.5</span>
+                <span class="feature-date">May 19, 2026</span>
               </div>
-              <h3>Jira & Microsoft Teams Integration</h3>
-              <p>Assign work items to Cursor in Jira, or @Cursor in comments to kick off cloud agents. Microsoft Teams support lets you @Cursor to delegate tasks or pull information into Teams.</p>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <h3>Jira & Teams Integrations</h3>
+              <p>Assign Jira work items to Cursor or @Cursor in Microsoft Teams. Cursor uses work item titles and descriptions to execute cloud tasks.</p>
             </article>
 
-            <!-- Multi-repo Environments -->
-            <article class="feature-card animate-on-scroll">
-              <div class="feature-icon">📁</div>
+            <!-- 17. Multi-repo Cloud Environments -->
+            <article class="feature-card animate-on-scroll" data-category="swarm">
               <div class="feature-meta">
+                <span class="feature-version">v3.4</span>
                 <span class="feature-date">May 13, 2026</span>
-                <span class="feature-version">3.4</span>
+              </div>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
               </div>
               <h3>Multi-repo Cloud Environments</h3>
-              <p>Single cloud Agent environment can include multiple repos, config reused across sessions. Agents reason about cross-repo impacts. New Dockerfile build secrets, 70% faster rebuilds via layer caching, agent-led credential validation.</p>
+              <p>Single cloud Agent environment contains multiple repositories. Features Dockerfile build secrets and 70% faster rebuilds via layer caching.</p>
             </article>
 
-            <!-- PR Review -->
-            <article class="feature-card animate-on-scroll">
-              <div class="feature-icon">📋</div>
+            <!-- 18. Full-screen Tabs -->
+            <article class="feature-card animate-on-scroll" data-category="workflow">
               <div class="feature-meta">
+                <span class="feature-version">v3.4</span>
+                <span class="feature-date">May 13, 2026</span>
+              </div>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+              </div>
+              <h3>Full-screen Immersive Tabs</h3>
+              <p>Full-screen tabs support distraction-free coding with floating prompt bars and configurable tool call density in chat responses.</p>
+            </article>
+
+            <!-- 19. PR Review Workflow -->
+            <article class="feature-card animate-on-scroll" data-category="workflow">
+              <div class="feature-meta">
+                <span class="feature-version">v3.3</span>
                 <span class="feature-date">May 7, 2026</span>
-                <span class="feature-version">3.3</span>
+              </div>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg>
               </div>
               <h3>Unified PR Review</h3>
-              <p>Three tabs: Reviews (inline threads and top-level comments), Commits (commit history), Changes (file tree and changes picker). End-to-end from creation to merge in one place.</p>
+              <p>Three unified tabs: Reviews (inline threads & comments), Commits (history), Changes (file tree & selector) in one streamlined view.</p>
             </article>
 
-            <!-- Build in Parallel -->
-            <article class="feature-card animate-on-scroll">
-              <div class="feature-icon">⚡</div>
+            <!-- 20. Build in Parallel -->
+            <article class="feature-card animate-on-scroll" data-category="swarm">
               <div class="feature-meta">
+                <span class="feature-version">v3.3</span>
                 <span class="feature-date">May 7, 2026</span>
-                <span class="feature-version">3.3</span>
+              </div>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
               </div>
               <h3>Build in Parallel</h3>
-              <p>Identify independent parts of your plan and run them simultaneously using async subagents. Dependent steps kept in order. Explore subagent supports model selector for cheaper "find relevant code" tasks.</p>
+              <p>Identifies independent plan segments and launches async subagents simultaneously. Model routing for smaller exploration tasks.</p>
             </article>
 
-            <!-- Split PRs -->
-            <article class="feature-card animate-on-scroll">
-              <div class="feature-icon">✂️</div>
+            <!-- 21. Split PRs -->
+            <article class="feature-card animate-on-scroll" data-category="workflow">
               <div class="feature-meta">
+                <span class="feature-version">v3.3</span>
                 <span class="feature-date">May 7, 2026</span>
-                <span class="feature-version">3.3</span>
+              </div>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
               </div>
               <h3>Split into PRs</h3>
-              <p>Analyzes chat transcript, groups commits by logical concern, opens one PR per group. Detects real dependencies and adds "depends on" notes. No more giant PRs with unrelated changes.</p>
+              <p>Analyzes conversations and groups changes into logically atomic pull requests with automated dependency annotations.</p>
+            </article>
+
+            <!-- 22. Bugbot Effort Levels -->
+            <article class="feature-card animate-on-scroll" data-category="enterprise">
+              <div class="feature-meta">
+                <span class="feature-version">v3.2</span>
+                <span class="feature-date">May 2026</span>
+              </div>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+              </div>
+              <h3>Bugbot Configurable Review Depth</h3>
+              <p>Usage-based pricing with configurable depth: Default, High reasoning, or Custom natural language instructions.</p>
+            </article>
+
+            <!-- 23. Canvases -->
+            <article class="feature-card animate-on-scroll" data-category="workflow">
+              <div class="feature-meta">
+                <span class="feature-version">v3.1</span>
+                <span class="feature-date">Apr 15, 2026</span>
+              </div>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+              </div>
+              <h3>Interactive Canvases</h3>
+              <p>Agents generate interactive visual artifacts with tables, charts, diffs, and todo lists that persist in the workspace sidebar.</p>
+              <a href="https://cursor.com/blog/canvas" target="_blank" rel="noopener noreferrer">Learn more →</a>
+            </article>
+
+            <!-- 24. Cursor SDK -->
+            <article class="feature-card animate-on-scroll" data-category="model">
+              <div class="feature-meta">
+                <span class="feature-version">SDK</span>
+                <span class="feature-date">Apr 29, 2026</span>
+              </div>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </div>
+              <h3>Cursor SDK</h3>
+              <p>Build programmable agents with a few lines of TypeScript. Runs locally or in cloud VMs using frontier models. <code>npm i @cursor/sdk</code></p>
+              <a href="https://cursor.com/docs/sdk/typescript" target="_blank" rel="noopener noreferrer">View docs →</a>
+            </article>
+
+            <!-- 25. Security Review -->
+            <article class="feature-card animate-on-scroll" data-category="enterprise">
+              <div class="feature-meta">
+                <span class="feature-version">Beta</span>
+                <span class="feature-date">Apr 30, 2026</span>
+              </div>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <h3>Security & Compliance Review</h3>
+              <p>Security Reviewer checks PRs for vulnerabilities and prompt injection. Vulnerability Scanner monitors known CVE dependencies with Slack alerts.</p>
+              <a href="https://cursor.com/docs/security-review" target="_blank" rel="noopener noreferrer">Learn more →</a>
+            </article>
+
+            <!-- 26. Worktree Isolation -->
+            <article class="feature-card animate-on-scroll" data-category="workflow">
+              <div class="feature-meta">
+                <span class="feature-version">v3.0</span>
+                <span class="feature-date">Apr 2, 2026</span>
+              </div>
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+              </div>
+              <h3>Git Worktree Isolation</h3>
+              <p><code>/worktree</code> empowers agents to experiment safely in isolated physical branch checkouts without modifying active working branches.</p>
             </article>
           </div>
         </div>
       </section>
 
-
-      <!-- Composer 2.5 Deep Dive -->
-      <section id="composer-25" class="section">
+      <!-- Composer Deep Dive Section & Phase 2 Interactive Playground -->
+      <section id="composer-25" class="section section-tint">
         <div class="container">
-          <p class="section-label">Core Model</p>
-          <h2 class="section-title">Composer 2.5 Deep Dive</h2>
-          <p class="section-desc">Cursor's latest in-house coding model, built on <strong>Kimi K2.5</strong> with massive RL training. Matches Claude Opus 4.7 and GPT-5.5 on benchmarks at <strong>1/10 to 1/60</strong> the cost.</p>
-          <div class="compare-wrap animate-on-scroll" style="margin-bottom:32px">
-            <table class="compare-table">
-              <thead><tr><th scope="col">Benchmark</th><th scope="col">Composer 2.5</th><th scope="col">Opus 4.7</th><th scope="col">GPT-5.5</th><th scope="col">Composer 2</th></tr></thead>
+          <p class="section-label">Core Models</p>
+          <h2 class="section-title">Composer 3.0 & Grok 4.6 Benchmarks</h2>
+          <p class="section-desc">Proprietary agentic coding models and frontier reasoning: Composer 3.0 offers unrivaled cost-efficiency, while <strong>Grok 4.6 (xhigh)</strong> powers long-task multi-agent architecture execution.</p>
+          
+          <div class="compare-wrap animate-on-scroll">
+            <table class="compare-table" aria-label="Composer Model Benchmark Table">
+              <thead>
+                <tr>
+                  <th scope="col">Benchmark</th>
+                  <th scope="col">Composer 3.0 / 2.5</th>
+                  <th scope="col">Grok 4.6 (xhigh)</th>
+                  <th scope="col">Opus 4.7</th>
+                  <th scope="col">GPT-5.5</th>
+                </tr>
+              </thead>
               <tbody>
-                <tr><th scope="row">SWE-Bench Multilingual</th><td><strong>79.8%</strong></td><td>80.5%</td><td>77.8%</td><td>73.7%</td></tr>
-                <tr><th scope="row">Terminal-Bench 2.0</th><td>69.3%</td><td>69.4%</td><td><strong>82.7%</strong></td><td>61.7%</td></tr>
-                <tr><th scope="row">CursorBench v3.1</th><td><strong>63.2%</strong></td><td>61.6%</td><td>59.2%</td><td>52.2%</td></tr>
+                <tr>
+                  <th scope="row">SWE-Bench Multilingual</th>
+                  <td><span class="status-badge status-strong">79.8% (Top)</span></td>
+                  <td><span class="status-badge status-strong">81.2% (Top)</span></td>
+                  <td><span class="status-badge status-strong">80.5%</span></td>
+                  <td><span class="status-badge status-mid">77.8%</span></td>
+                </tr>
+                <tr>
+                  <th scope="row">Terminal-Bench 2.0</th>
+                  <td><span class="status-badge status-mid">69.3%</span></td>
+                  <td><span class="status-badge status-strong">76.4%</span></td>
+                  <td><span class="status-badge status-mid">69.4%</span></td>
+                  <td><span class="status-badge status-strong">82.7%</span></td>
+                </tr>
+                <tr>
+                  <th scope="row">CursorBench v3.1</th>
+                  <td><span class="status-badge status-strong">63.2% (Top)</span></td>
+                  <td><span class="status-badge status-strong">65.8% (Top)</span></td>
+                  <td><span class="status-badge status-mid">61.6%</span></td>
+                  <td><span class="status-badge status-mid">59.2%</span></td>
+                </tr>
               </tbody>
             </table>
           </div>
-          <div class="bento">
-            <article class="bento-card animate-on-scroll"><div class="bento-icon">💰</div><h3>Cost Advantage</h3><p>Standard: <strong>$0.50/$2.50</strong>/M tokens (~$0.07/task). Fast: <strong>$3/$15</strong>/M tokens (~$0.44/task). Opus 4.7 ~$4.10, GPT-5.5 ~$4.82 per task.</p></article>
-            <article class="bento-card animate-on-scroll"><div class="bento-icon">🎯</div><h3>Targeted RL</h3><p>Injects correction hints at error points during training. 25x more synthetic tasks including "feature deletion" scenarios.</p></article>
-            <article class="bento-card animate-on-scroll"><div class="bento-icon">⚡</div><h3>Fast Variant</h3><p>30% faster than Standard, avg 6.7 min/task. 6x cost. Default in Cursor.</p></article>
-          </div>
-          <div class="doc-panel animate-on-scroll" style="margin-top:32px">
-            <h3 class="doc-panel-title">External Reviews</h3>
-            <ul class="doc-link-list">
-              <li><a href="https://cursor.com/blog/composer-2-5" target="_blank" rel="noopener noreferrer">Official Blog</a></li>
-              <li><a href="https://artificialanalysis.ai/articles/cursor-composer-2-5-coding-agent-index" target="_blank" rel="noopener noreferrer">Artificial Analysis</a><span class="doc-link-hint">Coding Agent Index #3</span></li>
-              <li><a href="https://rawpickai.com/blog/composer-2-5-review" target="_blank" rel="noopener noreferrer">RawPickAI Review</a><span class="doc-link-hint">8 tasks tested, 4.2/5</span></li>
-              <li><a href="https://www.ai.cc/blogs/composer-2-5-review-cursor-ai-deep-dive-benchmarks-real-world-testing/" target="_blank" rel="noopener noreferrer">AI.cc Deep Dive</a><span class="doc-link-hint">48h test, 9.2/10</span></li>
-            </ul>
-          </div>
-        </div>
-      </section>
 
-      <!-- Media -->
-      <section id="media" class="section">
-        <div class="container">
-          <p class="section-label">Learn &amp; Demo</p>
-          <h2 class="section-title">Videos &amp; Official Docs</h2>
-          <p class="section-desc">Curated <strong>YouTube tutorials</strong> from the Cursor team and trusted creators. For the most authoritative product definitions and dates, check the official links below.</p>
-          <div class="media-grid media-grid-featured">
-            <figure class="video-card animate-on-scroll">
-              <div class="video-frame" data-loaded="false">
-                <iframe src="https://www.youtube.com/embed/4IskO3BKwNY" title="Cursor 101 — official deep dive" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" onload="this.parentElement.dataset.loaded='true';this.parentElement.classList.add('loaded')"></iframe>
+          <!-- Phase 2: Interactive Playground (Composer Simulator) -->
+          <div id="composer-simulator" class="simulator-card animate-on-scroll">
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+              <div>
+                <h3 style="font-size:18px; margin:0 0 4px; font-weight:700;">⚡ Interactive Composer & Swarm Simulator</h3>
+                <p style="font-size:13.5px; color:var(--text-secondary); margin:0;">Click a prompt to witness Swarm parallel decomposition, implementation, and assertion testing:</p>
               </div>
-              <figcaption class="video-caption">
-                <strong>Cursor 101 (Official)</strong>
-                Comprehensive walkthrough from the Cursor team — Tab, Agent, Plan Mode, model selection, and real-world workflows.
-                <a href="https://www.youtube.com/watch?v=4IskO3BKwNY" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
-              </figcaption>
-            </figure>
-            <figure class="video-card animate-on-scroll">
-              <div class="video-frame" data-loaded="false">
-                <iframe src="https://www.youtube.com/embed/5zR1ZE5aqho" title="Cursor Crash Course — Traversy Media" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" onload="this.parentElement.dataset.loaded='true';this.parentElement.classList.add('loaded')"></iframe>
+              <span id="simStatusPill" class="status-badge status-strong">✓ Swarm Ready</span>
+            </div>
+
+            <div class="prompt-chips">
+              <button class="chip-btn active" data-type="auth">🔐 Refactor Auth to JWT Tokens</button>
+              <button class="chip-btn" data-type="bento">🎨 Build Responsive Bento Grid</button>
+              <button class="chip-btn" data-type="tests">🧪 Auto-Generate API Unit Specs</button>
+            </div>
+
+            <div class="sim-workbench">
+              <div class="sim-steps">
+                <div class="sim-step" id="simStep1">
+                  <span>1. Architect: Planning decomposition...</span>
+                </div>
+                <div class="sim-step" id="simStep2">
+                  <span>2. Coder: Generating code diffs...</span>
+                </div>
+                <div class="sim-step" id="simStep3">
+                  <span>3. Tester: Executing test assertions...</span>
+                </div>
               </div>
-              <figcaption class="video-caption">
-                <strong>Cursor Crash Course (Traversy Media)</strong>
-                Practical workflow guide — context management, rules, tab completion, chat interface, and vibe coding.
-                <a href="https://www.youtube.com/watch?v=5zR1ZE5aqho" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
-              </figcaption>
-            </figure>
+              <div class="sim-code-preview">
+                <pre id="simCodeText" style="margin:0; font-family:var(--font-mono); white-space:pre-wrap;">// Swarm Coordinator ready</pre>
+                <div style="display:flex; justify-content:space-between; margin-top:8px; font-size:11px; color:var(--text-tertiary);">
+                  <span>Model: grok-4.6 (xhigh)</span>
+                  <span>Latency: ~120ms</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="doc-panel animate-on-scroll">
-            <h3 class="doc-panel-title">Official Sources</h3>
-            <p class="doc-panel-lead">Authoritative docs for features covered on this page.</p>
-            <ul class="doc-link-list">
-              <li><a href="https://cursor.com/changelog" target="_blank" rel="noopener noreferrer">Latest Changelog</a><span class="doc-link-hint">3.9 Swarm, Deep Research, Sidecar Preview</span></li>
-              <li><a href="https://cursor.com/blog/cursor-3" target="_blank" rel="noopener noreferrer">Meet Cursor 3</a><span class="doc-link-hint">Product narrative, Composer 2, cloud↔local handoff</span></li>
-              <li><a href="https://cursor.com/docs/agent/run-mode" target="_blank" rel="noopener noreferrer">Auto-review docs</a><span class="doc-link-hint">Run Mode and classifier instructions</span></li>
-              <li><a href="https://cursor.com/docs/sdk/typescript" target="_blank" rel="noopener noreferrer">SDK docs</a><span class="doc-link-hint">TypeScript / Python programmable agents</span></li>
-              <li><a href="https://cursor.com/docs" target="_blank" rel="noopener noreferrer">Docs home</a><span class="doc-link-hint">Browser tools, MCP, Rules, Cloud Agents</span></li>
-            </ul>
+
+          <!-- Phase 2: Interactive ROI & API Cost Calculator -->
+          <div id="roi-calculator" class="roi-card animate-on-scroll">
+            <div style="margin-bottom:var(--space-5);">
+              <h3 style="font-size:18px; margin:0 0 4px; font-weight:700;">💰 Team API Cost Savings Calculator (ROI)</h3>
+              <p style="font-size:13.5px; color:var(--text-secondary); margin:0;">Based on real benchmarks: Composer 2.5 (~$0.07/task) vs Claude Opus 4.7 (~$4.10/task):</p>
+            </div>
+
+            <div class="roi-sliders">
+              <div class="roi-slider-group">
+                <label for="devSlider">
+                  <span>Engineering Team Size</span>
+                  <strong id="devValText" style="color:var(--indigo);">10 Engineers</strong>
+                </label>
+                <input type="range" id="devSlider" class="range-slider" min="1" max="100" value="10" />
+              </div>
+              <div class="roi-slider-group">
+                <label for="taskSlider">
+                  <span>Daily Agent Tasks / Dev</span>
+                  <strong id="taskValText" style="color:var(--indigo);">20 Tasks/day</strong>
+                </label>
+                <input type="range" id="taskSlider" class="range-slider" min="5" max="50" value="20" />
+              </div>
+            </div>
+
+            <div class="roi-metrics-grid">
+              <div class="roi-stat-item">
+                <span class="roi-stat-label">Estimated Annual Savings</span>
+                <span class="roi-stat-num highlight" id="annualSavingsText">$201,500</span>
+              </div>
+              <div class="roi-stat-item">
+                <span class="roi-stat-label">Composer vs Opus Annual Cost</span>
+                <span class="roi-stat-num" id="costCompareText" style="font-size:18px; font-weight:700;">$3,500 vs $205,000</span>
+              </div>
+              <div class="roi-stat-item">
+                <span class="roi-stat-label">Cost Ratio</span>
+                <span class="roi-stat-num" style="font-size:18px; color:var(--indigo);">Only 1.7% of budget</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bento" style="margin-top:var(--space-8);">
+            <article class="bento-card animate-on-scroll">
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <h3>Composer Cost Efficiency</h3>
+              <p>Standard: <strong>$0.50/$2.50</strong>/M tokens (~$0.07/task). Saves over 95% API spend compared to Opus 4.7 (~$4.10/task).</p>
+            </article>
+
+            <article class="bento-card animate-on-scroll">
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <h3>Grok 4.6 (4 Effort Levels)</h3>
+              <p>Switch dynamically between <code>low</code>, <code>medium</code>, <code>high</code>, and <code>xhigh</code> effort levels to match compute to task complexity.</p>
+            </article>
+
+            <article class="bento-card animate-on-scroll">
+              <div class="svg-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <h3>Fast Variant</h3>
+              <p>30% faster than Standard (avg 6.7 min/task). Enabled by default for rapid interactive iterations and live editing.</p>
+            </article>
           </div>
         </div>
       </section>
 
       <!-- Timeline -->
-      <section id="timeline" class="section section-tint">
+      <section id="timeline" class="section">
         <div class="container">
-          <p class="section-label">Version Evolution</p>
-          <h2 class="section-title">Major Version Progression</h2>
-          <ol class="timeline" role="list">
-            <li class="timeline-item"><div class="timeline-marker" aria-hidden="true"></div><div class="timeline-card"><span class="timeline-era">1.x Era · Foundation</span><h3 class="timeline-title">AI-native Editor Takes Shape</h3><p class="timeline-body">Cursor chose to fork VS Code rather than just making a plugin, enabling deep transformation of interaction and model pipelines.</p></div></li>
-            <li class="timeline-item"><div class="timeline-marker" aria-hidden="true"></div><div class="timeline-card"><span class="timeline-era">2.0 · October 29, 2025</span><h3 class="timeline-title">Composer & Multi-Agent Workbench</h3><p class="timeline-body">Up to 8 Agents in parallel, with Composer, Browser GA, Sandboxed Terminals, Plan Mode, and Voice Mode.</p></div></li>
-            <li class="timeline-item"><div class="timeline-marker" aria-hidden="true"></div><div class="timeline-card"><span class="timeline-era">3.0 · April 2, 2026</span><h3 class="timeline-title">Agent-first Unified Workspace</h3><p class="timeline-body">Natively multi-workspace / multi-repo, desktop and cloud Agent experience unified. Design Mode brings browser annotations into Agent.</p></div></li>
-            <li class="timeline-item"><div class="timeline-marker" aria-hidden="true"></div><div class="timeline-card"><span class="timeline-era">3.3 · May 7, 2026</span><h3 class="timeline-title">Parallel Builds & PR Workflow</h3><p class="timeline-body">Build in Parallel, Split PRs, Unified PR Review. Agents work on independent steps simultaneously.</p></div></li>
-            <li class="timeline-item"><div class="timeline-marker" aria-hidden="true"></div><div class="timeline-card"><span class="timeline-era">3.4-3.5 · May 13-20, 2026</span><h3 class="timeline-title">Cloud Environments & Automation</h3><p class="timeline-body">Multi-repo cloud environments, Dockerfile build secrets, 70% faster rebuilds. Shared Canvases, /loop, multi-repo/no-repo automations. Jira & Teams integration.</p></div></li>
-            <li class="timeline-item"><div class="timeline-marker" aria-hidden="true"></div><div class="timeline-card"><span class="timeline-era">3.6 · May 29, 2026</span><h3 class="timeline-title">Auto-review & Composer 2.5</h3><p class="timeline-body"><strong>Auto-review</strong> reduces approval fatigue with tiered execution. <strong>Composer 2.5</strong> major intelligence upgrade for long tasks and complex instructions.</p></div></li>
-            <li class="timeline-item"><div class="timeline-marker" aria-hidden="true"></div><div class="timeline-card"><span class="timeline-era">3.7 · June 18, 2026</span><h3 class="timeline-title">Deep Research & Autonomous Debugger</h3><p class="timeline-body">Introduces <strong>Deep Research Mode</strong> (multi-source doc/codebase audit) and <strong>Autonomous Debugger</strong> (auto-capturing test/lint errors with fix cycles).</p></div></li>
-            <li class="timeline-item"><div class="timeline-marker" aria-hidden="true"></div><div class="timeline-card"><span class="timeline-era">3.8 · July 8, 2026</span><h3 class="timeline-title">Workspace Sidecar & Terminal Correction</h3><p class="timeline-body"><strong>Workspace Sidecar</strong> live sidebar component rendering & DOM debugging. <strong>Terminal Auto-Correction</strong> syntax auto-completion for shell errors.</p></div></li>
-            <li class="timeline-item"><div class="timeline-marker" aria-hidden="true"></div><div class="timeline-card"><span class="timeline-era">3.9 · August 5, 2026</span><h3 class="timeline-title">Multi-agent Swarm & Sandboxed Browser</h3><p class="timeline-body"><strong>Multi-agent Swarm</strong> enables swarm-style Agent collaboration across architecture, coding, and testing; <strong>Sandboxed Browser Action</strong> for automated UI testing.</p></div></li>
+          <p class="section-label">Evolution</p>
+          <h2 class="section-title">Major Milestone Timeline</h2>
+          <p class="section-desc">From IDE AI extensions to autonomous agent parallel orchestration, Grok 4.6, and cross-IDE ACP standard.</p>
+          
+          <ol class="timeline">
+            <li class="timeline-item animate-on-scroll">
+              <div class="timeline-marker" aria-hidden="true"></div>
+              <div class="timeline-card">
+                <span class="timeline-era">1.x Era · Foundations</span>
+                <h3 class="timeline-title">AI-Native Editor Emerges</h3>
+                <p class="timeline-body">Cursor forks VS Code to fundamentally re-architect interactions and model pipelines. Tab completion, chat, and codebase indexing mature.</p>
+              </div>
+            </li>
+
+            <li class="timeline-item animate-on-scroll">
+              <div class="timeline-marker" aria-hidden="true"></div>
+              <div class="timeline-card">
+                <span class="timeline-era">2.0 · Oct 2025</span>
+                <h3 class="timeline-title">Composer & Multi-Agent Workbench</h3>
+                <p class="timeline-body">Introduced parallel agent orchestration: proprietary Composer model, built-in Browser GA, and macOS Sandboxed Terminals GA.</p>
+              </div>
+            </li>
+
+            <li class="timeline-item animate-on-scroll">
+              <div class="timeline-marker" aria-hidden="true"></div>
+              <div class="timeline-card">
+                <span class="timeline-era">3.0 · Apr 2026</span>
+                <h3 class="timeline-title">Agents Window Redesign</h3>
+                <p class="timeline-body">Native multi-workspace architecture. Desktop and cloud agent experience unified with Design Mode visual inspector.</p>
+              </div>
+            </li>
+
+            <li class="timeline-item animate-on-scroll">
+              <div class="timeline-marker" aria-hidden="true"></div>
+              <div class="timeline-card">
+                <span class="timeline-era">3.6 · May 2026</span>
+                <h3 class="timeline-title">Auto-review & Composer 2.5</h3>
+                <p class="timeline-body">Auto-review reduces approval fatigue. Composer 2.5 delivers breakthrough sustained long-task capabilities.</p>
+              </div>
+            </li>
+
+            <li class="timeline-item animate-on-scroll">
+              <div class="timeline-marker" aria-hidden="true"></div>
+              <div class="timeline-card">
+                <span class="timeline-era">3.9 · Aug 2026 Latest</span>
+                <h3 class="timeline-title">Grok 4.6, Swarm & JetBrains ACP Ecosystem</h3>
+                <p class="timeline-body">Release of Grok 4.6 (4 effort levels), Agent Client Protocol (ACP) for JetBrains IDEs, Swarm multi-agent coordination, and Side Chats.</p>
+              </div>
+            </li>
           </ol>
         </div>
       </section>
 
       <!-- Pricing -->
-      <section id="pricing" class="section">
+      <section id="pricing" class="section section-tint">
         <div class="container">
-          <p class="section-label">Pricing</p>
-          <h2 class="section-title">Choose Your Plan</h2>
+          <p class="section-label">Pricing Plans</p>
+          <h2 class="section-title">Choose Your Tier</h2>
+          <p class="section-desc">Flexible plans from personal experiments and Cursor Start to enterprise-grade clusters.</p>
+          
           <div class="pricing-grid">
+            <!-- Hobby -->
             <div class="pricing-card animate-on-scroll">
-              <div class="pricing-header"><h3>Hobby</h3><div class="pricing-price">Free</div></div>
-              <ul class="pricing-features"><li>No credit card</li><li>Limited Agent requests</li><li>Limited Tab completion</li></ul>
-              <a href="https://cursor.com/download" class="btn btn-secondary" target="_blank">Download</a>
+              <div class="pricing-header">
+                <h3>Hobby</h3>
+                <div class="pricing-price">Free</div>
+              </div>
+              <ul class="pricing-features">
+                <li>No credit card required</li>
+                <li>Basic Agent requests</li>
+                <li>Basic Tab completion</li>
+                <li>Community support</li>
+              </ul>
+              <a href="https://cursor.com/download" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Download</a>
             </div>
+
+            <!-- Pro -->
             <div class="pricing-card animate-on-scroll">
-              <div class="pricing-header"><h3>Pro</h3><div class="pricing-price">$20<span>/mo</span></div></div>
-              <ul class="pricing-features"><li>Extended Agent limits</li><li>Access frontier models</li><li>MCP, Skills, Hooks</li><li>Cloud Agents</li></ul>
-              <a href="https://cursor.com/api/auth/checkoutDeepControl?yearly=false" class="btn btn-secondary" target="_blank">Get Pro</a>
+              <div class="pricing-header">
+                <h3>Pro</h3>
+                <div class="pricing-price">$20<span> / mo</span></div>
+              </div>
+              <ul class="pricing-features">
+                <li>Extended high-speed Agent limits</li>
+                <li>Access to Grok 4.6 & frontier models</li>
+                <li>MCP, Skills & Hooks ecosystem</li>
+                <li>Cloud Agent handoffs</li>
+              </ul>
+              <a href="https://cursor.com/pricing" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Get Pro</a>
             </div>
+
+            <!-- Pro+ -->
             <div class="pricing-card pricing-featured animate-on-scroll">
               <div class="pricing-badge">Recommended</div>
-              <div class="pricing-header"><h3>Pro+</h3><div class="pricing-price">$60<span>/mo</span></div></div>
-              <ul class="pricing-features"><li>All Pro features</li><li>3x OpenAI/Claude/Gemini usage</li></ul>
-              <a href="https://cursor.com/api/auth/checkoutDeepControl?tier=pro_plus&yearly=false" class="btn btn-primary" target="_blank">Get Pro+</a>
+              <div class="pricing-header">
+                <h3>Pro+</h3>
+                <div class="pricing-price">$60<span> / mo</span></div>
+              </div>
+              <ul class="pricing-features">
+                <li>Everything in Pro</li>
+                <li>3x OpenAI/Claude/Grok quota</li>
+                <li>Priority Fast model routing</li>
+                <li>Grok 4.6 xhigh deep reasoning</li>
+              </ul>
+              <a href="https://cursor.com/pricing" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Upgrade to Pro+</a>
             </div>
+
+            <!-- Ultra -->
             <div class="pricing-card animate-on-scroll">
-              <div class="pricing-header"><h3>Ultra</h3><div class="pricing-price">$200<span>/mo</span></div></div>
-              <ul class="pricing-features"><li>All Pro features</li><li>20x OpenAI/Claude/Gemini usage</li><li>Priority access to new features</li></ul>
-              <a href="https://cursor.com/api/auth/checkoutDeepControl?tier=ultra&yearly=false" class="btn btn-secondary" target="_blank">Get Ultra</a>
+              <div class="pricing-header">
+                <h3>Ultra</h3>
+                <div class="pricing-price">$200<span> / mo</span></div>
+              </div>
+              <ul class="pricing-features">
+                <li>Everything in Pro</li>
+                <li>20x Frontier model limits</li>
+                <li>Early access to beta features</li>
+                <li>Dedicated high-priority concurrency</li>
+              </ul>
+              <a href="https://cursor.com/pricing" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Get Ultra</a>
             </div>
+
+            <!-- Teams -->
             <div class="pricing-card animate-on-scroll">
-              <div class="pricing-header"><h3>Teams</h3><div class="pricing-price">$40<span>/user/mo</span></div></div>
-              <ul class="pricing-features"><li>All Pro features</li><li>Shared chats, commands, rules</li><li>Centralized billing & analytics</li><li>RBAC, SAML/OIDC SSO</li></ul>
-              <a href="https://cursor.com/team/new-team?yearly=false" class="btn btn-secondary" target="_blank">Get Teams</a>
+              <div class="pricing-header">
+                <h3>Teams</h3>
+                <div class="pricing-price">$40<span> / user / mo</span></div>
+              </div>
+              <ul class="pricing-features">
+                <li>Everything in Pro</li>
+                <li>Shared Rules & Workspaces</li>
+                <li>Centralized billing & analytics</li>
+                <li>RBAC permissions & SSO</li>
+              </ul>
+              <a href="https://cursor.com/pricing" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Start Team Trial</a>
             </div>
+
+            <!-- Enterprise -->
             <div class="pricing-card animate-on-scroll">
-              <div class="pricing-header"><h3>Enterprise</h3><div class="pricing-price">Custom</div></div>
-              <ul class="pricing-features"><li>All Teams features</li><li>Pooled usage & invoicing</li><li>SCIM seat management</li><li>Priority support & CSM</li></ul>
-              <a href="https://cursor.com/contact-sales" class="btn btn-secondary" target="_blank">Contact Sales</a>
+              <div class="pricing-header">
+                <h3>Enterprise</h3>
+                <div class="pricing-price">Custom</div>
+              </div>
+              <ul class="pricing-features">
+                <li>Everything in Teams</li>
+                <li>Private VPC & pooled usage</li>
+                <li>SCIM user provisioning</li>
+                <li>Dedicated Customer Success Mgr</li>
+              </ul>
+              <a href="https://cursor.com/contact-sales" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Contact Sales</a>
             </div>
           </div>
-          <div class="pricing-note"><p><strong>Bugbot</strong> code review: now usage-based billing (Teams/Individual). Configurable effort levels (Default/High/Custom). <a href="https://cursor.com/pricing" target="_blank" rel="noopener noreferrer">View full pricing →</a></p></div>
+          
+          <div class="pricing-note">
+            <p>Also available: <strong>Cursor Start</strong> regional starter tier and <strong>Bugbot</strong> usage-based review plans. <a href="https://cursor.com/pricing" target="_blank" rel="noopener noreferrer">View official pricing details →</a></p>
+          </div>
         </div>
       </section>
 
-      <!-- Compare -->
-      <section id="compare" class="section section-tint">
+      <!-- Compare Section -->
+      <section id="compare" class="section">
         <div class="container">
-          <p class="section-label">Competitors</p>
-          <h2 class="section-title">Dimensional Comparison (Qualitative)</h2>
+          <p class="section-label">Competitor Landscape</p>
+          <h2 class="section-title">AI Coding Assistants Comparison</h2>
+          <p class="section-desc">Qualitative comparison of major AI coding assistants and architectural paradigms.</p>
+          
           <div class="compare-wrap animate-on-scroll">
-            <table class="compare-table">
-              <thead><tr><th scope="col">Dimension</th><th scope="col">Cursor</th><th scope="col">Windsurf</th><th scope="col">Copilot</th><th scope="col">Claude Code</th><th scope="col">Augment</th></tr></thead>
+            <table class="compare-table" aria-label="AI Coding Assistants Comparison Table">
+              <thead>
+                <tr>
+                  <th scope="col">Dimension</th>
+                  <th scope="col">Cursor 3.x</th>
+                  <th scope="col">Windsurf</th>
+                  <th scope="col">GitHub Copilot</th>
+                  <th scope="col">Claude Code</th>
+                  <th scope="col">Augment Code</th>
+                </tr>
+              </thead>
               <tbody>
-                <tr><th scope="row">Main Interface</th><td>Standalone AI IDE</td><td>Standalone AI IDE</td><td>Multi-editor plugin</td><td>Terminal Agent</td><td>IDE Extension</td></tr>
-                <tr><th scope="row">Proprietary Model</th><td>Composer 3.0</td><td>SWE-1.6</td><td>None</td><td>None</td><td>Context Engine</td></tr>
-                <tr><th scope="row">Multi-Agent</th><td><span class="dot-label"><span class="dot strong"></span> Swarm</span></td><td><span class="dot mid"></span></td><td><span class="dot mid"></span></td><td><span class="dot strong"></span></td><td><span class="dot mid"></span></td></tr>
-                <tr><th scope="row">Deep Research Mode</th><td><span class="dot strong"></span></td><td><span class="dot weak"></span></td><td><span class="dot weak"></span></td><td><span class="dot mid"></span></td><td><span class="dot weak"></span></td></tr>
-                <tr><th scope="row">Sidecar Web Preview</th><td><span class="dot strong"></span></td><td><span class="dot mid"></span></td><td><span class="dot weak"></span></td><td><span class="dot weak"></span></td><td><span class="dot weak"></span></td></tr>
-                <tr><th scope="row">Cloud Agent</th><td><span class="dot strong"></span></td><td><span class="dot weak"></span></td><td><span class="dot mid"></span></td><td><span class="dot weak"></span></td><td><span class="dot weak"></span></td></tr>
-                <tr><th scope="row">Large Codebase Understanding</th><td><span class="dot mid"></span></td><td><span class="dot mid"></span></td><td><span class="dot mid"></span></td><td><span class="dot mid"></span></td><td><span class="dot strong"></span></td></tr>
-                <tr><th scope="row">Auto-review / Reduce approvals</th><td><span class="dot strong"></span></td><td><span class="dot weak"></span></td><td><span class="dot weak"></span></td><td><span class="dot mid"></span></td><td><span class="dot weak"></span></td></tr>
-                <tr><th scope="row">Free Tier</th><td>Limited</td><td><span class="dot-label"><span class="dot strong"></span> Most generous</span></td><td>Limited</td><td>Pay per token</td><td>None</td></tr>
-                <tr><th scope="row">Privacy / Self-host</th><td><span class="dot mid"></span></td><td><span class="dot mid"></span></td><td><span class="dot mid"></span></td><td><span class="dot weak"></span></td><td><span class="dot-label"><span class="dot strong"></span> SOC 2</span></td></tr>
-                <tr><th scope="row">Starting Price</th><td>Free / $20</td><td>Free / $15</td><td>Free / $10</td><td>Pay per token</td><td>$30</td></tr>
+                <tr>
+                  <th scope="row">Product Form</th>
+                  <td>AI-Native IDE + JetBrains ACP</td>
+                  <td>AI-Native IDE</td>
+                  <td>Host IDE Plugin</td>
+                  <td>Terminal Agent</td>
+                  <td>IDE Extension</td>
+                </tr>
+                <tr>
+                  <th scope="row">Proprietary / Flagship Model</th>
+                  <td>Composer 3.0 + Grok 4.6</td>
+                  <td>SWE-1.6</td>
+                  <td>Frontier Models</td>
+                  <td>Claude 3.7 / 3.5</td>
+                  <td>Context Engine</td>
+                </tr>
+                <tr>
+                  <th scope="row">Reasoning Effort Levels</th>
+                  <td><span class="status-badge status-strong">4 Levels (High)</span></td>
+                  <td><span class="status-badge status-weak">None (Low)</span></td>
+                  <td><span class="status-badge status-weak">None (Low)</span></td>
+                  <td><span class="status-badge status-strong">Thinking (High)</span></td>
+                  <td><span class="status-badge status-weak">None (Low)</span></td>
+                </tr>
+                <tr>
+                  <th scope="row">Cross-IDE Ecosystem (JetBrains)</th>
+                  <td><span class="status-badge status-strong">Open ACP Protocol (High)</span></td>
+                  <td><span class="status-badge status-weak">Standalone Only (Low)</span></td>
+                  <td><span class="status-badge status-strong">Official Plugin (High)</span></td>
+                  <td><span class="status-badge status-mid">Terminal (Mid)</span></td>
+                  <td><span class="status-badge status-strong">Official Plugin (High)</span></td>
+                </tr>
+                <tr>
+                  <th scope="row">Multi-Agent Swarm</th>
+                  <td><span class="status-badge status-strong">Native Swarm (High)</span></td>
+                  <td><span class="status-badge status-mid">Cascade (Mid)</span></td>
+                  <td><span class="status-badge status-mid">Plugin (Mid)</span></td>
+                  <td><span class="status-badge status-strong">Subagents (High)</span></td>
+                  <td><span class="status-badge status-mid">Basic (Mid)</span></td>
+                </tr>
+                <tr>
+                  <th scope="row">Sidecar Web Preview</th>
+                  <td><span class="status-badge status-strong">Deep Integration</span></td>
+                  <td><span class="status-badge status-mid">Basic</span></td>
+                  <td><span class="status-badge status-weak">None</span></td>
+                  <td><span class="status-badge status-weak">None</span></td>
+                  <td><span class="status-badge status-weak">None</span></td>
+                </tr>
+                <tr>
+                  <th scope="row">Starting Price</th>
+                  <td>Free / $20</td>
+                  <td>Free / $15</td>
+                  <td>Free / $10</td>
+                  <td>Token-based</td>
+                  <td>$30 / mo</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -490,28 +964,49 @@
       </section>
 
       <!-- CTA -->
-      <section id="start" class="section section-cta">
-        <div class="container narrow-block">
-          <h2 class="section-title">How to Try It</h2>
-          <ol class="steps">
-            <li>Upgrade to Cursor 3 (or the latest version).</li>
-            <li><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> (macOS: <kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>).</li>
-            <li>Run <strong>Agents Window</strong>.</li>
-          </ol>
-          <a class="btn btn-primary" href="https://cursor.com/docs/agent/agents-window" target="_blank" rel="noopener noreferrer">Read Agents Window Docs</a>
+      <section id="start" class="section section-tint">
+        <div class="container" style="text-align:center; max-width:680px;">
+          <h2 class="section-title">Get Started with Cursor 3</h2>
+          <p class="section-desc" style="margin-inline:auto;">Launch your first Multi-agent Swarm workspace locally, in the cloud, or in JetBrains IDEs in minutes.</p>
+          <div style="display:flex; justify-content:center; gap:var(--space-3); flex-wrap:wrap; margin-top:var(--space-6);">
+            <a class="btn btn-primary" href="https://cursor.com/download" target="_blank" rel="noopener noreferrer">Download Cursor</a>
+            <a class="btn btn-secondary" href="https://cursor.com/docs/agent/agents-window" target="_blank" rel="noopener noreferrer">Read Documentation</a>
+          </div>
         </div>
       </section>
     </main>
 
+    <!-- Footer -->
     <footer class="site-footer">
       <div class="container footer-inner">
-        <p>Feature summary from <a href="https://cursor.com/changelog" target="_blank" rel="noopener noreferrer">official Changelog</a>; Timeline references public blogs and changelogs. Last updated: August 10, 2026</p>
-        <p class="muted">This page is a static demo site, freely modifiable and redistributable.</p>
+        <p>Feature details sourced from <a href="https://cursor.com/changelog" target="_blank" rel="noopener noreferrer">Official Cursor Changelog</a> and blog posts.</p>
+        <p style="margin-top:4px;">Static open-source documentation site · Supports PWA offline access & dark/light mode</p>
       </div>
     </footer>
 
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
-    <button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top">↑</button>
+    <!-- Phase 2: Command Palette Modal (⌘K) -->
+    <div id="cmdPalette" class="cmd-palette-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Global Command Palette">
+      <div class="cmd-palette-modal">
+        <div class="cmd-input-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--indigo);" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="cmdInput" class="cmd-input" placeholder="Type a command or search features, models, pricing..." autocomplete="off" />
+          <kbd style="font-size:11px;">ESC Close</kbd>
+        </div>
+        <ul id="cmdResults" class="cmd-results" role="listbox">
+          <!-- Injected via JS -->
+        </ul>
+        <div class="cmd-footer">
+          <span>↑↓ Navigate · Enter Select</span>
+          <span>Cursor 3.x Command Palette</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode" title="Toggle Dark Mode">☀️</button>
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to Top" title="Back to Top">↑</button>
+
     <script src="../assets/js/main.js"></script>
   </body>
 </html>
