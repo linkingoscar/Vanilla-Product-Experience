@@ -1,1 +1,13 @@
+# Operating System & IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+
+# Deployment & Cache
 .netlify/
+.vercel/
+node_modules/
+dist/
+build/
