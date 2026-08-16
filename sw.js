@@ -1,11 +1,11 @@
-const CACHE_NAME = 'cursor3-intro-v3';
+const CACHE_NAME = 'cursor3-intro-v4';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/en/',
   '/en/index.html',
-  '/assets/css/style.css',
-  '/assets/js/main.js',
+  '/assets/css/style.css?v=3.9.4',
+  '/assets/js/main.js?v=3.9.4',
   '/assets/icons/favicon.svg',
   '/assets/icons/icon-192.png',
   '/assets/icons/icon-512.png',
@@ -20,13 +20,13 @@ const EXTERNAL_ASSETS = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll([...STATIC_ASSETS, ...EXTERNAL_ASSETS]);
+      return cache.addAll([...STATIC_ASSETS, ...EXTERNAL_ASSETS]).catch(() => {});
     })
   );
   self.skipWaiting();
 });
 
-// Activate: clean old caches
+// Activate: clean all old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -40,7 +40,7 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch: network-first for pages, cache-first for assets
+// Fetch: network-first strategy for both HTML and CSS/JS to avoid stale cache
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
@@ -53,29 +53,16 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Network-first strategy for HTML pages
-  if (request.headers.get('Accept') && request.headers.get('Accept').includes('text/html')) {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
+  // Network-first strategy for local requests to always get fresh styles
+  event.respondWith(
+    fetch(request)
+      .then((response) => {
+        if (response && response.status === 200) {
           const clone = response.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
-          return response;
-        })
-        .catch(() => caches.match(request))
-    );
-    return;
-  }
-
-  // Cache-first strategy for static assets
-  event.respondWith(
-    caches.match(request).then((cached) => {
-      if (cached) return cached;
-      return fetch(request).then((response) => {
-        const clone = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+        }
         return response;
-      });
-    })
+      })
+      .catch(() => caches.match(request))
   );
 });
