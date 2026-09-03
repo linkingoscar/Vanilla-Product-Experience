@@ -472,15 +472,29 @@ describe('POST /api/v1/swarm/dispatch', () => {
   const themeToggle = document.getElementById("themeToggle");
   const root = document.documentElement;
 
+  function safeGetStorage(key) {
+    try {
+      return localStorage.getItem(key);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function safeSetStorage(key, value) {
+    try {
+      localStorage.setItem(key, value);
+    } catch (_) {}
+  }
+
   function getPreferredTheme() {
-    const saved = localStorage.getItem("theme");
+    const saved = safeGetStorage("theme");
     if (saved) return saved;
     return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   }
 
   function applyTheme(theme) {
     root.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
+    safeSetStorage("theme", theme);
     
     if (themeToggle) {
       themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
@@ -521,7 +535,7 @@ describe('POST /api/v1/swarm/dispatch', () => {
   window
     .matchMedia("(prefers-color-scheme: dark)")
     .addEventListener("change", (e) => {
-      if (!localStorage.getItem("theme")) {
+      if (!safeGetStorage("theme")) {
         setTheme(e.matches ? "dark" : "light");
       }
     });
