@@ -1,10 +1,10 @@
 /*
  * Cursor 3.x stylesheet entrypoint.
  *
- * The original site styles are intentionally preserved in style-base.css.
- * Liquid Glass is layered on top so the visual system can evolve without
- * rewriting the content/theme foundation.
+ * The production template stylesheet is preserved in style-base.css.
+ * Liquid Glass is layered on top so the optical system stays removable,
+ * auditable and reusable without rewriting the content/theme foundation.
  */
-@import url("./style-base.css?v=3.9.6");
+@import url("./style-base.css?v=3.10.0");
 @import url("./liquid-glass.css?v=0.1.0");
 @import url("./liquid-glass-v2.css?v=0.2.0");
