@@ -1,0 +1,81 @@
+/**
+ * Ambient Particle Interaction Field v0.1
+ * ---------------------------------------
+ * Background-space layer below content and below the Liquid Glass functional
+ * layer. Particles are intentionally subtle outside the Hero/top sections.
+ */
+
+.ambient-particle-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  contain: strict;
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+
+html.ambient-particles-ready .ambient-particle-layer {
+  opacity: 1;
+}
+
+html.ambient-particles-ready .bg-blobs .blob {
+  filter: blur(118px);
+  opacity: 0.24;
+}
+
+html[data-theme="dark"].ambient-particles-ready .bg-blobs .blob {
+  opacity: 0.29;
+}
+
+html.ambient-particles-ready .noise {
+  opacity: 0.022;
+}
+
+.ambient-particle-glass-mirror {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-radius: inherit;
+  transform: translateZ(0);
+  transform-origin: 0 0;
+  will-change: filter;
+}
+
+html.ambient-particles-ready .lg-refract > .lg-content-copy {
+  z-index: 1;
+}
+
+html.ambient-particles-ready .lg-refract > .lg-refract-fallback {
+  z-index: 2;
+}
+
+html[data-ambient-quality="low"] .ambient-particle-layer {
+  opacity: 0.72;
+}
+
+html[data-ambient-focus="palette"] .ambient-particle-layer {
+  opacity: 0.56;
+  transition-duration: 220ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-particle-layer {
+    transition: none !important;
+  }
+}
+
+@media print {
+  .ambient-particle-layer,
+  .ambient-particle-glass-mirror {
+    display: none !important;
+  }
+}
