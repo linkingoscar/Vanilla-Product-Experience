@@ -1,6 +1,6 @@
 // TEMPLATE:CORE — Service Worker Cache Engine
 // TEMPLATE:EDIT — Bump CACHE_NAME whenever you deploy new asset versions
-const CACHE_NAME = 'static-landing-v3-liquid-glass-0311';
+const CACHE_NAME = 'static-landing-v4-liquid-glass-ambient-010';
 
 // Scope-aware base path for GitHub Pages subpaths and custom domains.
 const BASE_SCOPE = self.registration.scope;
@@ -22,10 +22,14 @@ const STATIC_ASSETS = [
   new URL('./assets/css/liquid-glass.css?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/css/liquid-glass-v2.css?v=0.2.0', BASE_SCOPE).href,
   new URL('./assets/css/liquid-glass-components.css?v=0.3.0', BASE_SCOPE).href,
+  new URL('./assets/css/ambient-particles.css?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/js/main-base.js?v=3.10.0', BASE_SCOPE).href,
   new URL('./assets/js/liquid-glass.js?v=0.1.1', BASE_SCOPE).href,
   new URL('./assets/js/liquid-glass-v2.js?v=0.2.1', BASE_SCOPE).href,
   new URL('./assets/js/liquid-glass-components.js?v=0.3.1', BASE_SCOPE).href,
+  new URL('./assets/js/ambient/particle-renderer-webgl.js?v=0.1.0', BASE_SCOPE).href,
+  new URL('./assets/js/ambient/interaction-field.js?v=0.1.0', BASE_SCOPE).href,
+  new URL('./assets/js/ambient/particle-field.js?v=0.1.0', BASE_SCOPE).href,
 
   new URL('./assets/icons/favicon.svg', BASE_SCOPE).href,
   new URL('./assets/icons/icon-192.png', BASE_SCOPE).href,
@@ -52,9 +56,9 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
-        cacheNames
+        caches.keys().then(() => cacheNames
           .filter((name) => name !== CACHE_NAME)
-          .map((name) => caches.delete(name))
+          .map((name) => caches.delete(name)))
       );
     })
   );
