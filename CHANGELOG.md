@@ -1,5 +1,28 @@
 # 修改日志
 
+## [3.2.0] - 2026-09-04
+
+### 新增
+
+- **Cursor 9 月前沿生态板块 (September 2026)**
+  - **Self-hosted Machines & Team Pools**：支持在企业自建网络/私有基础设施（AWS Lambda、Coder、Daytona 等）运行 Cloud Agent，源码与密钥不出内网；支持弹性机器池与自动休眠调度。
+  - **Computer Use on Linux & Mac**：赋予 Agent 原生桌面 GUI 操控力（自主点击、输入、截屏与浏览器驱动），支持实时观看与人工远程接管。
+  - **Cursor Origin Code Hosting**：全新原生 Git 代码托管系统，自带 Repos/PRs/Web 浏览，与 GitHub 实时双向同步，代码库内置 Web Agent。
+  - **Start from scratch & Live Preview**：免 Git 仓库冷启动，随时一句话开启项目；浏览器实时端口转发直连预览，一键 Vercel 部署。
+  - **Harness Subscriptions & /goal**：事件订阅机制（监听 PR/Slack 动态自动唤醒）、`/goal` 长线自主目标、子智能体独立 VM 沙箱。
+- **开源落地页模板化改造（策略 C 转型）**
+  - **模板模块化解耦**：在 `index.html` 与 `en/index.html` 中注入标准化的 `[TEMPLATE COMPONENT]` 区块标记。
+  - **Design Tokens 二次开发指引**：在 `style.css` 头部增设 5 分钟换肤说明（主色、暗色/亮色表面、字体、阴影规范）。
+  - **Command Palette 索引扩容**：⌘K / Ctrl+K 搜索面板收录最新 9 月前沿特性。
+
+### 优化
+
+- 功能矩阵从 26 项扩充至 31 项，同步精准校准各分类筛选 Tab 的计数。
+- 版本演进时间线追加 **2026 年 9 月里程碑**（自托管算力、Origin 原生托管与 Harness 自治纪元）。
+- 同步更新中英文 `README.md`，新增「开源产品 Landing Page 模版二次开发指南」。
+
+---
+
 ## [3.1.0] - 2026-08-10
 
 ### 新增

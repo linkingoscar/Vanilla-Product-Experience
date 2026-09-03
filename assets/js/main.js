@@ -1,13 +1,12 @@
 /**
- * Cursor 3.x Visual Introduction - Modern JavaScript (Phase 2)
- * Features:
- * 1. Command Palette (⌘K / Ctrl+K) with Fuzzy Index & Keyboard Nav
- * 2. Interactive Composer & Swarm Simulator
- * 3. Interactive ROI & API Cost Calculator
- * 4. Dynamic Island Navigation & Accurate Anchor Scroll
- * 5. Feature Category Filter Tabs
- * 6. View Transitions Theme Switcher & Storage Sync
- * 7. CSP-Safe Iframe Loaders & IntersectionObserver
+ * Modern Static Landing Page Template Engine
+ * Canonical Demo: Cursor 3.x Visual Introduction
+ * 
+ * 💡 TEMPLATE ARCHITECTURE:
+ * - TEMPLATE:CORE     -> Dynamic island nav, smooth scroll, theme toggle, scroll animations
+ * - TEMPLATE:OPTIONAL -> Feature tabs filter, Command Palette (⌘K), Interactive playgrounds
+ * - TEMPLATE:EDIT     -> Configurable data arrays (Search index, scenario configs)
+ * - DEMO:CURSOR       -> Current Cursor-specific demo copy and models
  */
 
 (function () {
@@ -16,7 +15,7 @@
   const isEn = document.documentElement.lang.startsWith("en");
 
   // ==========================================================================
-  // 1. Dynamic Island Navigation & Smooth Scroll
+  // TEMPLATE:CORE — 1. Dynamic Island Navigation & Smooth Scroll
   // ==========================================================================
   const island = document.querySelector(".island");
   const navLinks = document.querySelectorAll(".island-nav a[href^='#']");
@@ -92,7 +91,7 @@
   });
 
   // ==========================================================================
-  // 2. Feature Category Filter Tabs
+  // TEMPLATE:OPTIONAL — 2. Feature Category Filter Tabs
   // ==========================================================================
   const tabBtns = document.querySelectorAll(".feature-tabs .tab-btn");
   const featureCards = document.querySelectorAll(".feature-grid .feature-card");
@@ -127,14 +126,20 @@
   }
 
   // ==========================================================================
-  // 3. Command Palette (⌘K / Ctrl+K)
+  // TEMPLATE:OPTIONAL — 3. Command Palette (⌘K / Ctrl+K)
   // ==========================================================================
   const cmdBackdrop = document.getElementById("cmdPalette");
   const cmdInput = document.getElementById("cmdInput");
   const cmdResults = document.getElementById("cmdResults");
   const openCmdBtns = document.querySelectorAll(".open-cmd-palette");
 
+  // TEMPLATE:EDIT — Search Index entries (DEMO:CURSOR default items)
   const searchIndex = isEn ? [
+    { title: "Self-hosted Machines & Team Pools", cat: "Enterprise", target: "#new-features" },
+    { title: "Computer Use on Linux & Mac", cat: "Workflow", target: "#new-features" },
+    { title: "Cursor Origin Code Hosting", cat: "Enterprise", target: "#new-features" },
+    { title: "Start from scratch & Live Preview", cat: "Workflow", target: "#new-features" },
+    { title: "Harness Subscriptions & /goal Workflow", cat: "Swarm", target: "#new-features" },
     { title: "Grok 4.6 Flagship Model (Effort Levels)", cat: "Models", target: "#new-features" },
     { title: "JetBrains IDE Support (ACP Protocol)", cat: "Workflow", target: "#new-features" },
     { title: "Side Chats (/side, /btw)", cat: "Workflow", target: "#new-features" },
@@ -153,6 +158,11 @@
     { title: "ROI Cost Calculator", cat: "Calculator", target: "#roi-calculator" },
     { title: "Interactive Composer Simulator", cat: "Playground", target: "#composer-simulator" }
   ] : [
+    { title: "Self-hosted Machines 自托管算力与机器池", cat: "企业安全", target: "#new-features" },
+    { title: "Computer Use 计算机原生界面操控", cat: "开发工作流", target: "#new-features" },
+    { title: "Cursor Origin 原生代码托管平台", cat: "企业安全", target: "#new-features" },
+    { title: "Start from scratch 零仓库启动与即时预览", cat: "开发工作流", target: "#new-features" },
+    { title: "Harness 事件订阅、/goal 与独立沙箱", cat: "多智能体", target: "#new-features" },
     { title: "Grok 4.6 旗舰模型 (4 档思考深度)", cat: "核心模型", target: "#new-features" },
     { title: "JetBrains 全系 IDE 支持 (ACP 协议)", cat: "开发工作流", target: "#new-features" },
     { title: "Side Chats 旁支对话 (/side, /btw)", cat: "开发工作流", target: "#new-features" },
@@ -289,7 +299,7 @@
   });
 
   // ==========================================================================
-  // 4. Interactive Composer & Swarm Simulator
+  // TEMPLATE:OPTIONAL — 4. Interactive Composer & Swarm Simulator (DEMO:CURSOR)
   // ==========================================================================
   const simChips = document.querySelectorAll(".prompt-chips .chip-btn");
   const simSteps = document.querySelectorAll(".sim-steps .sim-step");
@@ -418,7 +428,7 @@ describe('POST /api/v1/swarm/dispatch', () => {
   }
 
   // ==========================================================================
-  // 5. Interactive ROI & Cost Calculator
+  // TEMPLATE:OPTIONAL — 5. Interactive ROI & Cost Calculator (DEMO:CURSOR)
   // ==========================================================================
   const devSlider = document.getElementById("devSlider");
   const taskSlider = document.getElementById("taskSlider");
@@ -457,7 +467,7 @@ describe('POST /api/v1/swarm/dispatch', () => {
   }
 
   // ==========================================================================
-  // 6. View Transitions Theme Switcher
+  // TEMPLATE:CORE — 6. View Transitions Theme Switcher & Persistence
   // ==========================================================================
   const themeToggle = document.getElementById("themeToggle");
   const root = document.documentElement;
@@ -517,7 +527,7 @@ describe('POST /api/v1/swarm/dispatch', () => {
     });
 
   // ==========================================================================
-  // 7. Video Iframes CSP-Safe Loading & Scroll Animations
+  // TEMPLATE:CORE — 7. Video Iframes CSP-Safe Loading & Scroll Animations
   // ==========================================================================
   const videoFrames = document.querySelectorAll(".video-frame");
   videoFrames.forEach((frame) => {

@@ -1,15 +1,21 @@
-const CACHE_NAME = 'cursor3-intro-v5';
+// TEMPLATE:CORE — Service Worker Cache Engine
+// TEMPLATE:EDIT — Bump CACHE_NAME whenever you deploy new asset versions
+const CACHE_NAME = 'static-landing-v1';
+
+// Scope-aware base path for seamless GitHub Pages subpath and custom domain compatibility
+const BASE_SCOPE = self.registration.scope;
+
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/en/',
-  '/en/index.html',
-  '/assets/css/style.css?v=3.9.6',
-  '/assets/js/main.js?v=3.9.5',
-  '/assets/icons/favicon.svg',
-  '/assets/icons/icon-192.png',
-  '/assets/icons/icon-512.png',
-  '/manifest.json'
+  new URL('./', BASE_SCOPE).pathname,
+  new URL('./index.html', BASE_SCOPE).pathname,
+  new URL('./en/', BASE_SCOPE).pathname,
+  new URL('./en/index.html', BASE_SCOPE).pathname,
+  new URL('./assets/css/style.css?v=3.10.0', BASE_SCOPE).pathname,
+  new URL('./assets/js/main.js?v=3.10.0', BASE_SCOPE).pathname,
+  new URL('./assets/icons/favicon.svg', BASE_SCOPE).pathname,
+  new URL('./assets/icons/icon-192.png', BASE_SCOPE).pathname,
+  new URL('./assets/icons/icon-512.png', BASE_SCOPE).pathname,
+  new URL('./manifest.json', BASE_SCOPE).pathname
 ];
 
 const EXTERNAL_ASSETS = [
