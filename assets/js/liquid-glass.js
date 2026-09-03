@@ -1,6 +1,6 @@
 /**
- * Cursor Liquid Glass Engine v0.1
- * --------------------------------
+ * Cursor Liquid Glass Engine v0.1.1
+ * ----------------------------------
  * Vanilla JS optical enhancement layer.
  *
  * The engine generates geometry-derived SVG displacement maps from a rounded
@@ -21,7 +21,11 @@
   const QUALITY = (() => {
     const memory = navigator.deviceMemory || 8;
     const cores = navigator.hardwareConcurrency || 8;
+    const narrow = window.matchMedia("(max-width: 760px)").matches;
+    const coarse = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
     if (memory <= 4 || cores <= 4) return "low";
+    if (narrow || coarse || memory <= 6 || cores <= 6) return "balanced";
     return "high";
   })();
 
@@ -83,7 +87,7 @@
    */
   function createDisplacementMap(width, height, radius, bezel) {
     const aspect = Math.max(0.25, Math.min(4, width / Math.max(1, height)));
-    const mapH = QUALITY === "low" ? 48 : 72;
+    const mapH = QUALITY === "low" ? 48 : (QUALITY === "balanced" ? 60 : 72);
     const mapW = Math.max(48, Math.round(mapH * aspect));
     const canvas = document.createElement("canvas");
     canvas.width = mapW;
@@ -473,7 +477,7 @@
   });
 
   window.CursorLiquidGlass = Object.freeze({
-    version: "0.1.0",
+    version: "0.1.1",
     renderer,
     quality: QUALITY,
     decorate: decorateSurface,
