@@ -1,5 +1,5 @@
 /**
- * Cursor Liquid Glass Engine v0.1.2
+ * Cursor Liquid Glass Engine v0.1.3
  * ----------------------------------
  * Vanilla JS optical enhancement layer.
  *
@@ -251,6 +251,16 @@
     });
   }
 
+  function protectDirectText(el) {
+    Array.from(el.childNodes).forEach((node) => {
+      if (node.nodeType !== Node.TEXT_NODE || !node.textContent.trim()) return;
+      const foreground = document.createElement("span");
+      foreground.className = "lg-content";
+      node.replaceWith(foreground);
+      foreground.appendChild(node);
+    });
+  }
+
   function decorateSurface(el, options) {
     if (!el || records.has(el)) return records.get(el);
     const opts = options || {};
@@ -258,6 +268,7 @@
     const strength = Number(opts.strength || el.dataset.lgStrength || (variant === "clear" ? 11 : 8));
 
     el.classList.add("lg-surface");
+    protectDirectText(el);
     // Optical layers are absolutely positioned. Static surfaces need their own
     // containing block or the optics escape into the nearest positioned ancestor.
     if (getComputedStyle(el).position === "static") el.classList.add("lg-positioned");
@@ -480,7 +491,7 @@
   });
 
   window.CursorLiquidGlass = Object.freeze({
-    version: "0.1.2",
+    version: "0.1.3",
     renderer,
     quality: QUALITY,
     decorate: decorateSurface,
