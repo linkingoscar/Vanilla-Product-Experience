@@ -11,3 +11,15 @@
 @import url("./liquid-glass.css?v=0.1.0");
 @import url("./liquid-glass-v2.css?v=0.2.0");
 @import url("./liquid-glass-components.css?v=0.3.0");
+
+/* iOS can keep :hover sticky after a tap; do not let the generic touch rule
+   erase the desktop centering transform of the Hero glass controller. */
+html[data-lg-device="touch"] .lg-hero-controller.lg-surface:hover {
+  transform: translateX(-50%);
+}
+
+@media (max-width: 760px) {
+  html[data-lg-device="touch"] .lg-hero-controller.lg-surface:hover {
+    transform: none;
+  }
+}
