@@ -1,65 +1,338 @@
-# 🧩 页面模块与组件速查手册 (Sections & Architecture)
+# 🧩 页面模块与组件速查手册
 
-本文档详细列出了模板中每一个功能模块的 HTML ID、核心样式类名、JS 行为依赖，以及是否可安全删除。
+本文档列出模板主要模块的真实 DOM 容器、CSS / JavaScript 依赖，以及 Liquid Glass 增强关系。
 
----
-
-## 模块清单总览
-
-| 模块序号 | 模块名称 | HTML 容器 | 样式选择器 | JS 依赖 | 是否可直接删除 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **01** | **Dynamic Island 灵动岛导航** | `header.island-header` | `.island`, `.island-nav` | 滚动进度监听、平滑滚动、中英切换 | ❌ 核心骨架（建议保留） |
-| **02** | **Hero 首屏主视觉** | `section.hero` | `.hero-grid`, `.ide-window` | 无额外 JS，纯 CSS 动效 | ❌ 核心骨架（建议保留） |
-| **03** | **Highlights 核心卖点便当盒** | `section#highlights` | `.bento-grid`, `.bento-card` | 无 | ✅ 可选 |
-| **04** | **Feature Matrix 功能矩阵** | `section#new-features` | `.feature-grid`, `.feature-card` | 分类 Tab 点击即时过滤 | ✅ 可选 |
-| **05** | **Deep Dive & Simulators** | `section#composer-25` | `.sim-grid`, `.calc-card` | 模拟器步进动效、ROI 计算器 | ✅ 可选 |
-| **06** | **Media 影音与资料** | `section#media` | `.media-grid`, `.video-container`| iframe 懒加载 | ✅ 可选 |
-| **07** | **Timeline 演进时间轴** | `section#timeline` | `.timeline`, `.timeline-item` | 滚动显现动画 | ✅ 可选 |
-| **08** | **Pricing 定价卡片** | `section#pricing` | `.pricing-grid`, `.price-card` | 悬停发光动效 | ✅ 可选 |
-| **09** | **Comparison 竞品横评表** | `section#compare` | `.table-responsive`, `.compare-table`| 滚动提示阴影 | ✅ 可选 |
-| **10** | **Call-To-Action 转化引导** | `section#start` | `.start-card`, `.steps-list` | 无 | ✅ 可选 |
-| **11** | **Footer 网站页脚** | `footer.site-footer` | `.footer-grid`, `.footer-links` | 主题切换器挂载 | ❌ 核心骨架（建议保留） |
-| **12** | **Command Palette 搜索弹窗** | `div#cmdPalette` | `.cmd-backdrop`, `.cmd-modal` | 键盘监听、模糊匹配 | ✅ 可选 |
+> 原则：**Template Core 决定内容和基础交互，Liquid Glass 只增强 Functional Layer。** 删除可选模块时，不应为了视觉效果保留无意义 DOM。
 
 ---
 
-## 各模块深入说明
+## 模块总览
 
-### 01. Dynamic Island 导航条
-* **HTML 标记**：`<!-- TEMPLATE:CORE — Dynamic Island Header -->`
-* **功能**：浮动胶囊导航条，随页面滚动自动增加毛玻璃背景并高亮当前所在的视口区块。自带 `⌘K` 搜索按钮与语言切换按钮。
-* **删除影响**：不建议删除整条导航。如不需要多语言，可仅删除 `<a class="lang-badge">`；如不需要搜索，可仅删除 `<button class="island-search-btn">`。
+| # | 模块 | 实际 HTML 容器 | 主要样式 | Template JS | Liquid Glass | 可删除？ |
+| :--- | :--- | :--- | :--- | :--- | :--- | :---: |
+| 01 | Floating Island | `header.island` | `.island`, `.island-nav` | Scroll Spy / Smooth Scroll / Search | Island refraction + Shared Nav Lens | 建议保留 |
+| 02 | Hero | `section.hero` | `.hero-grid`, `.ide-window` | Scroll Reveal | CTA / status controls | 建议保留 |
+| 03 | Highlights | `section#highlights` | `.bento`, `.bento-card` | Scroll Reveal | 内容卡不默认 Glass | ✅ |
+| 04 | Feature Matrix | `section#new-features` | `.feature-tabs`, `.feature-grid`, `.feature-card` | 分类筛选 | Shared Tab Lens | ✅ |
+| 05 | Composer / ROI | `section#composer-25` | `.sim-*`, `.roi-*`, `.range-slider` | Simulator / Calculator | Liquid Range Thumb | ✅ |
+| 06 | Media | `section#media` | `.media-*`, `.video-frame` | iframe loading | 不默认 Glass | ✅ |
+| 07 | Timeline | `section#timeline` | `.timeline`, `.timeline-item` | Scroll Reveal | 不默认 Glass | ✅ |
+| 08 | Pricing | `section#pricing` | `.pricing-grid`, `.pricing-card` | Scroll Reveal | CTA / badge 可 Glass | ✅ |
+| 09 | Comparison | `section#compare` | `.compare-wrap`, `.compare-table` | 基础页面行为 | 不默认 Glass | ✅ |
+| 10 | Final CTA | `section#start` | `.btn`, section styles | 无独立逻辑 | CTA 自动增强 | ✅ |
+| 11 | Footer | `footer.site-footer` | `.site-footer`, `.footer-inner` | 无独立逻辑 | 不默认 Glass | 建议保留 |
+| 12 | Command Palette | `div#cmdPalette` | `.cmd-palette-*` | Search / Keyboard Nav | Search → Palette Morph | ✅ |
+| 13 | Theme Toggle | `button#themeToggle` | `.theme-toggle` | Theme persistence | Small Glass Control | ✅ |
+| 14 | Back to Top | `button#backToTop` | `.back-to-top` | Scroll visibility | Small Glass Control | ✅ |
 
-### 02. Hero 首屏
-* **HTML 标记**：`<!-- TEMPLATE:EDIT — Hero Section -->`
-* **功能**：左侧为高冲击力标语、分类胶囊与操作按钮组；右侧为拟物化 macOS IDE 视窗，支持内嵌代码高亮与动态状态指示灯。
-* **自定义**：右侧视窗不仅可放代码，也可替换为 `<img src="..." />` 产品截图或产品演示视频。
+---
 
-### 03. Bento Grid 卖点便当盒
-* **HTML 标记**：`<!-- TEMPLATE:OPTIONAL START — Highlights Bento Grid -->`
-* **功能**：采用现代 Apple / Vercel 风格的 Bento 错落网格布局，支持 1 列、2 列或全宽跨列展示核心卖点。
-* **删除影响**：可安全删除。删除后只需在导航中去掉对应的 `<a href="#highlights">` 锚点即可。
+## 01. Floating Island
 
-### 04. Feature Matrix 功能矩阵
-* **HTML 标记**：`<!-- TEMPLATE:OPTIONAL START — Feature Matrix -->`
-* **功能**：支持 30+ 项特性的密集陈列，并支持 Tab 分类动态切换。
-* **JS 交互**：当用户点击 `data-filter="xxx"` 的按钮时，JS 会自动为卡片切换 `.is-hidden` / `.is-visible` 样式，并伴有弹性过渡动效。
+```html
+<header class="island">
+  <div class="island-inner">
+    ...
+    <nav class="island-nav">...</nav>
+    ...
+  </div>
+</header>
+```
 
-### 05. Interactive Simulators 交互式演练组件
-* **HTML 标记**：`<!-- TEMPLATE:OPTIONAL START — Deep Dive & Simulators -->`
-* **功能**：包含两个高转化组件：
-  1. **多智能体协同模拟器**：支持点击“开始演示”，分步模拟流水线任务拆解；
-  2. **ROI 成本测算器**：支持滑动条调整人数与代码量，实时计算成本节省金额。
-* **删除影响**：如果不适用于你的产品，可整块删除。相关 JS 带有 `document.getElementById` 防空检测，删除后不会报错。
+### Template Core
 
-### 08. Pricing 定价表
-* **HTML 标记**：`<!-- TEMPLATE:OPTIONAL START — Pricing -->`
-* **功能**：支持 3~5 档分级订阅套餐卡片，中间卡片支持 `.is-featured` 高亮推荐与发光边框。
+`assets/js/main-base.js`：
 
-### 09. Comparison 竞品横评表
-* **HTML 标记**：`<!-- TEMPLATE:OPTIONAL START — Comparison -->`
-* **功能**：支持桌面端全功能对比、移动端横向滑动的响应式对比表格。支持 `✅`、`❌`、`部分支持` 等状态徽章。
+- 根据滚动位置设置导航 `.is-active`；
+- 锚点平滑滚动；
+- Search 按钮打开 Command Palette。
 
-### 12. Command Palette 全局快捷搜索面板 (⌘K)
-* **HTML 标记**：`<!-- TEMPLATE:OPTIONAL START — Command Palette -->`
-* **快捷键**：Mac 按 `⌘ + K`，Windows 按 `Ctrl + K` 随时唤出；按 `Esc` 或点击遮罩关闭。支持键盘上下键选择条目，按回车直接平滑滚动至对应锚点。
+### Liquid Glass
+
+`assets/js/liquid-glass.js`：
+
+- 将 `.island` 装饰成真实光学材质；
+- `.island-nav` 只创建 **一个** `.lg-shared-lens`；
+- Active 项变化时移动/拉伸同一个 Lens。
+
+Safari / Firefox 由 `liquid-glass-v2.js` 给 Island 建立 `content-copy-svg` 折射副本。
+
+### 删除注意
+
+不建议删整个 Island。如果只想精简：
+
+- 删除 `.lang-badge`：取消多语言按钮；
+- 删除 `.island-search-btn`：取消 Command Palette 入口；
+- 删除某个导航链接：同时确认对应 section 是否仍存在。
+
+---
+
+## 02. Hero
+
+实际容器：
+
+```html
+<section class="hero">
+```
+
+主体是 Content Layer，不应把整个 Hero 透明化。
+
+推荐 Glass 只放在：
+
+- `.btn-primary`
+- `.btn-secondary`
+- `.ide-swarm-pill`
+- 后续新增的 floating toolbar / status control
+
+右侧 `.ide-window` 可以替换成产品截图、终端、Dashboard 或 HTML Demo。
+
+---
+
+## 03. Highlights Bento
+
+```html
+<section id="highlights">
+  <div class="bento">
+    <article class="bento-card">...</article>
+  </div>
+</section>
+```
+
+`.bento-card` 属于 Content Surface，默认不做真实 refraction。
+
+原因：如果几十张内容卡同时进入 displacement 合成，会同时损害层级、可读性和 GPU 预算。
+
+可以安全删除整个 section；记得同步删除 Island 中 `#highlights` 链接。
+
+---
+
+## 04. Feature Matrix
+
+```html
+<div class="feature-tabs" role="tablist">
+  <button class="tab-btn is-active" data-filter="all">...</button>
+</div>
+
+<div class="feature-grid">
+  <article class="feature-card" data-category="model">...</article>
+</div>
+```
+
+### Template Core
+
+点击 `data-filter` 后：
+
+- 当前按钮切换 `.is-active`；
+- 功能卡切换 `.is-hidden` / `.is-visible`。
+
+### Liquid Glass
+
+`.feature-tabs` 使用一个 Shared Lens。
+
+**不要**为了换肤给每一个 `.tab-btn` 单独加半透明背景；这会破坏“一个连续材质在不同选项间移动”的交互语言。
+
+Safari / Firefox 在分类切换后会重新同步 full-world mirror，避免折射旧的卡片布局。
+
+---
+
+## 05. Composer Simulator / ROI Calculator
+
+实际 section：
+
+```html
+<section id="composer-25">
+```
+
+### Simulator
+
+主要由：
+
+```text
+.prompt-chips
+.sim-steps
+#simCodeText
+#simStatusPill
+```
+
+组成。
+
+`main-base.js` 负责 Demo 状态和内容变化；Liquid Glass 只增强浮动/状态控制。
+
+### ROI Range
+
+原始控件：
+
+```html
+<input class="range-slider" type="range" ... />
+```
+
+v0.2 会包装成：
+
+```text
+.lg-range-shell
+├── .lg-range-track
+├── .lg-range-fill
+├── .lg-range-thumb     ← 光学视觉 Thumb
+└── input.range-slider  ← 真正交互 / 键盘 / Accessibility Target
+```
+
+**不要删除原生 `<input>`。**
+
+Safari / Firefox 的 Thumb 会局部复制 ROI Content，并在玻璃范围内做 SVG displacement。
+
+---
+
+## 06. Media
+
+实际视频状态选择器以 `.video-frame` 为主。
+
+Liquid Glass content-copy 明确排除：
+
+```text
+iframe
+video
+audio
+canvas
+object
+embed
+```
+
+因此不要指望 DOM content-copy renderer 折射视频帧。需要这种能力时应新增 WebGL media renderer，而不是把媒体 Rasterize 成巨大 DOM Snapshot。
+
+---
+
+## 07. Timeline
+
+```html
+<section id="timeline">
+  ... .timeline-item ...
+</section>
+```
+
+纯 Content Layer + Scroll Reveal。可以安全删除。
+
+---
+
+## 08. Pricing
+
+实际卡片：
+
+```html
+<div class="pricing-grid">
+  <div class="pricing-card">...</div>
+</div>
+```
+
+不要把所有 Pricing Card 都变成 Liquid Glass。
+
+推荐只增强：
+
+- `.pricing-badge`
+- CTA `.btn`
+- 如果未来加入 Monthly / Annual Toggle，则使用 Shared Lens。
+
+---
+
+## 09. Comparison
+
+```html
+<section id="compare">
+  <div class="compare-wrap">
+    <table class="compare-table">...</table>
+  </div>
+</section>
+```
+
+属于信息密度高的 Content Layer。默认不用 Glass。
+
+---
+
+## 10. Final CTA
+
+```html
+<section id="start">
+```
+
+CTA 按钮会自动被 Liquid Glass engine 装饰，因此无需在 HTML 中手动添加 `.lg-*` 内部节点。
+
+---
+
+## 11. Footer
+
+```html
+<footer class="site-footer">
+```
+
+Footer 不需要大量光学效果。保持稳定的正文和链接可读性即可。
+
+---
+
+## 12. Command Palette
+
+```html
+<div id="cmdPalette" class="cmd-palette-backdrop">
+  <div class="cmd-palette-modal">...</div>
+</div>
+```
+
+### Template Core
+
+`main-base.js` 负责：
+
+- ⌘K / Ctrl+K；
+- Escape；
+- 模糊搜索；
+- Arrow Up / Down；
+- Enter 跳转。
+
+搜索数据同样在 `main-base.js` 的 `searchIndex`。
+
+### Liquid Glass v0.2
+
+`liquid-glass-v2.js` 将 Island Search Pill 与 Modal 当作连续几何：
+
+```text
+Search Pill
+    ↓ spring expand / resize / radius morph
+Command Palette
+```
+
+点击遮罩、Escape 或再次按 ⌘K / Ctrl+K 会执行反向 morph。
+
+---
+
+## 13 / 14. Theme & Back-to-Top
+
+两个按钮都属于 small floating control，可使用轻量 Liquid Glass。
+
+`prefers-reduced-motion` / `prefers-reduced-transparency` 下必须接受系统降级，不要通过自定义动画强行覆盖。
+
+---
+
+# 删除模块时的通用规则
+
+### 1. 先删 Navigation Link
+
+如果删除 section：
+
+```html
+<section id="pricing">...</section>
+```
+
+同时删除：
+
+```html
+<a href="#pricing">...</a>
+```
+
+### 2. 不要删除 Base 脚本里的防空判断
+
+`main-base.js` 对可选模块做存在性检测。保留这些 guard，让不同 Fork 可以自由删 section。
+
+### 3. Liquid Glass 不需要手动清理内部 DOM
+
+`.lg-optics`、`.lg-shared-lens`、`.lg-range-thumb` 等均由 runtime 创建。删除原始组件后刷新页面即可，不要把运行时生成节点复制回 HTML。
+
+### 4. 需要彻底关闭 Glass
+
+参见 [`CUSTOMIZE.md`](CUSTOMIZE.md) 的“一键关闭 Liquid Glass”。
