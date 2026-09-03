@@ -1,24 +1,46 @@
 # Liquid Glass Implementation Notes
 
-This branch introduces a reusable Liquid Glass design system without rewriting the existing page content or adding a framework/build dependency.
+This repository now ships a reusable, zero-build Liquid Glass design system on top of the static landing-page template.
 
-The implementation deliberately treats **refraction** as the acceptance criterion. `backdrop-filter: blur(...)` by itself is not considered Liquid Glass.
+The implementation deliberately uses **refraction** as the acceptance criterion. `backdrop-filter: blur(...)` alone is not considered Liquid Glass.
 
-## File layering
+## Architecture
 
-- `assets/css/style-base.css` — exact pre-Liquid-Glass stylesheet.
-- `assets/css/style.css` — thin entrypoint importing the existing design plus the optical layers.
-- `assets/css/liquid-glass.css` — v0.1 optical material tokens, specular layers, shared-lens styling and accessibility gates.
-- `assets/css/liquid-glass-v2.css` — v0.2 content-copy renderer styling, palette morph and liquid range control.
-- `assets/js/main-base.js` — exact pre-Liquid-Glass application behavior.
-- `assets/js/main.js` — loader that runs original behavior first, then v0.1 and v0.2 enhancements.
-- `assets/js/liquid-glass.js` — rounded-rect SDF displacement-map generator, SVG filter registry, surface decorator and spring shared lens.
-- `assets/js/liquid-glass-v2.js` — cross-browser content-copy refraction, Search → Command Palette geometry morph, ROI liquid range thumbs and synchronization logic.
-- `liquid-glass-lab.html` — optical validation surface and parameter playground.
+```text
+Template Core
+├── assets/css/style-base.css
+└── assets/js/main-base.js
 
-## What qualifies as refraction
+Public Entrypoints
+├── assets/css/style.css
+└── assets/js/main.js
 
-The optical core builds a rounded-rectangle signed-distance field (SDF) and converts the bezel normal into an RG displacement map:
+Liquid Glass Optical Core
+├── assets/css/liquid-glass.css
+├── assets/js/liquid-glass.js
+├── assets/css/liquid-glass-v2.css
+└── assets/js/liquid-glass-v2.js
+
+Liquid Glass Product Components
+├── assets/css/liquid-glass-components.css
+└── assets/js/liquid-glass-components.js
+
+Developer Playground
+└── liquid-glass-lab.html
+```
+
+The split is intentional:
+
+- `*-base` owns reusable landing-page content/layout/behavior.
+- v0.1 owns SDF/displacement/specular/shared-lens primitives.
+- v0.2 owns cross-browser content-copy refraction, palette morphing and range controls.
+- v0.3 owns visible product components assembled from those primitives.
+
+A Fork can remove the Liquid Glass imports/loaders and keep the underlying landing-page template intact.
+
+## Optical model
+
+The core builds a rounded-rectangle signed-distance field and converts its bezel normal into an RG displacement map:
 
 ```text
 R channel -> X displacement
@@ -26,115 +48,136 @@ G channel -> Y displacement
 128 / 128 -> neutral sample
 ```
 
-Pixels near the inner rim diverge from 128 and drive `feDisplacementMap`; the deep center returns to neutral so content remains readable.
+Pixels near the inner rim diverge from neutral and drive SVG `feDisplacementMap`. The center returns toward neutral to keep foreground content readable.
 
-The visual acceptance test is simple:
-
-> Put a straight grid/line behind the glass. If the line only becomes blurry, it is glassmorphism. If the line actually bends/moves near the rim, refraction is active.
+```text
+Background pixels
+      ↓
+Rounded-rect SDF
+      ↓
+RG displacement map
+      ↓
+feDisplacementMap
+      ↓
+edge lensing
+      ↓
+material tint
+      ↓
+directional specular
+      ↓
+foreground content
+```
 
 ## Renderer paths
 
-### Chromium: `backdrop-svg`
+### Chromium — `backdrop-svg`
 
-Chromium uses the generated SVG displacement filter through `backdrop-filter` for the actual pixels behind the glass.
+Chromium applies the generated SVG displacement map to the actual backdrop pixels.
 
-Pipeline:
+### Safari / Firefox — `content-copy-svg`
 
-```text
-real backdrop
-  -> generated displacement map
-  -> feDisplacementMap
-  -> very small optical blur/saturation
-  -> material tint
-  -> directional specular layer
-  -> foreground content
-```
+Where SVG displacement through `backdrop-filter` cannot be relied on, the v0.2 renderer creates a sanitized non-interactive copy of the real page/content and uses that as `SourceGraphic` for `filter:url(...)`.
 
-### Safari / Firefox: `content-copy-svg`
+The mirror:
 
-Safari/WebKit and Firefox cannot currently be treated as reliable targets for SVG displacement inside `backdrop-filter`.
+- strips scripts and embedded media;
+- removes duplicate IDs;
+- cannot receive pointer/focus interaction;
+- strips Liquid Glass runtime layers to avoid recursive glass;
+- synchronizes dynamic ROI labels/range state and discrete page state changes.
 
-v0.2 therefore uses a different path:
+The original DOM remains the accessibility and interaction tree.
 
-```text
-real DOM content
-  -> synchronized non-interactive mirror
-  -> clip mirror to the glass surface
-  -> CSS filter:url(#generated-feDisplacementMap)
-  -> material/specular layers
-  -> original interactive foreground
-```
+### Reduced Transparency — `accessible-solid`
 
-This is not a Gaussian-blur fallback. The mirrored page text, lines and content pixels are the `SourceGraphic` being displaced.
+`prefers-reduced-transparency` removes optical copies/refraction and switches the material to a readable high-opacity surface.
 
-### Mirror safety rules
+## Visible component layer (v0.3)
 
-The renderer sanitizes mirrors before inserting them:
+### Floating Island Navigation
 
-- scripts are removed
-- iframe/video/audio/canvas/object/embed nodes are removed
-- duplicate `id` attributes are removed
-- mirror controls cannot receive pointer events or focus
-- Liquid Glass runtime layers are not recursively cloned
-- scroll-reveal content is forced into its visible rendering state
+The existing Island uses the optical material as a functional navigation layer. The selected nav item is represented by **one moving lens**, not separate glass backgrounds for every item.
 
-The original DOM remains the only interactive/accessibility tree.
+### Hero Workspace Controller
 
-### Reduced transparency: `accessible-solid`
-
-When `prefers-reduced-transparency` is active, optical copies/refraction are removed and the controls switch to a high-opacity readable material.
-
-## Functional-layer scope
-
-Liquid Glass is applied primarily to controls rather than every content card:
-
-- floating island navigation
-- primary / secondary CTA buttons
-- Search control
-- Command Palette
-- feature-category shared lens
-- navigation shared lens
-- ROI range thumbs
-- small status/badge controls
-- theme/back-to-top controls
-
-Bento cards, pricing cards and other long-form content surfaces remain content materials. This avoids a page full of translucent blur panels and keeps hierarchy legible.
-
-## Shared moving lens
-
-Navigation and feature tabs use **one physical lens** that moves/resizes between selected items instead of giving every tab its own translucent background.
-
-The lens uses an interruptible damped spring, so a fast sequence such as A → B → C redirects the same lens toward the newest target instead of queueing three CSS animations.
-
-## Search → Command Palette morph
-
-The v0.2 layer treats the Island search pill and Command Palette as one continuous glass object:
-
-1. record the search pill geometry
-2. open the existing dialog (original JS remains source of truth)
-3. map the final modal rectangle back onto the source pill with FLIP-like geometry
-4. run a spring from source geometry to modal geometry
-5. fade the actual command content in only after the glass shell has expanded
-6. reverse the geometry for Escape / Cmd/Ctrl+K / backdrop close
-
-This avoids the old `opacity: 0 -> 1` disconnected modal feeling.
-
-## ROI Liquid Range Thumb
-
-The native range inputs stay in the DOM and remain keyboard/accessibility controls.
-
-The visual thumb is a separate real DOM Liquid Glass surface layered underneath the transparent native thumb hit target:
+The Hero now includes a floating Liquid Glass execution-mode controller:
 
 ```text
-native <input type="range"> (interaction + accessibility)
-        |
-        +-- visual track / fill
-        +-- real Liquid Glass thumb
+Workspace  [ Local | Cloud | Private Pool ]  ● 3 Agents · Cloud
 ```
 
-The glass thumb moves without regenerating its displacement map; map regeneration is reserved for size/radius changes.
+Switching modes updates the IDE-window title/status and moves one shared spring lens between the modes.
 
-## Declarative template API
+The Safari/Firefox content copy is sourced from the IDE window instead of cloning the controller itself.
+
+### CTA controls
+
+Primary and secondary CTA buttons use the same optical primitive with restrained tinting and press energy.
+
+### Feature Tabs
+
+Feature categories use one shared moving lens and remain compatible with the original filter behavior.
+
+### Simulator segmented control
+
+The existing prompt chips are upgraded at runtime into a horizontally scrollable shared-lens segmented control.
+
+The original simulation logic remains the source of truth; the component layer only adds optical presentation and ARIA pressed state.
+
+### Search → Command Palette
+
+The Search pill and Command Palette behave like one continuous glass object:
+
+```text
+search pill
+    ↓
+geometry capture
+    ↓
+spring expansion
+    ↓
+command palette
+```
+
+The close path reverses the geometry instead of simply fading the modal away.
+
+### ROI Liquid Range
+
+Native `<input type="range">` elements remain the actual keyboard/touch/accessibility controls.
+
+A Liquid Glass visual thumb is positioned from the native value:
+
+```text
+native range input
+   ├── track/fill
+   └── optical glass thumb
+```
+
+The thumb reuses a fixed geometry map while moving.
+
+### Pricing display selector
+
+Pricing now gets a reusable shared-lens selector:
+
+```text
+[ Monthly | Annualized ×12 ]
+```
+
+The annualized view is deliberately calculated as `current monthly price × 12` and explicitly states that it **does not imply an official annual discount**.
+
+This makes the component useful for the template without inventing product pricing claims.
+
+### Mobile/touch policy
+
+On coarse-pointer or narrow devices:
+
+- `data-lg-device="touch"` is enabled;
+- high quality is reduced to `balanced`;
+- specular intensity is reduced;
+- the Hero controller moves into normal document flow;
+- simulator chips become horizontal touch scrolling;
+- native range inputs remain the touch target.
+
+## Declarative optical API
 
 Basic surface:
 
@@ -144,7 +187,7 @@ Basic surface:
 </button>
 ```
 
-Request synchronized content-copy refraction on WebKit/Firefox:
+Request full Safari/Firefox content-copy refraction:
 
 ```html
 <div
@@ -165,70 +208,124 @@ Shared lens:
 </div>
 ```
 
+JavaScript API:
+
+```js
+CursorLiquidGlass.decorate(element, {
+  variant: "clear",
+  strength: 10
+});
+
+CursorLiquidGlass.installSharedLens(container, "button");
+
+CursorLiquidGlassV2.installContentCopy(element, {
+  source: document.querySelector(".underlying-content")
+});
+
+CursorLiquidGlassV2.installRange(rangeInput);
+CursorLiquidGlassV2.syncContentCopies();
+```
+
+Component layer status:
+
+```js
+CursorGlassUI.version; // 0.3.x
+CursorGlassUI.refresh();
+```
+
+## Design tokens
+
+Common optical controls live in CSS variables:
+
+```css
+:root {
+  --lg-ior: 1.48;
+  --lg-refraction: 9px;
+  --lg-refraction-strong: 13px;
+  --lg-bezel: 15px;
+  --lg-specular-alpha: 0.52;
+  --lg-primary-tint: rgba(46, 115, 255, 0.28);
+}
+```
+
+The template should tune these variables rather than scattering one-off glass values across components.
+
+## Functional-layer rule
+
+Liquid Glass is intentionally concentrated on interaction/navigation:
+
+- Island navigation
+- active lenses
+- buttons
+- Hero controls
+- simulator controls
+- pricing selector
+- Command Palette
+- sliders
+- badges / small floating controls
+
+Long-form Bento, Pricing, Timeline and Comparison cards remain content surfaces.
+
+This avoids turning the site into a wall of translucent panels.
+
 ## Playground
 
-Open `liquid-glass-lab.html`.
+Open:
 
-It contains:
+```text
+/liquid-glass-lab.html
+```
 
-- grid background for optical validation
-- ordinary blur-only glassmorphism vs Liquid Glass comparison
-- current renderer badge
-- Refraction strength control
-- Bezel control
-- Radius control
-- Specular intensity control
-- Primary tint control
-- `Copy CSS Tokens` helper
+The page contains:
 
-The lab is intentionally a technical test surface, not a marketing screenshot.
+- grid-based refraction acceptance background;
+- blur-only vs displacement comparison;
+- active renderer indicator;
+- Refraction control;
+- Bezel control;
+- Radius control;
+- Specular control;
+- Tint control;
+- Copy CSS Tokens helper.
+
+Use the grid as the ground truth: a line that only blurs is not refraction.
 
 ## Accessibility
 
-- `prefers-reduced-motion`: shared lenses snap, palette morphing is skipped and range/thumb motion is minimized.
-- `prefers-reduced-transparency`: content-copy/refraction layers are removed and controls become opaque/readable.
-- low-memory / low-core devices receive lower-resolution displacement maps.
-- native controls remain the input/focus targets.
+- `prefers-reduced-motion`: spring/morph animation is reduced or skipped.
+- `prefers-reduced-transparency`: optical layers are replaced by solid readable materials.
+- native controls remain in the focus/interaction tree.
+- mirrors are `aria-hidden` and non-interactive.
+
+## PWA/offline
+
+The Service Worker caches the full dependency graph:
+
+```text
+style.css
+  ├── style-base.css
+  ├── liquid-glass.css
+  ├── liquid-glass-v2.css
+  └── liquid-glass-components.css
+
+main.js
+  ├── main-base.js
+  ├── liquid-glass.js
+  ├── liquid-glass-v2.js
+  └── liquid-glass-components.js
+```
+
+Versioned query strings are preserved as exact cache keys.
 
 ## Performance rules
 
-1. Real refraction is reserved for the functional layer.
-2. Displacement maps regenerate on geometry changes, not every pointer move.
+1. Real refraction stays on the functional layer.
+2. Displacement maps regenerate on geometry changes, not normal movement.
 3. Range thumbs reuse one fixed-size map while moving.
-4. Safari/Firefox content-copy is clipped to the glass element instead of rendering a full-screen filtered canvas.
-5. media elements are excluded from DOM mirrors; a later WebGL path should handle video/canvas if needed.
+4. Mobile/coarse-pointer devices use the balanced optical budget.
+5. Safari/Firefox mirrors remove media and recursive glass runtime layers.
+6. Video/canvas is intentionally not DOM-rasterized by default.
 
-## QA status
+## Optional future extension
 
-### Completed in this branch
-
-- JS syntax checks for v0.1/v0.2 and Playground inline code.
-- non-framework static loading path.
-- mirror duplicate-ID removal.
-- script/iframe/media removal from mirrors.
-- reduced-motion/reduced-transparency code paths.
-- original `style-base.css` / `main-base.js` preserved for rollback.
-
-### Browser verification still required
-
-The current execution environment does not provide a browser runtime for this repository branch, so the following must be visually verified before merge:
-
-- [ ] Chrome/Edge: grid lines visibly bend at Island / lab surfaces.
-- [ ] Safari macOS/iOS: `data-lg-renderer="content-copy-svg"` and underlying lines/text visibly displace.
-- [ ] Firefox: content-copy path visibly displaces pixels.
-- [ ] Search pill expands into Command Palette without a geometry jump.
-- [ ] Escape reverses palette morph and restores focus behavior.
-- [ ] ROI native sliders remain mouse/touch/keyboard operable.
-- [ ] visual Liquid Glass thumb aligns with the native range value at min/mid/max.
-- [ ] dark/light themes keep sufficient contrast.
-- [ ] Reduce Motion removes spring motion.
-- [ ] Reduce Transparency produces an opaque readable material.
-- [ ] mobile scroll remains smooth with the Island visible.
-
-## Next engineering slice
-
-1. Browser-matrix visual QA and parameter tuning.
-2. Reuse/cache content mirrors across large surfaces to reduce Safari DOM-copy cost.
-3. Synchronize more highly dynamic mirrored content only when it can enter a glass region.
-4. Optional WebGL renderer for video/canvas surfaces.
-5. Extract stable Glass tokens/components into the public template customization docs.
+If the template later needs Liquid Glass directly over continuously changing `<video>` or `<canvas>`, add a dedicated WebGL renderer for that media surface. It should remain an optional renderer rather than making the entire static page a WebGL application.
