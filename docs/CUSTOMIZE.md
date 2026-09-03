@@ -13,8 +13,10 @@ Template Core
 Liquid Glass Enhancement
 ├── assets/css/liquid-glass.css
 ├── assets/css/liquid-glass-v2.css
+├── assets/css/liquid-glass-components.css
 ├── assets/js/liquid-glass.js
-└── assets/js/liquid-glass-v2.js
+├── assets/js/liquid-glass-v2.js
+└── assets/js/liquid-glass-components.js
 ```
 
 `assets/css/style.css` 与 `assets/js/main.js` 是薄入口文件，负责按顺序加载上面的代码，通常无需修改。
@@ -278,6 +280,7 @@ Liquid Glass runtime 同样使用查询后增强策略：没有对应 DOM 就不
 ```css
 @import url("./liquid-glass.css?v=0.1.0");
 @import url("./liquid-glass-v2.css?v=0.2.0");
+@import url("./liquid-glass-components.css?v=0.3.0");
 ```
 
 保留：

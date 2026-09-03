@@ -585,7 +585,9 @@ describe('POST /api/v1/swarm/dispatch', () => {
 
   if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
     window.addEventListener("load", () => {
-      navigator.serviceWorker.register("/sw.js").catch(() => {});
+      const manifestLink = document.querySelector('link[rel="manifest"]');
+      const swUrl = new URL("sw.js", manifestLink ? manifestLink.href : document.baseURI).href;
+      navigator.serviceWorker.register(swUrl).catch(() => {});
     });
   }
 })();

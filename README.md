@@ -131,10 +131,12 @@ Liquid Glass 分支将“模板内容层”和“光学增强层”明确拆开�
 | `assets/css/style.css` | CSS 薄入口，加载 Base + Liquid Glass | 通常不用 |
 | `assets/css/liquid-glass.css` | v0.1 光学材质、Shared Lens、Specular | 高级定制 |
 | `assets/css/liquid-glass-v2.css` | content-copy、Palette Morph、Liquid Slider | 高级定制 |
+| `assets/css/liquid-glass-components.css` | v0.3 业务组件液态化视觉覆盖 (Hero/定价/模拟器) | 高级定制 |
 | `assets/js/main-base.js` | **模板原始行为、searchIndex、模拟器、ROI** | 💡 视情况 |
 | `assets/js/main.js` | JS 薄入口，按顺序加载 Base + Glass Engine | 通常不用 |
 | `assets/js/liquid-glass.js` | SDF / Displacement Map / Filter / Shared Spring | 高级定制 |
 | `assets/js/liquid-glass-v2.js` | Safari/Firefox content-copy、Palette、Range | 高级定制 |
+| `assets/js/liquid-glass-components.js` | v0.3 Hero 控制器、定价/模拟器透镜业务装配 | 高级定制 |
 | `liquid-glass-lab.html` | Glass 参数实验与光学验收 | 可选 |
 | `assets/icons/` | Favicon 与 PWA icons | ✅ |
 | `manifest.json` | PWA 名称、主题、图标 | PWA 项目 |

@@ -100,10 +100,12 @@ Engineering details and browser QA checklist: [`docs/LIQUID_GLASS_IMPLEMENTATION
 | `assets/css/style.css` | Thin CSS entrypoint | Usually no |
 | `assets/css/liquid-glass.css` | Optical material, specular, shared lens | Advanced |
 | `assets/css/liquid-glass-v2.css` | Content-copy, palette morph, liquid range | Advanced |
+| `assets/css/liquid-glass-components.css` | Product UI layer (Hero, Pricing, Simulator) | Advanced |
 | `assets/js/main-base.js` | **Template behavior, search index, simulator, ROI** | As needed |
 | `assets/js/main.js` | Thin JS loader | Usually no |
 | `assets/js/liquid-glass.js` | SDF, displacement maps, SVG filters, shared spring | Advanced |
 | `assets/js/liquid-glass-v2.js` | Cross-browser content-copy and fluid interactions | Advanced |
+| `assets/js/liquid-glass-components.js` | Hero controller, Pricing and Simulator lenses | Advanced |
 | `liquid-glass-lab.html` | Optical validation / token playground | Optional |
 | `manifest.json` | PWA metadata | For PWA |
 | `sw.js` | Offline cache graph and cache invalidation | On deploy changes |
