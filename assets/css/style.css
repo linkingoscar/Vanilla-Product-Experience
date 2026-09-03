@@ -2,9 +2,12 @@
  * Cursor 3.x stylesheet entrypoint.
  *
  * The production template stylesheet is preserved in style-base.css.
- * Liquid Glass is layered on top so the optical system stays removable,
- * auditable and reusable without rewriting the content/theme foundation.
+ * Liquid Glass is layered on top as three removable parts:
+ *   1) optical primitives
+ *   2) cross-browser renderer
+ *   3) visible product component layer
  */
 @import url("./style-base.css?v=3.10.0");
 @import url("./liquid-glass.css?v=0.1.0");
 @import url("./liquid-glass-v2.css?v=0.2.0");
+@import url("./liquid-glass-components.css?v=0.3.0");
