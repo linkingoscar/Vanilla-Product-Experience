@@ -58,7 +58,7 @@
   }
 
   loadScript("main-base.js?v=3.10.0", function loadLiquidGlassCore() {
-    loadScript("liquid-glass.js?v=0.1.2", function loadLiquidGlassV2() {
+    loadScript("liquid-glass.js?v=0.1.3", function loadLiquidGlassV2() {
       loadScript("liquid-glass-v2.js?v=0.2.1", function loadLiquidGlassComponents() {
         loadScript("liquid-glass-components.js?v=0.3.1", function waitForComponentBoot() {
           if (root.classList.contains("lg-components-ready")) {
