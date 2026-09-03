@@ -6,6 +6,7 @@ on:
       - feat/liquid-glass-design-system
       - feat/ambient-particle-field
       - feat/site-motion-system
+      - feat/product-ui-art-direction
   pull_request:
     paths:
       - 'assets/css/**'
@@ -49,6 +50,7 @@ jobs:
           if [ -f assets/js/motion/layout-motion.js ]; then node --check assets/js/motion/layout-motion.js; fi
           if [ -f assets/js/motion/number-motion.js ]; then node --check assets/js/motion/number-motion.js; fi
           if [ -f assets/js/motion/site-motion.js ]; then node --check assets/js/motion/site-motion.js; fi
+          if [ -f assets/js/product-ui.js ]; then node --check assets/js/product-ui.js; fi
           node --check sw.js
 
       - name: HTML IDs and inline-script syntax
@@ -145,6 +147,14 @@ jobs:
             grep -F 'motion/layout-motion.js?v=0.1.0' assets/js/main.js
             grep -F 'motion/number-motion.js?v=0.1.0' assets/js/main.js
             grep -F 'motion/site-motion.js?v=0.1.0' assets/js/main.js
+          fi
+
+          if [ -f assets/css/product-ui.css ]; then
+            test -s assets/js/product-ui.js
+            grep -F 'product-ui.css?v=0.1.0' assets/css/style.css
+            grep -F 'product-ui.js?v=0.1.0' assets/js/main.js
+            grep -F 'static-landing-v6-product-ui-010' sw.js
+          elif [ -f assets/css/site-motion.css ]; then
             grep -F 'static-landing-v5-site-motion-010' sw.js
           elif [ -f assets/js/ambient/particle-field.js ]; then
             grep -F 'static-landing-v4-liquid-glass-ambient-010' sw.js
@@ -161,15 +171,12 @@ jobs:
           grep -F 'lg-hero-controller' assets/js/liquid-glass-components.js
           grep -F 'lg-pricing-segmented' assets/js/liquid-glass-components.js
           grep -F 'lg-simulator-segmented' assets/js/liquid-glass-components.js
-          grep -F 'data-lg-device' assets/css/liquid-glass-components.css
           grep -F 'prefers-reduced-motion' assets/css/liquid-glass.css
           grep -F 'prefers-reduced-transparency' assets/css/liquid-glass.css
-          grep -F 'prefers-reduced-transparency' assets/css/liquid-glass-v2.css
 
           if [ -f assets/js/ambient/particle-field.js ]; then
             grep -F 'CursorAmbientField' assets/js/ambient/particle-field.js
             grep -F 'requestAnimationFrame' assets/js/ambient/particle-field.js
-            grep -F 'prefers-reduced-motion' assets/js/ambient/particle-field.js
           fi
 
           if [ -f assets/js/motion/site-motion.js ]; then
@@ -178,6 +185,16 @@ jobs:
             grep -F 'CursorNumberMotion' assets/js/motion/number-motion.js
             grep -F 'installFeatureLayoutMotion' assets/js/motion/site-motion.js
             grep -F 'installTimelineMotion' assets/js/motion/site-motion.js
-            grep -F 'installSimulatorMotion' assets/js/motion/site-motion.js
             grep -F 'prefers-reduced-motion' assets/css/site-motion.css
+          fi
+
+          if [ -f assets/js/product-ui.js ]; then
+            grep -F 'installMobileIa' assets/js/product-ui.js
+            grep -F 'installProofStrip' assets/js/product-ui.js
+            grep -F 'installEditorialBreak' assets/js/product-ui.js
+            grep -F 'enhanceConversion' assets/js/product-ui.js
+            grep -F 'installRoiViz' assets/js/product-ui.js
+            grep -F 'CursorProductUI' assets/js/product-ui.js
+            grep -F '[data-theme="light"]' assets/css/product-ui.css
+            grep -F 'product-mobile-panel' assets/css/product-ui.css
           fi

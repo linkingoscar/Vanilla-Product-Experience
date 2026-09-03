@@ -1,6 +1,6 @@
 // TEMPLATE:CORE — Service Worker Cache Engine
 // TEMPLATE:EDIT — Bump CACHE_NAME whenever you deploy new asset versions
-const CACHE_NAME = 'static-landing-v5-site-motion-010';
+const CACHE_NAME = 'static-landing-v6-product-ui-010';
 
 // Scope-aware base path for GitHub Pages subpaths and custom domains.
 const BASE_SCOPE = self.registration.scope;
@@ -12,18 +12,16 @@ const STATIC_ASSETS = [
   new URL('./index.html', BASE_SCOPE).href,
   new URL('./en/', BASE_SCOPE).href,
   new URL('./en/index.html', BASE_SCOPE).href,
-
-  // Public entrypoints referenced by index.html / en/index.html
   new URL('./assets/css/style.css?v=3.10.0', BASE_SCOPE).href,
   new URL('./assets/js/main.js?v=3.10.0', BASE_SCOPE).href,
-
-  // Entrypoint dependency graph — required for true offline rendering.
   new URL('./assets/css/style-base.css?v=3.10.0', BASE_SCOPE).href,
   new URL('./assets/css/liquid-glass.css?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/css/liquid-glass-v2.css?v=0.2.0', BASE_SCOPE).href,
   new URL('./assets/css/liquid-glass-components.css?v=0.3.0', BASE_SCOPE).href,
   new URL('./assets/css/ambient-particles.css?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/css/site-motion.css?v=0.1.0', BASE_SCOPE).href,
+  new URL('./assets/css/product-ui.css?v=0.1.0', BASE_SCOPE).href,
+  new URL('./assets/css/product-ui-media.css?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/js/main-base.js?v=3.10.0', BASE_SCOPE).href,
   new URL('./assets/js/liquid-glass.js?v=0.1.1', BASE_SCOPE).href,
   new URL('./assets/js/liquid-glass-v2.js?v=0.2.1', BASE_SCOPE).href,
@@ -35,7 +33,7 @@ const STATIC_ASSETS = [
   new URL('./assets/js/motion/layout-motion.js?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/js/motion/number-motion.js?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/js/motion/site-motion.js?v=0.1.0', BASE_SCOPE).href,
-
+  new URL('./assets/js/product-ui.js?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/icons/favicon.svg', BASE_SCOPE).href,
   new URL('./assets/icons/icon-192.png', BASE_SCOPE).href,
   new URL('./assets/icons/icon-512.png', BASE_SCOPE).href,
@@ -49,7 +47,6 @@ const EXTERNAL_ASSETS = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      // External font availability must never prevent the app shell installing.
       return cache.addAll(STATIC_ASSETS)
         .then(() => Promise.allSettled(EXTERNAL_ASSETS.map((url) => cache.add(url))));
     })
@@ -60,28 +57,17 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames
-          .filter((name) => name !== CACHE_NAME)
-          .map((name) => caches.delete(name))
-      );
+      return Promise.all(cacheNames.filter((name) => name !== CACHE_NAME).map((name) => caches.delete(name)));
     })
   );
   self.clients.claim();
 });
 
-// Network-first keeps rapidly evolving template/optical/motion code fresh. If
-// the network is unavailable, exact versioned keys are used first;
-// ignoreSearch is a final compatibility fallback for older cached deployments.
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
-
   if (request.method !== 'GET') return;
-
-  if (url.origin !== self.location.origin && !url.hostname.includes('bunny.net')) {
-    return;
-  }
+  if (url.origin !== self.location.origin && !url.hostname.includes('bunny.net')) return;
 
   event.respondWith(
     fetch(request)

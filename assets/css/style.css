@@ -8,6 +8,7 @@
  *   3) visible Liquid Glass product components
  *   4) Ambient Particle Interaction Field beneath the functional layer
  *   5) Site Motion choreography coordinating the entire experience
+ *   6) Product UI / Art Direction layer for IA, brand, proof, media & conversion
  */
 @import url("./style-base.css?v=3.10.0");
 @import url("./liquid-glass.css?v=0.1.0");
@@ -15,6 +16,8 @@
 @import url("./liquid-glass-components.css?v=0.3.0");
 @import url("./ambient-particles.css?v=0.1.0");
 @import url("./site-motion.css?v=0.1.0");
+@import url("./product-ui.css?v=0.1.0");
+@import url("./product-ui-media.css?v=0.1.0");
 
 /* iOS can keep :hover sticky after a tap; do not let the generic touch rule
    erase the desktop centering transform of the Hero glass controller. */
