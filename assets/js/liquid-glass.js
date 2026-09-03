@@ -1,5 +1,5 @@
 /**
- * Cursor Liquid Glass Engine v0.1.1
+ * Cursor Liquid Glass Engine v0.1.2
  * ----------------------------------
  * Vanilla JS optical enhancement layer.
  *
@@ -258,6 +258,9 @@
     const strength = Number(opts.strength || el.dataset.lgStrength || (variant === "clear" ? 11 : 8));
 
     el.classList.add("lg-surface");
+    // Optical layers are absolutely positioned. Static surfaces need their own
+    // containing block or the optics escape into the nearest positioned ancestor.
+    if (getComputedStyle(el).position === "static") el.classList.add("lg-positioned");
     if (opts.interactive !== false) el.classList.add("lg-interactive");
 
     const refract = makeLayer("lg-refract");
@@ -477,7 +480,7 @@
   });
 
   window.CursorLiquidGlass = Object.freeze({
-    version: "0.1.1",
+    version: "0.1.2",
     renderer,
     quality: QUALITY,
     decorate: decorateSurface,
