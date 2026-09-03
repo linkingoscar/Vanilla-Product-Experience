@@ -1,5 +1,5 @@
 /**
- * Cursor Liquid Glass Engine v0.2 — content-copy renderer & interaction layer
+ * Cursor Liquid Glass Engine v0.2.1 — content-copy renderer & interaction layer
  * ---------------------------------------------------------------------------
  * Safari/WebKit and Firefox currently cannot rely on SVG displacement through
  * backdrop-filter. This enhancement mirrors the real document content beneath
@@ -49,7 +49,7 @@
   function stripMirrorRuntime(clone) {
     clone.setAttribute("aria-hidden", "true");
     clone.querySelectorAll("script, iframe, video, audio, canvas, object, embed").forEach((node) => node.remove());
-    clone.querySelectorAll(".lg-optics, .lg-shared-lens, .lg-content-copy").forEach((node) => node.remove());
+    clone.querySelectorAll(".lg-optics, .lg-shared-lens, .lg-content-copy, .lg-range-thumb").forEach((node) => node.remove());
 
     clone.querySelectorAll("[id]").forEach((node) => {
       node.dataset.lgMirrorId = node.id;
@@ -64,7 +64,6 @@
 
     clone.querySelectorAll(".animate-on-scroll, .bento-card, .feature-card, .pricing-card, .timeline-item").forEach((node) => {
       node.classList.add("is-visible");
-      node.classList.remove("is-hidden");
     });
 
     clone.querySelectorAll("a, button, input, select, textarea").forEach((node) => {
@@ -163,6 +162,30 @@
     record.sourceClone.style.top = `${source.top}px`;
     record.sourceClone.style.width = `${source.width}px`;
     record.sourceClone.style.height = `${source.height}px`;
+
+    // Keep dynamic labels/values in the local mirror current without cloning
+    // the whole ROI/demo subtree on every input event.
+    record.sourceClone.querySelectorAll("[data-lg-mirror-id]").forEach((mirror) => {
+      const original = document.getElementById(mirror.dataset.lgMirrorId);
+      if (!original) return;
+
+      if (mirror.matches("input, select, textarea")) {
+        mirror.value = original.value;
+      } else if (mirror.children.length === 0) {
+        mirror.textContent = original.textContent;
+      }
+
+      if (original.matches("input.range-slider")) {
+        const originalShell = original.closest(".lg-range-shell");
+        const mirrorShell = mirror.closest(".lg-range-shell");
+        if (originalShell && mirrorShell) {
+          mirrorShell.style.setProperty("--lg-range-progress", originalShell.style.getPropertyValue("--lg-range-progress"));
+          const originalFill = originalShell.querySelector(".lg-range-fill");
+          const mirrorFill = mirrorShell.querySelector(".lg-range-fill");
+          if (originalFill && mirrorFill) mirrorFill.style.width = originalFill.style.width;
+        }
+      }
+    });
   }
 
   function syncContentCopy(record) {
@@ -242,6 +265,22 @@
 
   function syncAllCopies() {
     copyRecords.forEach(syncContentCopy);
+  }
+
+  // Full-document mirrors are comparatively cheap to rebuild after discrete UI
+  // state changes (feature filter/theme/simulator). This prevents Safari/Firefox
+  // from refracting stale content while avoiding MutationObserver churn per frame.
+  function rebuildFullWorld(record) {
+    if (!record || record.sourceEl || !record.copy.isConnected) return;
+    const previous = record.world;
+    record.ambient = null;
+    record.world = createWorld(record, null);
+    previous.replaceWith(record.world);
+    syncContentCopy(record);
+  }
+
+  function refreshFullWorldCopies() {
+    copyRecords.forEach((record) => rebuildFullWorld(record));
   }
 
   function syncAmbientThrottled() {
@@ -519,10 +558,12 @@
     window.CursorLiquidGlass?.decorate(thumb, { variant: "clear", strength: 9, interactive: false });
 
     requestAnimationFrame(() => {
+      // Place the native input/fill before cloning so the local mirror starts
+      // from the correct value; stripMirrorRuntime removes the visual thumb.
+      syncRange(record);
       if (isCopyRendererNeeded()) {
         installContentCopySurface(thumb, { source: input.closest(".roi-card") || input.parentElement });
       }
-      syncRange(record);
     });
 
     const activate = () => shell.classList.add("lg-range-active");
@@ -543,6 +584,15 @@
 
   function installRanges() {
     document.querySelectorAll("input.range-slider[type='range']").forEach(installRange);
+  }
+
+  function installMirrorRefreshTriggers() {
+    // Discrete state transitions change the source DOM layout/content. Rebuild
+    // full-world mirrors shortly after the source code finishes its own update.
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest(".feature-tabs, .prompt-chips, .theme-toggle")) return;
+      window.setTimeout(refreshFullWorldCopies, 90);
+    }, { passive: true });
   }
 
   function installLayoutSync() {
@@ -587,11 +637,12 @@
     installCrossBrowserRefraction();
     installPaletteMorph();
     installRanges();
+    installMirrorRefreshTriggers();
     installLayoutSync();
 
     reduceTransparency.addEventListener?.("change", handleTransparency);
 
-    root.dataset.lgVersion = "0.2.0";
+    root.dataset.lgVersion = "0.2.1";
     root.classList.add("lg-v2-ready");
     window.dispatchEvent(new CustomEvent("cursor:liquid-glass-v2-ready", {
       detail: {
@@ -609,10 +660,11 @@
   }
 
   window.CursorLiquidGlassV2 = Object.freeze({
-    version: "0.2.0",
+    version: "0.2.1",
     installContentCopy: installContentCopySurface,
     syncContentCopies: syncAllCopies,
     installRange,
-    animatePalette
+    animatePalette,
+    refreshMirrors: refreshFullWorldCopies
   });
 })();
