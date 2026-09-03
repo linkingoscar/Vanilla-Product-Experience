@@ -1,0 +1,331 @@
+/**
+ * Cursor Liquid Glass v0.2
+ * Content-copy refraction, shared-geometry palette morph and liquid range input.
+ */
+
+/* --------------------------------------------------------------------------
+   Safari / Firefox content-copy renderer
+   -------------------------------------------------------------------------- */
+
+.lg-content-copy {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  transform: translateZ(0);
+  transform-origin: 0 0;
+  will-change: filter;
+}
+
+.lg-content-copy-world {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  min-width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+  pointer-events: none !important;
+  user-select: none !important;
+  transform-origin: 0 0;
+  will-change: transform;
+  background: var(--bg-app, #08090e);
+  color: var(--text-main, #f5f5f7);
+  font-family: var(--font-sans, Inter, system-ui, sans-serif);
+}
+
+.lg-content-copy-world > .lg-content-copy-main,
+.lg-content-copy-world > .lg-content-copy-footer,
+.lg-content-copy-world > .lg-content-copy-local-source {
+  position: relative;
+  z-index: 2;
+  pointer-events: none !important;
+}
+
+.lg-content-copy-world > .lg-content-copy-local-source {
+  position: absolute !important;
+  margin: 0 !important;
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.lg-content-copy-world .lg-mirror-bg {
+  position: absolute !important;
+  inset: auto !important;
+  z-index: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+.lg-content-copy-world .lg-mirror-bg .blob {
+  animation: none !important;
+}
+
+.lg-content-copy-world .animate-on-scroll,
+.lg-content-copy-world .bento-card,
+.lg-content-copy-world .feature-card,
+.lg-content-copy-world .pricing-card,
+.lg-content-copy-world .timeline-item {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+.lg-content-copy-world .feature-card.is-hidden {
+  display: block !important;
+  opacity: 1 !important;
+}
+
+[data-lg-renderer="content-copy-svg"] > .lg-refract > .lg-refract-fallback,
+.lg-content-copy-ready > .lg-refract > .lg-refract-fallback {
+  opacity: 0 !important;
+}
+
+.lg-content-copy-ready > .lg-refract {
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   Shared-geometry Search -> Command Palette morph
+   -------------------------------------------------------------------------- */
+
+.cmd-palette-modal.lg-surface {
+  scale: 1 !important;
+  translate: 0 0 !important;
+  transform: none;
+  transition:
+    opacity 150ms ease,
+    box-shadow 220ms ease !important;
+}
+
+.cmd-palette-backdrop.is-open .cmd-palette-modal.lg-surface {
+  scale: 1 !important;
+  translate: 0 0 !important;
+}
+
+.cmd-palette-modal.lg-morph-energy .lg-specular {
+  opacity: 1 !important;
+  filter: brightness(1.14) saturate(1.08);
+}
+
+.cmd-palette-modal.lg-morph-energy .lg-material {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.11),
+    0 0 42px -24px rgba(104, 126, 255, 0.36);
+}
+
+.lg-morph-source-hidden {
+  opacity: 0 !important;
+  transition: opacity 70ms linear !important;
+}
+
+.cmd-palette-backdrop.lg-palette-closing {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none;
+}
+
+.cmd-palette-backdrop.lg-palette-opening .cmd-palette-modal,
+.cmd-palette-backdrop.lg-palette-closing .cmd-palette-modal {
+  will-change: transform, border-radius, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cmd-palette-modal.lg-surface {
+    transform: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Liquid range control — real DOM glass thumb over an accessible native input
+   -------------------------------------------------------------------------- */
+
+.lg-range-shell {
+  --lg-range-progress: 0%;
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 34px;
+  margin: -4px 0;
+  border-radius: 999px;
+  isolation: isolate;
+  touch-action: none;
+}
+
+.lg-range-track,
+.lg-range-fill {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 5px;
+  border-radius: 999px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.lg-range-track {
+  right: 0;
+  z-index: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(0, 0, 0, 0.06)),
+    var(--bg-subtle);
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.20),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.035);
+}
+
+[data-theme="light"] .lg-range-track {
+  box-shadow:
+    inset 0 1px 2px rgba(40, 52, 82, 0.10),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.66);
+}
+
+.lg-range-fill {
+  z-index: 1;
+  width: 0;
+  background:
+    linear-gradient(90deg, rgba(90, 161, 255, 0.84), rgba(114, 118, 255, 0.68));
+  box-shadow:
+    0 0 14px -5px rgba(80, 139, 255, 0.54),
+    inset 0 1px 0 rgba(255, 255, 255, 0.40);
+  transition: filter 150ms ease;
+}
+
+.lg-range-thumb {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  z-index: 3;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  transform: translate3d(0, -50%, 0);
+  transform-origin: 50% 50%;
+  background: rgba(255, 255, 255, 0.065);
+  box-shadow:
+    0 9px 24px -12px rgba(0, 0, 0, 0.66),
+    0 2px 8px -5px rgba(0, 0, 0, 0.50);
+  pointer-events: none;
+  scale: 0.84;
+  opacity: 0.82;
+  transition:
+    scale 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 150ms ease,
+    box-shadow 180ms ease;
+  will-change: transform, scale;
+}
+
+[data-theme="light"] .lg-range-thumb {
+  background: rgba(255, 255, 255, 0.24);
+  box-shadow:
+    0 9px 24px -13px rgba(48, 66, 102, 0.28),
+    0 2px 7px -5px rgba(50, 64, 94, 0.20);
+}
+
+.lg-range-active .lg-range-thumb,
+.lg-range-focus .lg-range-thumb {
+  scale: 1;
+  opacity: 1;
+  box-shadow:
+    0 12px 30px -13px rgba(42, 88, 226, 0.56),
+    0 3px 10px -5px rgba(0, 0, 0, 0.56);
+}
+
+.lg-range-active .lg-range-thumb .lg-specular,
+.lg-range-focus .lg-range-thumb .lg-specular {
+  opacity: 1 !important;
+}
+
+.lg-range-active .lg-range-fill {
+  filter: brightness(1.10) saturate(1.10);
+}
+
+input.range-slider.lg-range-input {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 5;
+  width: 100% !important;
+  height: 34px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent !important;
+  border: 0 !important;
+  outline: none !important;
+  cursor: pointer;
+  opacity: 1;
+}
+
+input.range-slider.lg-range-input::-webkit-slider-runnable-track {
+  height: 34px;
+  background: transparent;
+  border: 0;
+}
+
+input.range-slider.lg-range-input::-webkit-slider-thumb {
+  width: 28px;
+  height: 28px;
+  margin-top: 3px;
+  border: 0;
+  border-radius: 999px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+input.range-slider.lg-range-input::-moz-range-track {
+  height: 34px;
+  background: transparent;
+  border: 0;
+}
+
+input.range-slider.lg-range-input::-moz-range-progress {
+  background: transparent;
+}
+
+input.range-slider.lg-range-input::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.lg-range-focus::after {
+  content: "";
+  position: absolute;
+  inset: 1px -4px;
+  z-index: 6;
+  border: 2px solid var(--border-focus, #6366f1);
+  border-radius: 999px;
+  pointer-events: none;
+  opacity: 0.66;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lg-range-thumb,
+  .lg-range-fill {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .lg-content-copy {
+    display: none !important;
+  }
+
+  .lg-range-thumb {
+    background: var(--bg-surface) !important;
+    opacity: 1;
+  }
+}
