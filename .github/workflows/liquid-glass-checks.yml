@@ -127,7 +127,7 @@ jobs:
           grep -F 'liquid-glass-v2.css?v=0.2.0' assets/css/style.css
           grep -F 'liquid-glass-components.css?v=0.3.0' assets/css/style.css
           grep -F 'main-base.js?v=3.10.0' assets/js/main.js
-          grep -F 'liquid-glass.js?v=0.1.2' assets/js/main.js
+          grep -F 'liquid-glass.js?v=0.1.3' assets/js/main.js
           grep -F 'liquid-glass-v2.js?v=0.2.1' assets/js/main.js
           grep -F 'liquid-glass-components.js?v=0.3.1' assets/js/main.js
 
@@ -172,6 +172,7 @@ jobs:
           grep -F 'feDisplacementMap' assets/js/liquid-glass.js
           grep -F 'QUALITY === "balanced" ? 60' assets/js/liquid-glass.js
           grep -F 'lg-positioned' assets/js/liquid-glass.js
+          grep -F 'protectDirectText' assets/js/liquid-glass.js
           grep -F '.lg-surface.lg-positioned' assets/css/liquid-glass.css
           grep -F 'content-copy-svg' assets/js/liquid-glass-v2.js
           grep -F 'lg-hero-controller' assets/js/liquid-glass-components.js
