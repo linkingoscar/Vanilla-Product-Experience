@@ -1,6 +1,6 @@
 // TEMPLATE:CORE — Service Worker Cache Engine
 // TEMPLATE:EDIT — Bump CACHE_NAME whenever you deploy new asset versions
-const CACHE_NAME = 'static-landing-v4-liquid-glass-ambient-010';
+const CACHE_NAME = 'static-landing-v5-site-motion-010';
 
 // Scope-aware base path for GitHub Pages subpaths and custom domains.
 const BASE_SCOPE = self.registration.scope;
@@ -23,6 +23,7 @@ const STATIC_ASSETS = [
   new URL('./assets/css/liquid-glass-v2.css?v=0.2.0', BASE_SCOPE).href,
   new URL('./assets/css/liquid-glass-components.css?v=0.3.0', BASE_SCOPE).href,
   new URL('./assets/css/ambient-particles.css?v=0.1.0', BASE_SCOPE).href,
+  new URL('./assets/css/site-motion.css?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/js/main-base.js?v=3.10.0', BASE_SCOPE).href,
   new URL('./assets/js/liquid-glass.js?v=0.1.1', BASE_SCOPE).href,
   new URL('./assets/js/liquid-glass-v2.js?v=0.2.1', BASE_SCOPE).href,
@@ -30,6 +31,10 @@ const STATIC_ASSETS = [
   new URL('./assets/js/ambient/particle-renderer-webgl.js?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/js/ambient/interaction-field.js?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/js/ambient/particle-field.js?v=0.1.0', BASE_SCOPE).href,
+  new URL('./assets/js/motion/spring.js?v=0.1.0', BASE_SCOPE).href,
+  new URL('./assets/js/motion/layout-motion.js?v=0.1.0', BASE_SCOPE).href,
+  new URL('./assets/js/motion/number-motion.js?v=0.1.0', BASE_SCOPE).href,
+  new URL('./assets/js/motion/site-motion.js?v=0.1.0', BASE_SCOPE).href,
 
   new URL('./assets/icons/favicon.svg', BASE_SCOPE).href,
   new URL('./assets/icons/icon-192.png', BASE_SCOPE).href,
@@ -65,9 +70,9 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Network-first keeps rapidly evolving template/optical code fresh. If the
-// network is unavailable, exact versioned keys are used first; ignoreSearch is
-// a final compatibility fallback for older cached deployments.
+// Network-first keeps rapidly evolving template/optical/motion code fresh. If
+// the network is unavailable, exact versioned keys are used first;
+// ignoreSearch is a final compatibility fallback for older cached deployments.
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
