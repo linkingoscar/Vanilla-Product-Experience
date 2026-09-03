@@ -8,6 +8,7 @@
  *   v0.3.x visible Hero / Simulator / Pricing components
  *   Ambient v0.1.x WebGL2 particle field + interaction bridge + glass mirrors
  *   Site Motion v0.1.x page choreography + FLIP + spring interaction physics
+ *   Product UI v0.1.x mobile IA + art direction + proof/media/conversion systems
  */
 (function bootstrapCursorExperience() {
   "use strict";
@@ -34,11 +35,15 @@
     document.head.appendChild(script);
   }
 
+  function loadProductUi() {
+    loadScript("product-ui.js?v=0.1.0");
+  }
+
   function loadSiteMotion() {
     loadScript("motion/spring.js?v=0.1.0", function loadLayoutMotion() {
       loadScript("motion/layout-motion.js?v=0.1.0", function loadNumberMotion() {
         loadScript("motion/number-motion.js?v=0.1.0", function loadSiteMotionController() {
-          loadScript("motion/site-motion.js?v=0.1.0");
+          loadScript("motion/site-motion.js?v=0.1.0", loadProductUi);
         });
       });
     });
