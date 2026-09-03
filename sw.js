@@ -1,6 +1,6 @@
 // TEMPLATE:CORE — Service Worker Cache Engine
 // TEMPLATE:EDIT — Bump CACHE_NAME whenever you deploy new asset versions
-const CACHE_NAME = 'static-landing-v3-liquid-glass-031';
+const CACHE_NAME = 'static-landing-v3-liquid-glass-0311';
 
 // Scope-aware base path for GitHub Pages subpaths and custom domains.
 const BASE_SCOPE = self.registration.scope;
@@ -23,7 +23,7 @@ const STATIC_ASSETS = [
   new URL('./assets/css/liquid-glass-v2.css?v=0.2.0', BASE_SCOPE).href,
   new URL('./assets/css/liquid-glass-components.css?v=0.3.0', BASE_SCOPE).href,
   new URL('./assets/js/main-base.js?v=3.10.0', BASE_SCOPE).href,
-  new URL('./assets/js/liquid-glass.js?v=0.1.0', BASE_SCOPE).href,
+  new URL('./assets/js/liquid-glass.js?v=0.1.1', BASE_SCOPE).href,
   new URL('./assets/js/liquid-glass-v2.js?v=0.2.1', BASE_SCOPE).href,
   new URL('./assets/js/liquid-glass-components.js?v=0.3.1', BASE_SCOPE).href,
 
