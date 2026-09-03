@@ -1,9 +1,10 @@
 /**
  * Cursor 3.x JavaScript entrypoint.
  *
- * main-base.js contains the original application behavior. The Liquid Glass
- * enhancement is loaded afterwards so existing interactions remain the source
- * of truth and the new material system stays removable/reusable.
+ * main-base.js contains the original application behavior. Liquid Glass is
+ * loaded afterwards as two removable enhancement layers:
+ *   v0.1 optical primitives + shared lenses
+ *   v0.2 cross-browser content-copy refraction + fluid controls
  */
 (function bootstrapCursorExperience() {
   "use strict";
@@ -21,7 +22,9 @@
     document.head.appendChild(script);
   }
 
-  loadScript("main-base.js?v=3.9.5", function loadLiquidGlass() {
-    loadScript("liquid-glass.js?v=0.1.0");
+  loadScript("main-base.js?v=3.9.5", function loadLiquidGlassCore() {
+    loadScript("liquid-glass.js?v=0.1.0", function loadLiquidGlassV2() {
+      loadScript("liquid-glass-v2.js?v=0.2.0");
+    });
   });
 })();
