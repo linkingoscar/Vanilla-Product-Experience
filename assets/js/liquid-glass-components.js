@@ -1,6 +1,6 @@
 /**
- * Liquid Glass Product Components v0.3
- * ------------------------------------
+ * Liquid Glass Product Components v0.3.1
+ * --------------------------------------
  * Visible, reusable UI built on top of CursorLiquidGlass / CursorLiquidGlassV2.
  * No framework or build step required.
  */
@@ -45,6 +45,25 @@
     const title = ideWindow.querySelector(".ide-title");
     const swarmPill = ideWindow.querySelector(".ide-swarm-pill");
 
+    let swarmLabel = null;
+    if (swarmPill) {
+      swarmLabel = swarmPill.querySelector(":scope > .lg-swarm-label");
+      if (!swarmLabel) {
+        const labelText = Array.from(swarmPill.childNodes)
+          .filter((node) => node.nodeType === Node.TEXT_NODE)
+          .map((node) => node.textContent.trim())
+          .filter(Boolean)
+          .join(" ");
+        Array.from(swarmPill.childNodes)
+          .filter((node) => node.nodeType === Node.TEXT_NODE)
+          .forEach((node) => node.remove());
+        swarmLabel = document.createElement("span");
+        swarmLabel.className = "lg-swarm-label";
+        swarmLabel.textContent = labelText || "3 Agents Parallel";
+        swarmPill.appendChild(swarmLabel);
+      }
+    }
+
     const modes = isEn ? [
       { key: "local", label: "Local", title: "workspace/local — Cursor Agent", status: "3 Agents · Local" },
       { key: "cloud", label: "Cloud", title: "origin/main — Cursor Origin Cloud", status: "3 Agents · Cloud" },
@@ -70,7 +89,7 @@
     `;
 
     heroVisual.appendChild(controller);
-    decorateComposite(controller, { variant: "clear", strength: 9 });
+    decorateComposite(controller, { variant: "clear", strength: 9, source: ideWindow });
 
     const segmented = controller.querySelector(".lg-hero-segmented");
     LG()?.installSharedLens(segmented, "button");
@@ -81,17 +100,7 @@
         if (!mode) return;
         setPressedGroup(segmented, button);
         if (title) title.textContent = mode.title;
-        if (swarmPill) {
-          const dot = swarmPill.querySelector(".agent-status-dot");
-          swarmPill.textContent = "";
-          if (dot) swarmPill.appendChild(dot);
-          else {
-            const freshDot = document.createElement("span");
-            freshDot.className = "agent-status-dot";
-            swarmPill.appendChild(freshDot);
-          }
-          swarmPill.append(` ${mode.status}`);
-        }
+        if (swarmLabel) swarmLabel.textContent = mode.status;
         controller.querySelector(".lg-hero-live-text").textContent = mode.status;
         controller.classList.remove("lg-mode-change");
         void controller.offsetWidth;
@@ -239,7 +248,7 @@
     root.classList.add("lg-components-ready");
     window.dispatchEvent(new CustomEvent("cursor:liquid-glass-components-ready", {
       detail: {
-        version: "0.3.0",
+        version: "0.3.1",
         renderer: root.dataset.lgRenderer || "unknown",
         quality: root.dataset.lgQuality || "unknown"
       }
@@ -253,7 +262,7 @@
   }
 
   window.CursorGlassUI = Object.freeze({
-    version: "0.3.0",
+    version: "0.3.1",
     refresh() {
       LG2()?.syncContentCopies();
     }
