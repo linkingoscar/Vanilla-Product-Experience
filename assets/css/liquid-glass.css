@@ -1,5 +1,5 @@
 /**
- * Cursor Liquid Glass Design System v0.1
+ * Cursor Liquid Glass Design System v0.1.2
  * --------------------------------------
  * Optical material layer inspired by Apple's Liquid Glass principles:
  * edge lensing, displacement refraction, directional specular response,
@@ -40,6 +40,10 @@
 /* --------------------------------------------------------------------------
    Optical layer primitives
    -------------------------------------------------------------------------- */
+
+.lg-surface.lg-positioned {
+  position: relative;
+}
 
 .lg-surface {
   --lg-local-light-x: 30%;
