@@ -12,12 +12,8 @@ const STATIC_ASSETS = [
   new URL('./index.html', BASE_SCOPE).href,
   new URL('./en/', BASE_SCOPE).href,
   new URL('./en/index.html', BASE_SCOPE).href,
-
-  // Public entrypoints referenced by index.html / en/index.html
   new URL('./assets/css/style.css?v=3.10.0', BASE_SCOPE).href,
   new URL('./assets/js/main.js?v=3.10.0', BASE_SCOPE).href,
-
-  // Entrypoint dependency graph — required for true offline rendering.
   new URL('./assets/css/style-base.css?v=3.10.0', BASE_SCOPE).href,
   new URL('./assets/css/liquid-glass.css?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/css/liquid-glass-v2.css?v=0.2.0', BASE_SCOPE).href,
@@ -25,6 +21,7 @@ const STATIC_ASSETS = [
   new URL('./assets/css/ambient-particles.css?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/css/site-motion.css?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/css/product-ui.css?v=0.1.0', BASE_SCOPE).href,
+  new URL('./assets/css/product-ui-media.css?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/js/main-base.js?v=3.10.0', BASE_SCOPE).href,
   new URL('./assets/js/liquid-glass.js?v=0.1.1', BASE_SCOPE).href,
   new URL('./assets/js/liquid-glass-v2.js?v=0.2.1', BASE_SCOPE).href,
@@ -37,7 +34,6 @@ const STATIC_ASSETS = [
   new URL('./assets/js/motion/number-motion.js?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/js/motion/site-motion.js?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/js/product-ui.js?v=0.1.0', BASE_SCOPE).href,
-
   new URL('./assets/icons/favicon.svg', BASE_SCOPE).href,
   new URL('./assets/icons/icon-192.png', BASE_SCOPE).href,
   new URL('./assets/icons/icon-512.png', BASE_SCOPE).href,
@@ -61,22 +57,15 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames
-          .filter((name) => name !== CACHE_NAME)
-          .map((name) => caches.delete(name))
-      );
+      return Promise.all(cacheNames.filter((name) => name !== CACHE_NAME).map((name) => caches.delete(name)));
     })
   );
   self.clients.claim();
 });
 
-// Network-first keeps rapidly evolving template/optical/motion/product UI code
-// fresh. Exact versioned keys remain the preferred offline cache keys.
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
-
   if (request.method !== 'GET') return;
   if (url.origin !== self.location.origin && !url.hostname.includes('bunny.net')) return;
 
