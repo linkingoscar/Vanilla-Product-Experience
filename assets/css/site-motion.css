@@ -1,0 +1,335 @@
+/**
+ * Cursor Site Motion System v0.1
+ * --------------------------------
+ * One motion language across page entrance, scroll choreography, layout
+ * transitions, interaction physics and ambient energy. Loaded after the visual
+ * layers so motion coordinates them rather than redefining their materials.
+ */
+
+:root {
+  --sm-ease-out: cubic-bezier(.16, 1, .3, 1);
+  --sm-ease-soft: cubic-bezier(.2, .78, .18, 1);
+  --sm-ease-press: cubic-bezier(.2, .8, .2, 1);
+  --sm-fast: 160ms;
+  --sm-medium: 320ms;
+  --sm-slow: 560ms;
+  --sm-ambient-presence: 1;
+  --sm-island-top: 14px;
+  --sm-island-scale-x: 1;
+  --sm-island-scale-y: 1;
+}
+
+html.site-motion-pending .hero-copy > .eyebrow,
+html.site-motion-pending .hero-copy > h1,
+html.site-motion-pending .hero-copy > .lead,
+html.site-motion-pending .hero-copy > .hero-actions,
+html.site-motion-pending .hero-copy > .font-note,
+html.site-motion-pending .hero-visual,
+html.site-motion-pending .lg-hero-controller {
+  opacity: 0;
+}
+
+html.site-motion-ready .animate-on-scroll,
+html.site-motion-ready .bento-card,
+html.site-motion-ready .feature-card,
+html.site-motion-ready .pricing-card,
+html.site-motion-ready .timeline-item {
+  opacity: 1;
+}
+
+html.ambient-particles-ready .ambient-particle-layer,
+html.ambient-particles-ready .ambient-particle-glass-mirror {
+  opacity: var(--sm-ambient-presence, 1);
+  transition: opacity 720ms var(--sm-ease-soft);
+}
+
+html[data-ambient-focus="palette"].ambient-particles-ready .ambient-particle-layer,
+html[data-ambient-focus="palette"].ambient-particles-ready .ambient-particle-glass-mirror {
+  opacity: max(.12, calc(var(--sm-ambient-presence, 1) - .34));
+  transition-duration: 220ms;
+}
+
+.island.site-motion-island {
+  top: var(--sm-island-top);
+  scale: var(--sm-island-scale-x) var(--sm-island-scale-y);
+  transform-origin: 50% 0%;
+  will-change: top, scale;
+}
+
+html[data-site-motion-scrolled="true"] .island.site-motion-island .lg-material {
+  filter: saturate(1.06) brightness(.985);
+}
+
+html[data-site-motion-scrolled="true"] .island.site-motion-island .lg-specular {
+  opacity: .82;
+}
+
+html[data-site-scroll-direction="down"] .island.site-motion-island::after {
+  opacity: .42;
+}
+
+.site-motion-pointer-card.bento-card,
+.site-motion-pointer-card.pricing-card {
+  --sm-card-x: 0px;
+  --sm-card-y: 0px;
+  --sm-card-rx: 0deg;
+  --sm-card-ry: 0deg;
+  transform:
+    perspective(960px)
+    translate3d(var(--sm-card-x), var(--sm-card-y), 0)
+    rotateX(var(--sm-card-rx))
+    rotateY(var(--sm-card-ry));
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition:
+    box-shadow 260ms var(--sm-ease-out),
+    border-color 220ms ease,
+    filter 220ms ease !important;
+}
+
+.site-motion-pointer-card.site-motion-card-hover {
+  box-shadow: var(--shadow-hover) !important;
+  filter: brightness(1.012);
+}
+
+.feature-grid.site-motion-layout {
+  position: relative;
+  isolation: isolate;
+}
+
+.site-motion-layout-ghost {
+  contain: layout paint style;
+  overflow: hidden;
+  box-sizing: border-box;
+  box-shadow: var(--shadow-card);
+}
+
+.feature-card.site-motion-layout-moving {
+  will-change: transform;
+  transform-origin: 0 0;
+}
+
+.sim-steps.site-motion-sim-steps {
+  position: relative;
+  isolation: isolate;
+}
+
+.site-motion-sim-track,
+.site-motion-sim-progress {
+  position: absolute;
+  left: 17px;
+  top: 18px;
+  bottom: 18px;
+  width: 2px;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.site-motion-sim-track {
+  z-index: 0;
+  background: var(--separator);
+}
+
+.site-motion-sim-progress {
+  z-index: 1;
+  background: linear-gradient(180deg, var(--indigo), var(--cyan), var(--emerald));
+  box-shadow: 0 0 14px rgba(99, 102, 241, .34);
+  transform: scaleY(var(--sm-sim-progress, 0));
+  transform-origin: 50% 0%;
+}
+
+.sim-steps.site-motion-sim-steps .sim-step {
+  position: relative;
+  z-index: 2;
+  padding-left: 34px;
+  min-height: 38px;
+  background-clip: padding-box;
+}
+
+.sim-steps.site-motion-sim-steps .sim-step::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  translate: 0 -50%;
+  background: var(--bg-surface);
+  border: 2px solid var(--text-tertiary);
+  box-shadow: 0 0 0 4px var(--bg-surface);
+  transition:
+    scale 220ms var(--sm-ease-out),
+    border-color 180ms ease,
+    background 180ms ease,
+    box-shadow 220ms ease;
+}
+
+.sim-steps.site-motion-sim-steps .sim-step.active::before {
+  border-color: var(--indigo);
+  background: var(--indigo);
+  scale: 1.14;
+  box-shadow: 0 0 0 4px var(--bg-surface), 0 0 18px rgba(99, 102, 241, .5);
+}
+
+.sim-steps.site-motion-sim-steps .sim-step.done::before {
+  border-color: var(--emerald);
+  background: var(--emerald);
+  box-shadow: 0 0 0 4px var(--bg-surface), 0 0 12px rgba(16, 185, 129, .26);
+}
+
+.sim-code-preview.site-motion-code-active {
+  will-change: transform, opacity, filter;
+}
+
+.lg-range-shell.site-motion-range-active .lg-range-thumb .lg-specular {
+  opacity: 1 !important;
+}
+
+.lg-range-shell.site-motion-range-active .lg-range-thumb {
+  scale: 1.055;
+}
+
+#annualSavingsText.site-motion-number,
+#costCompareText.site-motion-number {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.timeline.site-motion-timeline {
+  --sm-timeline-progress: 0;
+}
+
+.site-motion-timeline-progress {
+  position: absolute;
+  left: 15px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  z-index: 1;
+  border-radius: 999px;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--indigo), var(--cyan) 68%, var(--emerald));
+  box-shadow: 0 0 14px rgba(99, 102, 241, .28);
+  transform: scaleY(var(--sm-timeline-progress));
+  transform-origin: 50% 0%;
+}
+
+.timeline.site-motion-timeline .timeline-item {
+  z-index: 2;
+}
+
+.timeline.site-motion-timeline .timeline-marker {
+  transition:
+    scale 260ms var(--sm-ease-out),
+    box-shadow 260ms ease,
+    border-color 220ms ease,
+    background 220ms ease;
+}
+
+.timeline.site-motion-timeline .timeline-item[data-motion-state="completed"] .timeline-marker {
+  border-color: var(--cyan);
+  background: var(--cyan);
+  scale: .86;
+}
+
+.timeline.site-motion-timeline .timeline-item[data-motion-state="current"] .timeline-marker {
+  border-color: var(--indigo);
+  background: var(--indigo);
+  scale: 1.22;
+  box-shadow: 0 0 0 5px rgba(99,102,241,.10), 0 0 20px rgba(99,102,241,.36);
+}
+
+.timeline.site-motion-timeline .timeline-item[data-motion-state="current"] .timeline-card {
+  border-color: rgba(99, 102, 241, .20);
+}
+
+.site-motion-compare-shell {
+  position: relative;
+}
+
+.site-motion-scroll-cue {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  width: 34px;
+  z-index: 8;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.site-motion-scroll-cue.is-left {
+  left: 1px;
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+  background: linear-gradient(90deg, var(--bg-surface), transparent);
+}
+
+.site-motion-scroll-cue.is-right {
+  right: 1px;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  background: linear-gradient(270deg, var(--bg-surface), transparent);
+}
+
+.site-motion-compare-shell[data-can-scroll-left="true"] .site-motion-scroll-cue.is-left,
+.site-motion-compare-shell[data-can-scroll-right="true"] .site-motion-scroll-cue.is-right {
+  opacity: .92;
+}
+
+.compare-table tbody tr {
+  transition: background-color 160ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .compare-table tbody tr:hover {
+    background: color-mix(in srgb, var(--indigo) 4.5%, transparent);
+  }
+}
+
+.site-motion-primary-action {
+  transform-origin: 50% 55%;
+}
+
+.site-motion-primary-action:active {
+  scale: .985;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --sm-fast: .01ms;
+    --sm-medium: .01ms;
+    --sm-slow: .01ms;
+  }
+
+  html.site-motion-pending .hero-copy > .eyebrow,
+  html.site-motion-pending .hero-copy > h1,
+  html.site-motion-pending .hero-copy > .lead,
+  html.site-motion-pending .hero-copy > .hero-actions,
+  html.site-motion-pending .hero-copy > .font-note,
+  html.site-motion-pending .hero-visual,
+  html.site-motion-pending .lg-hero-controller {
+    opacity: 1;
+  }
+
+  .site-motion-pointer-card.bento-card,
+  .site-motion-pointer-card.pricing-card {
+    transform: none !important;
+  }
+
+  .ambient-particle-layer,
+  .ambient-particle-glass-mirror,
+  .site-motion-timeline-progress,
+  .site-motion-sim-progress {
+    transition: none !important;
+  }
+}
+
+@media print {
+  .site-motion-layout-ghost,
+  .site-motion-scroll-cue,
+  .site-motion-sim-track,
+  .site-motion-sim-progress,
+  .site-motion-timeline-progress {
+    display: none !important;
+  }
+}
