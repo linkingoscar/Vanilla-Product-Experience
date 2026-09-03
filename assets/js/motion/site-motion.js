@@ -454,7 +454,9 @@
       const active = steps.find((step) => step.classList.contains("active")) || null;
       const activeIndex = active ? steps.indexOf(active) : -1;
       const units = Math.max(1, steps.length - 1);
-      const target = Physics.clamp((doneCount + (activeIndex >= 0 ? 0.42 : 0)) / units, 0, 1);
+      const target = activeIndex >= 0
+        ? Physics.clamp(activeIndex / units, 0, 1)
+        : Physics.clamp(doneCount >= steps.length ? 1 : Math.max(0, (doneCount - 1) / units), 0, 1);
       reduceMotion.matches ? progressSpring.jump(target) : progressSpring.set(target);
 
       if (active && active !== lastActive) {
