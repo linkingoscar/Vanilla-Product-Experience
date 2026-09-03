@@ -3,6 +3,8 @@ name: Visual systems static checks
 on:
   push:
     branches:
+      - main
+      - fix/release-visual-polish
       - feat/liquid-glass-design-system
       - feat/ambient-particle-field
       - feat/site-motion-system
@@ -121,11 +123,11 @@ jobs:
           test -s assets/js/liquid-glass-v2.js
           test -s assets/js/liquid-glass-components.js
           grep -F 'style-base.css?v=3.10.0' assets/css/style.css
-          grep -F 'liquid-glass.css?v=0.1.0' assets/css/style.css
+          grep -F 'liquid-glass.css?v=0.1.2' assets/css/style.css
           grep -F 'liquid-glass-v2.css?v=0.2.0' assets/css/style.css
           grep -F 'liquid-glass-components.css?v=0.3.0' assets/css/style.css
           grep -F 'main-base.js?v=3.10.0' assets/js/main.js
-          grep -F 'liquid-glass.js?v=0.1.1' assets/js/main.js
+          grep -F 'liquid-glass.js?v=0.1.3' assets/js/main.js
           grep -F 'liquid-glass-v2.js?v=0.2.1' assets/js/main.js
           grep -F 'liquid-glass-components.js?v=0.3.1' assets/js/main.js
 
@@ -151,9 +153,11 @@ jobs:
 
           if [ -f assets/css/product-ui.css ]; then
             test -s assets/js/product-ui.js
+            test -s assets/css/release-polish.css
             grep -F 'product-ui.css?v=0.1.0' assets/css/style.css
-            grep -F 'product-ui.js?v=0.1.0' assets/js/main.js
-            grep -F 'static-landing-v6-product-ui-010' sw.js
+            grep -F 'product-ui.js?v=0.1.1' assets/js/main.js
+            grep -F 'release-polish.css?v=0.1.0' assets/css/style.css
+            grep -F 'static-landing-v7-release-polish-011' sw.js
           elif [ -f assets/css/site-motion.css ]; then
             grep -F 'static-landing-v5-site-motion-010' sw.js
           elif [ -f assets/js/ambient/particle-field.js ]; then
@@ -167,6 +171,9 @@ jobs:
           set -euxo pipefail
           grep -F 'feDisplacementMap' assets/js/liquid-glass.js
           grep -F 'QUALITY === "balanced" ? 60' assets/js/liquid-glass.js
+          grep -F 'lg-positioned' assets/js/liquid-glass.js
+          grep -F 'protectDirectText' assets/js/liquid-glass.js
+          grep -F '.lg-surface.lg-positioned' assets/css/liquid-glass.css
           grep -F 'content-copy-svg' assets/js/liquid-glass-v2.js
           grep -F 'lg-hero-controller' assets/js/liquid-glass-components.js
           grep -F 'lg-pricing-segmented' assets/js/liquid-glass-components.js
@@ -197,4 +204,6 @@ jobs:
             grep -F 'CursorProductUI' assets/js/product-ui.js
             grep -F '[data-theme="light"]' assets/css/product-ui.css
             grep -F 'product-mobile-panel' assets/css/product-ui.css
+            grep -F '.hero-visual { flex-direction: column' assets/css/release-polish.css
+            grep -F 'feature-tabs.lg-has-shared-lens' assets/css/release-polish.css
           fi

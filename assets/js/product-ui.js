@@ -1,5 +1,5 @@
 /**
- * Product UI & Art Direction System v0.1
+ * Product UI & Art Direction System v0.1.1
  * ---------------------------------------
  * Progressive enhancement layer for product-grade information architecture,
  * proof, media framing, conversion, interaction states and data visualizations.
@@ -17,51 +17,51 @@
     search: "Search",
     theme: "Theme",
     language: "中文",
-    proofKicker: "Open-source foundation",
-    proofTitle: "Built to fork, not rebuild.",
-    proof: [["0", "build steps"], ["2", "languages"], ["PWA", "offline-ready"], ["MIT", "commercial-friendly"]],
-    editorialKicker: "Product surface",
-    editorialTitle: "One workspace. Multiple execution environments.",
-    editorialBody: "Use the visual slot for a real product screenshot, product film, or architecture diagram. The Cursor demo expresses the same system through local, cloud, and private execution surfaces.",
+    proofKicker: "Agent-first workspace",
+    proofTitle: "One workspace across every execution surface.",
+    proof: [["31", "core evolutions"], ["3", "execution surfaces"], ["4", "Grok effort levels"], ["ACP", "cross-IDE protocol"]],
+    editorialKicker: "Execution fabric",
+    editorialTitle: "Local, cloud, and private compute. One Agent context.",
+    editorialBody: "Start on the developer workstation, hand work to parallel cloud agents, or route execution into a self-hosted team pool. Context and verification return to the same workspace.",
     nodes: [["Local", "developer workstation"], ["Cloud", "parallel agents"], ["Private", "self-hosted pool"]],
-    core: "Workspace",
-    visualCaption: "TEMPLATE VISUAL SLOT · replace with screenshot / film / architecture diagram",
+    core: "Agents Window",
+    visualCaption: "EXECUTION FABRIC · Local / Cloud / Private",
     conversionKicker: "Start with the workflow that fits your team",
     conversionProof: ["Free Hobby entry", "Local + cloud workspaces", "Official docs"],
-    conversionFootnote: "Demo conversion copy. Forks can map this slot to signup, trial, download, GitHub, or sales.",
+    conversionFootnote: "Choose the entry point that matches your workflow; product availability and pricing follow the official Cursor site.",
     footerBrand: "Cursor 3.x Showcase",
-    footerBody: "A high-fidelity demo running on a reusable zero-build landing-page system.",
-    footerCols: [["Explore", ["Highlights", "Features", "Timeline"]], ["Product", ["Pricing", "Compare", "Search"]], ["Template", ["MIT", "PWA", "Bilingual"]]],
+    footerBody: "Cursor 3.x product showcase with a zero-build, open-source implementation.",
+    footerCols: [["Explore", ["Highlights", "Features", "Timeline"]], ["Product", ["Pricing", "Compare", "Search"]], ["Project", ["MIT", "PWA", "Bilingual"]]],
     roiTitle: "Annual cost shape",
     optimized: "Composer annual",
     baseline: "Comparison annual",
     savings: "estimated savings",
-    mediaLive: "LIVE PRODUCT SURFACE"
+    mediaLive: "AGENTS WINDOW"
   } : {
     mobileMenu: "导航",
     search: "搜索",
     theme: "主题",
     language: "EN",
-    proofKicker: "开源模板底座",
-    proofTitle: "Fork 即用，不用重建。",
-    proof: [["0", "构建步骤"], ["2", "语言版本"], ["PWA", "离线可用"], ["MIT", "商业友好"]],
-    editorialKicker: "产品视觉层",
-    editorialTitle: "一个工作区，多种执行环境。",
-    editorialBody: "这里是模板级 Product Visual Slot：可以替换成真实产品截图、产品影片或架构图。当前 Cursor Demo 用本地、云端与私有池三个执行面展示同一套工作区语义。",
+    proofKicker: "Agent-first 工作区",
+    proofTitle: "一套工作区，覆盖本地、云端与私有算力。",
+    proof: [["31", "核心演进特性"], ["3", "执行环境"], ["4", "Grok 思考档位"], ["ACP", "跨 IDE 协议"]],
+    editorialKicker: "执行平面",
+    editorialTitle: "本地、云端、私有池，同一套 Agent 上下文。",
+    editorialBody: "任务可以从开发者本机出发，转交到 Cursor Cloud 并行执行，或落到团队自托管机器池；上下文与验证结果最终回流到同一工作区。",
     nodes: [["Local", "开发者本机"], ["Cloud", "并行云 Agent"], ["Private", "自托管机器池"]],
-    core: "Workspace",
-    visualCaption: "TEMPLATE VISUAL SLOT · 可替换截图 / 产品影片 / 架构图",
+    core: "Agents Window",
+    visualCaption: "EXECUTION FABRIC · Local / Cloud / Private",
     conversionKicker: "从适合团队的工作流开始",
     conversionProof: ["Hobby 免费开始", "本地 + 云端工作区", "官方文档直达"],
-    conversionFootnote: "当前为 Demo 转化文案。Fork 后可替换为注册、试用、下载、GitHub 或联系销售。",
+    conversionFootnote: "按你的工作流选择入口；具体产品可用性与价格以 Cursor 官方信息为准。",
     footerBrand: "Cursor 3.x Showcase",
-    footerBody: "高保真 Demo 内容，运行在可复用、零构建的 Landing Page 设计系统之上。",
-    footerCols: [["浏览", ["亮点", "功能", "时间线"]], ["产品", ["定价", "对比", "搜索"]], ["模板", ["MIT", "PWA", "双语"]]],
+    footerBody: "Cursor 3.x 产品展示页，同时保留零构建、开源实现。",
+    footerCols: [["浏览", ["亮点", "功能", "时间线"]], ["产品", ["定价", "对比", "搜索"]], ["项目", ["MIT", "PWA", "双语"]]],
     roiTitle: "年度成本结构",
     optimized: "Composer 年度成本",
     baseline: "对照模型年度成本",
     savings: "预计节省",
-    mediaLive: "LIVE PRODUCT SURFACE"
+    mediaLive: "AGENTS WINDOW"
   };
 
   const qs = (selector, scope) => (scope || document).querySelector(selector);
@@ -138,10 +138,11 @@
       panel.classList.toggle("is-open", open);
       scrim.classList.toggle("is-open", open);
       root.dataset.productMobileNav = open ? "open" : "closed";
+      document.body.classList.toggle("product-mobile-nav-open", open);
       if (open) {
         returnFocus = document.activeElement;
         requestAnimationFrame(() => qs("a, button", panel)?.focus({ preventScroll: true }));
-        decorateGlass(panel, "regular", 7);
+        decorateGlass(panel, "regular", 4);
       } else if (returnFocus instanceof HTMLElement && document.contains(returnFocus)) {
         returnFocus.focus({ preventScroll: true });
       }
@@ -154,9 +155,21 @@
     themeTool.addEventListener("click", () => qs("#themeToggle")?.click());
 
     const onKeydown = (event) => {
-      if (event.key === "Escape" && trigger.getAttribute("aria-expanded") === "true") {
+      const open = trigger.getAttribute("aria-expanded") === "true";
+      if (!open) return;
+      if (event.key === "Escape") {
         event.preventDefault();
         setOpen(false);
+        return;
+      }
+      if (event.key === "Tab") {
+        const focusable = qsa('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])', panel)
+          .filter((el) => !el.hasAttribute("aria-hidden"));
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
       }
     };
     window.addEventListener("keydown", onKeydown);
@@ -181,7 +194,7 @@
   function installProofStrip() {
     const hero = qs(".hero");
     if (!hero || qs(".product-proof-strip")) return;
-    const section = make("section", "product-proof-strip", { "aria-label": isEn ? "Template proof points" : "模板能力证明" });
+    const section = make("section", "product-proof-strip", { "aria-label": isEn ? "Product proof points" : "产品能力概览" });
     const container = make("div", "container product-proof-inner");
     const intro = make("div", "product-proof-intro");
     intro.innerHTML = `<span class="product-proof-label">${copy.proofKicker}</span><strong>${copy.proofTitle}</strong>`;
@@ -198,11 +211,8 @@
   function enhanceHeroMedia() {
     const heroVisual = qs(".hero-visual");
     const ide = qs(".ide-window", heroVisual);
-    if (!heroVisual || !ide || ide.parentElement?.classList.contains("product-media-frame")) return;
-    const frame = make("div", "product-media-frame product-media-surface");
-    const label = make("span", "product-media-label", { text: copy.mediaLive });
-    ide.parentNode.insertBefore(frame, ide);
-    frame.append(label, ide);
+    if (!heroVisual || !ide) return;
+    ide.classList.add("product-media-surface", "product-hero-media");
     heroVisual.classList.add("product-art-direction");
   }
 
@@ -355,13 +365,13 @@
     decorateBenchmarkTables();
     markControls();
     root.classList.add("product-ui-ready");
-    window.dispatchEvent(new CustomEvent("cursor:product-ui-ready", { detail: { version: "0.1.0" } }));
+    window.dispatchEvent(new CustomEvent("cursor:product-ui-ready", { detail: { version: "0.1.1" } }));
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => requestAnimationFrame(boot), { once: true }); else requestAnimationFrame(boot);
 
   window.CursorProductUI = Object.freeze({
-    version: "0.1.0",
+    version: "0.1.1",
     refresh() { enhanceMediaSurfaces(); decorateBenchmarkTables(); markControls(); window.CursorSiteMotion?.refresh?.(); },
     setBusy,
     setDisabled,
