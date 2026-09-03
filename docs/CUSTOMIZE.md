@@ -32,6 +32,11 @@
     ├── layout-motion.js
     ├── number-motion.js
     └── site-motion.js
+
+5. Product UI & Art Direction (产品级信息架构与艺术指导)
+├── assets/css/product-ui.css
+├── assets/css/product-ui-media.css
+└── assets/js/product-ui.js
 ```
 
 `assets/css/style.css` 与 `assets/js/main.js` 是薄入口文件，负责按顺序加载上面的代码，通常无需修改。

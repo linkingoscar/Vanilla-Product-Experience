@@ -128,12 +128,14 @@ Liquid Glass 分支将“模板内容层”和“光学增强层”明确拆开�
 | `index.html` | 中文品牌、Hero、Feature、Pricing、SEO | ✅ |
 | `en/index.html` | 英文内容；单语言项目可删除 | 可选 |
 | `assets/css/style-base.css` | **模板 Design Tokens 与主体组件样式** | 🎨 推荐 |
-| `assets/css/style.css` | CSS 薄入口，加载 Base + Glass + Ambient + Motion | 通常不用 |
+| `assets/css/style.css` | CSS 薄入口，加载 Base + Glass + Ambient + Motion + Product UI | 通常不用 |
 | `assets/css/liquid-glass.css` | v0.1 光学材质、Shared Lens、Specular | 高级定制 |
 | `assets/css/liquid-glass-v2.css` | content-copy、Palette Morph、Liquid Slider | 高级定制 |
 | `assets/css/liquid-glass-components.css` | v0.3 业务组件液态化视觉覆盖 (Hero/定价/模拟器) | 高级定制 |
 | `assets/css/ambient-particles.css` | 空间环境粒子场样式 | 高级定制 |
 | `assets/css/site-motion.css` | 全站动效编排与时间连续性样式 | 高级定制 |
+| `assets/css/product-ui.css` | 移动端导航面板、视觉叙事槽与证明数据样式 | 高级定制 |
+| `assets/css/product-ui-media.css` | 媒体播放槽、视频控制与阴影质感 | 高级定制 |
 | `assets/js/main-base.js` | **模板原始行为、searchIndex、模拟器、ROI** | 💡 视情况 |
 | `assets/js/main.js` | JS 薄入口，按顺序加载各增强层 | 通常不用 |
 | `assets/js/liquid-glass.js` | SDF / Displacement Map / Filter / Shared Spring | 高级定制 |
@@ -141,6 +143,7 @@ Liquid Glass 分支将“模板内容层”和“光学增强层”明确拆开�
 | `assets/js/liquid-glass-components.js` | v0.3 Hero 控制器、定价/模拟器透镜业务装配 | 高级定制 |
 | `assets/js/ambient/` | WebGL2 粒子模拟与交互场 (Canvas2D 自动降级) | 高级定制 |
 | `assets/js/motion/` | 物理 Spring、FLIP 布局过渡、数字连续动画与全站编排 | 高级定制 |
+| `assets/js/product-ui.js` | 移动端 IA、产品叙事槽、证明条、ROI 图表与媒体绑定 | 高级定制 |
 | `liquid-glass-lab.html` | Glass 参数实验与光学验收 | 可选 |
 | `ambient-particle-lab.html` | 粒子场动态参数实验与调试 | 可选 |
 | `assets/icons/` | Favicon 与 PWA icons | ✅ |

@@ -103,6 +103,8 @@ Engineering details and browser QA checklist: [`docs/LIQUID_GLASS_IMPLEMENTATION
 | `assets/css/liquid-glass-components.css` | Product UI layer (Hero, Pricing, Simulator) | Advanced |
 | `assets/css/ambient-particles.css` | Ambient particle field styling | Advanced |
 | `assets/css/site-motion.css` | Site-wide motion choreography and timing | Advanced |
+| `assets/css/product-ui.css` | Mobile IA panel, editorial visual slot, proof styling | Advanced |
+| `assets/css/product-ui-media.css` | Media surface framing and video player styling | Advanced |
 | `assets/js/main-base.js` | **Template behavior, search index, simulator, ROI** | As needed |
 | `assets/js/main.js` | Thin JS loader chaining enhancement layers | Usually no |
 | `assets/js/liquid-glass.js` | SDF, displacement maps, SVG filters, shared spring | Advanced |
@@ -110,6 +112,7 @@ Engineering details and browser QA checklist: [`docs/LIQUID_GLASS_IMPLEMENTATION
 | `assets/js/liquid-glass-components.js` | Hero controller, Pricing and Simulator lenses | Advanced |
 | `assets/js/ambient/` | WebGL2 particle simulation and interaction field | Advanced |
 | `assets/js/motion/` | Spring physics, FLIP layout, number flow & choreography | Advanced |
+| `assets/js/product-ui.js` | Mobile IA, editorial visual slot, proof & data viz | Advanced |
 | `liquid-glass-lab.html` | Optical validation / token playground | Optional |
 | `ambient-particle-lab.html` | Particle field tuning playground | Optional |
 | `manifest.json` | PWA metadata | For PWA |
