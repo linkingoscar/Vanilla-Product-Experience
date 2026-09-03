@@ -38,6 +38,7 @@ jobs:
           node --check assets/js/main.js
           node --check assets/js/liquid-glass.js
           node --check assets/js/liquid-glass-v2.js
+          node --check assets/js/liquid-glass-components.js
           node --check sw.js
 
       - name: HTML IDs and inline-script syntax
@@ -98,22 +99,30 @@ jobs:
           test -s assets/css/style-base.css
           test -s assets/css/liquid-glass.css
           test -s assets/css/liquid-glass-v2.css
+          test -s assets/css/liquid-glass-components.css
           test -s assets/js/main-base.js
           test -s assets/js/liquid-glass.js
           test -s assets/js/liquid-glass-v2.js
+          test -s assets/js/liquid-glass-components.js
           grep -F 'style-base.css?v=3.10.0' assets/css/style.css
           grep -F 'liquid-glass.css?v=0.1.0' assets/css/style.css
           grep -F 'liquid-glass-v2.css?v=0.2.0' assets/css/style.css
+          grep -F 'liquid-glass-components.css?v=0.3.0' assets/css/style.css
           grep -F 'main-base.js?v=3.10.0' assets/js/main.js
           grep -F 'liquid-glass.js?v=0.1.0' assets/js/main.js
           grep -F 'liquid-glass-v2.js?v=0.2.1' assets/js/main.js
-          grep -F 'static-landing-v2-liquid-glass-021' sw.js
+          grep -F 'liquid-glass-components.js?v=0.3.1' assets/js/main.js
+          grep -F 'static-landing-v3-liquid-glass-031' sw.js
 
       - name: Liquid Glass invariants
         run: |
           set -euxo pipefail
           grep -F 'feDisplacementMap' assets/js/liquid-glass.js
           grep -F 'content-copy-svg' assets/js/liquid-glass-v2.js
+          grep -F 'lg-hero-controller' assets/js/liquid-glass-components.js
+          grep -F 'lg-pricing-segmented' assets/js/liquid-glass-components.js
+          grep -F 'lg-simulator-segmented' assets/js/liquid-glass-components.js
+          grep -F 'data-lg-device' assets/css/liquid-glass-components.css
           grep -F 'prefers-reduced-motion' assets/css/liquid-glass.css
           grep -F 'prefers-reduced-transparency' assets/css/liquid-glass.css
           grep -F 'prefers-reduced-transparency' assets/css/liquid-glass-v2.css
