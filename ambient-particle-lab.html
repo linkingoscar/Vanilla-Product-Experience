@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ambient Particle Field Lab · cursor3-static</title>
+  <link rel="stylesheet" href="assets/css/style.css?v=3.10.0" />
+  <style>
+    body { min-height: 100vh; }
+    .ambient-lab { min-height: 100vh; padding: 88px 24px 100px; }
+    .ambient-lab-inner { width: min(1040px,100%); margin: auto; }
+    .ambient-lab-kicker { font: 650 12px/1.4 var(--font-mono); color: var(--text-tertiary); letter-spacing: .08em; text-transform: uppercase; }
+    .ambient-lab h1 { max-width: 820px; margin: 18px 0; font-size: clamp(44px,7vw,88px); line-height: .94; letter-spacing: -.055em; }
+    .ambient-lab-lead { max-width: 720px; color: var(--text-secondary); font-size: 17px; line-height: 1.72; }
+    .ambient-lab-grid { display: grid; grid-template-columns: minmax(0,1fr) 300px; gap: 28px; align-items: start; margin-top: 48px; }
+    .ambient-demo-window { min-height: 390px; border-radius: 30px; overflow: hidden; position: relative; }
+    .ambient-demo-window .ide-window { height: 100%; min-height: 390px; }
+    .ambient-panel { position: sticky; top: 24px; padding: 20px; border: 1px solid var(--separator); border-radius: 22px; background: rgba(12,15,25,.72); }
+    [data-theme="light"] .ambient-panel { background: rgba(255,255,255,.78); }
+    .ambient-panel h2 { margin: 0 0 4px; font-size: 17px; }
+    .ambient-panel p { margin: 0 0 18px; color: var(--text-tertiary); font-size: 12px; line-height: 1.55; }
+    .ambient-control { margin-top: 18px; }
+    .ambient-control label { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 8px; color: var(--text-secondary); font-size: 12px; }
+    .ambient-control input { width: 100%; }
+    .ambient-mode-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
+    .ambient-mode-row button, .ambient-pulse-btn { border: 1px solid var(--separator); background: rgba(255,255,255,.05); color: var(--text-main); padding: 10px 9px; border-radius: 12px; cursor: pointer; font: 600 12px/1 var(--font-sans); }
+    .ambient-mode-row button:hover, .ambient-pulse-btn:hover { background: rgba(255,255,255,.10); }
+    .ambient-pulse-btn { width: 100%; margin-top: 14px; }
+    .ambient-stats { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--separator); font: 500 11px/1.7 var(--font-mono); color: var(--text-tertiary); white-space: pre-line; }
+    @media (max-width: 800px) { .ambient-lab-grid { grid-template-columns: 1fr; } .ambient-panel { position: relative; top: auto; } }
+  </style>
+</head>
+<body>
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div>
+  </div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <main class="ambient-lab">
+    <div class="ambient-lab-inner">
+      <div class="ambient-lab-kicker">Ambient Interaction Layer · v0.1</div>
+      <h1>让 Liquid Glass 存在于一个会回应你的数字空间里。</h1>
+      <p class="ambient-lab-lead">移动鼠标观察粒子压力场和尾流；切换 Local / Cloud / Private Pool 观察同一批粒子如何改变组织方式。Shared Lens 和玻璃控件的运动会向背景注入轻微能量，而不是叠加一层无意义的装饰动画。</p>
+
+      <div class="ambient-lab-grid">
+        <section class="ambient-demo-window hero-visual">
+          <div class="ide-window">
+            <div class="ide-titlebar">
+              <div class="traffic-lights" aria-hidden="true"><span class="traffic-dot red"></span><span class="traffic-dot yellow"></span><span class="traffic-dot green"></span></div>
+              <span class="ide-title">origin/main — Cursor Origin Cloud</span>
+              <span class="ide-swarm-pill"><span class="agent-status-dot"></span> 3 Agents · Cloud</span>
+            </div>
+            <div class="ide-body">
+              <div class="ide-sidebar">
+                <div class="sidebar-label">Ambient Field</div>
+                <div class="agent-item active"><span class="agent-status-dot"></span><span>Flow</span></div>
+                <div class="agent-item"><span class="agent-status-dot"></span><span>Wake</span></div>
+                <div class="agent-item"><span class="agent-status-dot"></span><span>Glass Bridge</span></div>
+              </div>
+              <div class="ide-editor">
+                <div class="code-area">
+                  <div class="code-line"><span class="code-num">1</span><span><span class="code-kw">const</span> field = CursorAmbientField;</span></div>
+                  <div class="code-line"><span class="code-num">2</span><span>field.<span class="code-fn">setMode</span>(<span class="code-str">'cloud'</span>);</span></div>
+                  <div class="code-line"><span class="code-num">3</span><span>field.<span class="code-fn">setDensity</span>(<span class="code-str">1.0</span>);</span></div>
+                  <div class="code-line"><span class="code-num">4</span><span>field.<span class="code-fn">pulse</span>(x, y, energy, radius);</span></div>
+                </div>
+                <div class="ide-sidecar-preview"><span>⚡ WebGL2 + shared particle state</span><strong style="color:var(--emerald);">LIVE</strong></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="ambient-panel">
+          <h2>Particle Playground</h2>
+          <p>这些控件直接调用公开 API；不是单独的一套 Demo 逻辑。</p>
+
+          <div class="ambient-control">
+            <label><span>Mode</span><span id="modeOut">cloud</span></label>
+            <div class="ambient-mode-row">
+              <button type="button" data-mode="local">Local</button>
+              <button type="button" data-mode="cloud">Cloud</button>
+              <button type="button" data-mode="private">Private</button>
+            </div>
+          </div>
+
+          <div class="ambient-control">
+            <label for="density"><span>Density</span><output id="densityOut">1.00×</output></label>
+            <input id="density" type="range" min="0.35" max="1.35" step="0.05" value="1" />
+          </div>
+
+          <button type="button" class="ambient-pulse-btn" id="pulseBtn">Inject Center Pulse</button>
+          <div class="ambient-stats" id="ambientStats">booting…</div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/js/main.js?v=3.10.0"></script>
+  <script>
+    (function () {
+      const stats = document.getElementById('ambientStats');
+      const modeOut = document.getElementById('modeOut');
+      const density = document.getElementById('density');
+      const densityOut = document.getElementById('densityOut');
+
+      function refreshStats() {
+        if (!window.CursorAmbientField) return;
+        stats.textContent = [
+          `renderer: ${document.documentElement.dataset.ambientRenderer || 'unknown'}`,
+          `quality: ${CursorAmbientField.quality}`,
+          `particles: ${CursorAmbientField.count}`,
+          `mode: ${CursorAmbientField.mode}`,
+          `glass: ${document.documentElement.dataset.lgRenderer || 'unknown'}`
+        ].join('\n');
+        modeOut.textContent = CursorAmbientField.mode;
+      }
+
+      window.addEventListener('cursor:ambient-particles-ready', refreshStats);
+      document.querySelectorAll('[data-mode]').forEach((button) => {
+        button.addEventListener('click', () => {
+          CursorAmbientField?.setMode(button.dataset.mode);
+          CursorAmbientField?.pulse(button, 0.55, 210);
+          refreshStats();
+        });
+      });
+      density.addEventListener('input', () => {
+        const value = Number(density.value);
+        densityOut.value = `${value.toFixed(2)}×`;
+        CursorAmbientField?.setDensity(value);
+        refreshStats();
+      });
+      document.getElementById('pulseBtn').addEventListener('click', () => {
+        CursorAmbientField?.pulse(innerWidth * .5, innerHeight * .48, .95, 300);
+      });
+      setInterval(refreshStats, 1000);
+    })();
+  </script>
+</body>
+</html>
