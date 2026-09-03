@@ -2,21 +2,36 @@
 
 > 目标：在不引入 Node.js、npm 或构建工具的前提下，把这个 Cursor Demo 改造成你自己的 AI / SaaS / CLI / 开源产品官网。
 
-当前 Liquid Glass 分支把代码分为两个层次：
+当前分支将代码分为四个独立的解耦层次：
 
 ```text
-Template Core
+1. Template Core (生产底座)
 ├── index.html / en/index.html
 ├── assets/css/style-base.css
 └── assets/js/main-base.js
 
-Liquid Glass Enhancement
+2. Liquid Glass (液态玻璃光学与组件)
 ├── assets/css/liquid-glass.css
 ├── assets/css/liquid-glass-v2.css
 ├── assets/css/liquid-glass-components.css
 ├── assets/js/liquid-glass.js
 ├── assets/js/liquid-glass-v2.js
 └── assets/js/liquid-glass-components.js
+
+3. Ambient Particle Field (环境交互粒子场)
+├── assets/css/ambient-particles.css
+└── assets/js/ambient/
+    ├── particle-renderer-webgl.js
+    ├── interaction-field.js
+    └── particle-field.js
+
+4. Site Motion System (全站交互与动效编排)
+├── assets/css/site-motion.css
+└── assets/js/motion/
+    ├── spring.js
+    ├── layout-motion.js
+    ├── number-motion.js
+    └── site-motion.js
 ```
 
 `assets/css/style.css` 与 `assets/js/main.js` 是薄入口文件，负责按顺序加载上面的代码，通常无需修改。

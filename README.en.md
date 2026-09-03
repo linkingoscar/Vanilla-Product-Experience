@@ -97,16 +97,21 @@ Engineering details and browser QA checklist: [`docs/LIQUID_GLASS_IMPLEMENTATION
 | `index.html` | Chinese brand, Hero, Features, Pricing, SEO | Yes |
 | `en/index.html` | English content; removable for a single-language site | Optional |
 | `assets/css/style-base.css` | **Base Design Tokens and component styles** | Recommended |
-| `assets/css/style.css` | Thin CSS entrypoint | Usually no |
+| `assets/css/style.css` | Thin CSS entrypoint loading base + all enhancements | Usually no |
 | `assets/css/liquid-glass.css` | Optical material, specular, shared lens | Advanced |
 | `assets/css/liquid-glass-v2.css` | Content-copy, palette morph, liquid range | Advanced |
 | `assets/css/liquid-glass-components.css` | Product UI layer (Hero, Pricing, Simulator) | Advanced |
+| `assets/css/ambient-particles.css` | Ambient particle field styling | Advanced |
+| `assets/css/site-motion.css` | Site-wide motion choreography and timing | Advanced |
 | `assets/js/main-base.js` | **Template behavior, search index, simulator, ROI** | As needed |
-| `assets/js/main.js` | Thin JS loader | Usually no |
+| `assets/js/main.js` | Thin JS loader chaining enhancement layers | Usually no |
 | `assets/js/liquid-glass.js` | SDF, displacement maps, SVG filters, shared spring | Advanced |
 | `assets/js/liquid-glass-v2.js` | Cross-browser content-copy and fluid interactions | Advanced |
 | `assets/js/liquid-glass-components.js` | Hero controller, Pricing and Simulator lenses | Advanced |
+| `assets/js/ambient/` | WebGL2 particle simulation and interaction field | Advanced |
+| `assets/js/motion/` | Spring physics, FLIP layout, number flow & choreography | Advanced |
 | `liquid-glass-lab.html` | Optical validation / token playground | Optional |
+| `ambient-particle-lab.html` | Particle field tuning playground | Optional |
 | `manifest.json` | PWA metadata | For PWA |
 | `sw.js` | Offline cache graph and cache invalidation | On deploy changes |
 
