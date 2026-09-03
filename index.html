@@ -1,8 +1,20 @@
+<!--
+  ==========================================================================
+  TEMPLATE QUICK START / 模板快速上手:
+  1. Search for: TEMPLATE:EDIT     (Key brand, copy, links, and SEO to replace)
+  2. Search for: DEMO:CURSOR       (Cursor-specific demo content)
+  3. Search for: TEMPLATE:OPTIONAL (Sections you can safely remove if not needed)
+  4. Edit theme tokens in: assets/css/style.css
+  5. Detailed guides: docs/CUSTOMIZE.md | docs/SECTIONS.md | docs/DEPLOY.md
+  ==========================================================================
+-->
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- TEMPLATE:EDIT — Site Metadata & SEO -->
+    <!-- DEMO:CURSOR — Default meta values -->
     <meta name="description" content="Cursor 3.x 介绍页：Grok 4.6、JetBrains ACP、Multi-agent Swarm、Deep Research、Sidecar 预览、Auto-review、Composer 3.0、定价方案、竞品对比。3.0→3.9 演进全记录。" />
     <meta name="theme-color" content="#08090e" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
@@ -27,7 +39,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800|jetbrains-mono:400,500,600,700&display=swap" rel="stylesheet" />
     
-    <link rel="stylesheet" href="assets/css/style.css?v=3.9.6" />
+    <link rel="stylesheet" href="assets/css/style.css?v=3.10.0" />
     <title>Cursor 3.x · 完整功能介绍</title>
   </head>
   <body>
@@ -52,7 +64,7 @@
         <nav class="island-nav" aria-label="页面导航">
           <a href="#highlights">亮点速览</a>
           <a href="#composer-25">Composer 模型</a>
-          <a href="#new-features">3.1→3.9 更新</a>
+          <a href="#new-features">3.x 功能矩阵</a>
           <a href="#timeline">版本演进</a>
           <a href="#pricing">定价方案</a>
           <a href="#compare">竞品对比</a>
@@ -64,7 +76,7 @@
             <kbd>⌘K</kbd>
           </button>
           <span class="is-dot" aria-hidden="true"></span>
-          <span>v3.9 Active</span>
+          <span>v3.x / Cloud Active</span>
           <a href="en/" class="lang-badge" hreflang="en" aria-label="切换为英文页面">EN</a>
         </div>
       </div>
@@ -72,15 +84,19 @@
 
     <main id="main">
       <!-- Hero -->
+      <!-- ==========================================================================
+     TEMPLATE:EDIT — Hero Section
+     DEMO:CURSOR — Current content is Cursor-specific demo copy and visual window
+     ========================================================================== -->
       <section class="hero">
         <div class="container hero-grid">
           <div class="hero-copy animate-on-scroll">
             <div class="eyebrow">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <span>Changelog 3.9 · 2026 年 8 月最新发布</span>
+              <span>Changelog · 2026 年 9 月前沿生态</span>
             </div>
             <h1>以 Agent 为中心的<br /><span class="hero-title-gradient">统一工作区。</span></h1>
-            <p class="lead">并行编排本地、worktree、云端与 SSH 上的多个 Agent；新增 <strong>Grok 4.6（4 档思考深度）</strong>、<strong>JetBrains 全系 ACP 插件</strong>、Multi-agent Swarm、Deep Research 与 Sidecar 实时预览。</p>
+            <p class="lead">并行编排本地、私有内网机器池与云端环境；支持 <strong>Self-hosted 算力与团队池</strong>、<strong>Origin 原生托管</strong>、<strong>Computer Use 桌面操控</strong>、<strong>Grok 4.6</strong> 与 JetBrains ACP 插件生态。</p>
             <div class="hero-actions">
               <a class="btn btn-primary" href="https://cursor.com/blog/cursor-3" target="_blank" rel="noopener noreferrer">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -101,7 +117,7 @@
                   <span class="traffic-dot yellow"></span>
                   <span class="traffic-dot green"></span>
                 </div>
-                <span class="ide-title">workspace-swarm — Cursor 3.9</span>
+                <span class="ide-title">origin/main — Cursor Origin Cloud</span>
                 <span class="ide-swarm-pill">
                   <span class="agent-status-dot"></span> 3 Agents Parallel
                 </span>
@@ -206,24 +222,98 @@
         </div>
       </section>
 
+      <!-- TEMPLATE:OPTIONAL END — Highlights Bento Grid -->
+
       <!-- New Features (3.1 - 3.9) with Category Tabs -->
+      <!-- TEMPLATE:OPTIONAL START — Feature Matrix & Category Filter -->
+      <!-- DEMO:CURSOR — Replace with your product feature cards -->
       <section id="new-features" class="section">
         <div class="container">
           <p class="section-label">持续迭代全景</p>
-          <h2 class="section-title">3.1 → 3.9 最新功能矩阵</h2>
-          <p class="section-desc">包含 2026 年 8 月最新发布的 Grok 4.6、JetBrains ACP 跨 IDE 插件、Side Chats 旁支对话以及 26 项核心演进特性。</p>
+          <h2 class="section-title">Cursor 3.x 前沿功能矩阵</h2>
+          <p class="section-desc">同步 2026 年 9 月最新发布的自托管算力 (Self-hosted)、Origin 原生代码托管、Computer Use 桌面操控、Grok 4.6 及 31 项核心演进特性。</p>
           
           <!-- Category Filter Tabs -->
           <div class="feature-tabs" role="tablist" aria-label="功能分类筛选">
-            <button class="tab-btn is-active" data-filter="all" role="tab" aria-selected="true">全部功能 <span class="tab-count">26</span></button>
+            <button class="tab-btn is-active" data-filter="all" role="tab" aria-selected="true">全部功能 <span class="tab-count">31</span></button>
             <button class="tab-btn" data-filter="swarm" role="tab" aria-selected="false">多智能体协同 <span class="tab-count">4</span></button>
-            <button class="tab-btn" data-filter="model" role="tab" aria-selected="false">核心模型与推理 <span class="tab-count">5</span></button>
-            <button class="tab-btn" data-filter="workflow" role="tab" aria-selected="false">开发工作流 <span class="tab-count">10</span></button>
-            <button class="tab-btn" data-filter="enterprise" role="tab" aria-selected="false">企业安全与协作 <span class="tab-count">7</span></button>
+            <button class="tab-btn" data-filter="model" role="tab" aria-selected="false">核心模型与推理 <span class="tab-count">4</span></button>
+            <button class="tab-btn" data-filter="workflow" role="tab" aria-selected="false">开发工作流 <span class="tab-count">14</span></button>
+            <button class="tab-btn" data-filter="enterprise" role="tab" aria-selected="false">企业安全与协作 <span class="tab-count">9</span></button>
           </div>
 
           <div class="feature-grid">
-            <!-- 1. Grok 4.6 (NEW - Aug 2026) -->
+            <!-- 1. Self-hosted Machines (NEW - Sep 2026) -->
+            <article class="feature-card animate-on-scroll" data-category="enterprise">
+              <div class="feature-meta">
+                <span class="feature-version" style="background:rgba(16,185,129,0.15); color:var(--emerald);">NEW · 9月最新</span>
+                <span class="feature-date">2026 年 9 月</span>
+              </div>
+              <div class="svg-icon-wrap" style="color:var(--emerald);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+              </div>
+              <h3>Self-hosted Machines 自托管算力与私有机器池</h3>
+              <p>支持 Cloud Agent 运行在企业内网私有基础设施（AWS Lambda、Coder、Daytona、Vercel、E2B 等），源码、构建产物与密钥不出内网。提供 Dynamic Pools 弹性调度与空闲自动休眠机制。</p>
+              <a href="https://cursor.com/changelog/self-hosted-machines" target="_blank" rel="noopener noreferrer">官方日志 →</a>
+            </article>
+
+            <!-- 2. Computer Use (NEW - Sep 2026) -->
+            <article class="feature-card animate-on-scroll" data-category="workflow">
+              <div class="feature-meta">
+                <span class="feature-version" style="background:rgba(59,130,246,0.15); color:var(--blue);">NEW · 9月最新</span>
+                <span class="feature-date">2026 年 9 月</span>
+              </div>
+              <div class="svg-icon-wrap" style="color:var(--blue);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><circle cx="12" cy="10" r="2"/></svg>
+              </div>
+              <h3>Computer Use 计算机原生界面操控</h3>
+              <p>赋予 Agent 原生桌面 GUI 交互能力（支持 Linux 与 Mac）。可在沙盒中自主点击、键入、屏幕截屏并操纵浏览器；开发者可在 Cursor 中实时观看操作画面或随时接管控制。</p>
+              <a href="https://cursor.com/changelog/self-hosted-machines" target="_blank" rel="noopener noreferrer">官方日志 →</a>
+            </article>
+
+            <!-- 3. Cursor Origin (NEW - Aug 2026) -->
+            <article class="feature-card animate-on-scroll" data-category="enterprise">
+              <div class="feature-meta">
+                <span class="feature-version" style="background:rgba(139,92,246,0.15); color:var(--violet);">NEW · 8月</span>
+                <span class="feature-date">2026 年 8 月</span>
+              </div>
+              <div class="svg-icon-wrap" style="color:var(--violet);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+              </div>
+              <h3>Cursor Origin 原生代码托管平台</h3>
+              <p>Cursor 推出专为 Agent 时代设计的原生 Git 代码托管服务。内置 Repos、Pull Requests 与在线代码浏览，与 GitHub 实时双向无缝同步，代码库内置 Agent 交互面板与 Vercel/Depot/Buildkite 扩展。</p>
+              <a href="https://cursor.com/changelog/origin-code-hosting" target="_blank" rel="noopener noreferrer">官方日志 →</a>
+            </article>
+
+            <!-- 4. Start from scratch (NEW - Aug 2026) -->
+            <article class="feature-card animate-on-scroll" data-category="workflow">
+              <div class="feature-meta">
+                <span class="feature-version" style="background:rgba(245,158,11,0.15); color:var(--amber);">NEW · 8月</span>
+                <span class="feature-date">2026 年 8 月</span>
+              </div>
+              <div class="svg-icon-wrap" style="color:var(--amber);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <h3>Start from scratch 零仓库启动与即时预览</h3>
+              <p>启动 Cloud Agent 不再需要前置绑定 GitHub 仓库，随时一句提示词即时开搞，后台自动生成 Origin 仓库；云环境端口自动转发直连浏览器实时预览，并支持一键通过 Vercel 发布上线。</p>
+              <a href="https://cursor.com/changelog/start-from-scratch" target="_blank" rel="noopener noreferrer">官方日志 →</a>
+            </article>
+
+            <!-- 5. Harness & Subscriptions (NEW - Aug 2026) -->
+            <article class="feature-card animate-on-scroll" data-category="swarm">
+              <div class="feature-meta">
+                <span class="feature-version" style="background:rgba(6,182,212,0.15); color:var(--cyan);">NEW · 8月</span>
+                <span class="feature-date">2026 年 8 月</span>
+              </div>
+              <div class="svg-icon-wrap" style="color:var(--cyan);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              </div>
+              <h3>Harness 事件订阅、/goal 与独立沙箱</h3>
+              <p>支持让 Agent 订阅 PR 动态与 Slack 讨论串并在事件到达时自动唤醒；新增 <code>/goal</code> 长期自治模式；子智能体（Subagents）在独立虚拟主机中并发运行，互不碰撞；支持免中断平滑转向。</p>
+              <a href="https://cursor.com/changelog/08-19-26" target="_blank" rel="noopener noreferrer">官方日志 →</a>
+            </article>
+
+            <!-- 6. Grok 4.6 (Aug 2026) -->
             <article class="feature-card animate-on-scroll" data-category="model">
               <div class="feature-meta">
                 <span class="feature-version" style="background:rgba(244,63,94,0.15); color:var(--rose);">NEW · 8月</span>
@@ -569,6 +659,8 @@
         </div>
       </section>
 
+      <!-- TEMPLATE:OPTIONAL END — Feature Matrix & Category Filter -->
+
       <!-- Composer Deep Dive Section & Phase 2 Interactive Playground -->
       <section id="composer-25" class="section section-tint">
         <div class="container">
@@ -719,7 +811,11 @@
         </div>
       </section>
 
+      <!-- TEMPLATE:OPTIONAL END — Deep Dive & Interactive Simulators -->
+
       <!-- Media & Official Docs -->
+      <!-- TEMPLATE:OPTIONAL START — Media Showcases & Documents -->
+      <!-- DEMO:CURSOR — Replace with your video walkthrough or safely delete -->
       <section id="media" class="section">
         <div class="container">
           <p class="section-label">学习与实操</p>
@@ -774,7 +870,11 @@
         </div>
       </section>
 
+      <!-- TEMPLATE:OPTIONAL END — Media Showcases & Documents -->
+
       <!-- Timeline -->
+      <!-- TEMPLATE:OPTIONAL START — Roadmap / Timeline Milestones -->
+      <!-- DEMO:CURSOR — Replace with your product milestones/roadmap -->
       <section id="timeline" class="section section-tint">
         <div class="container">
           <p class="section-label">演进脉络</p>
@@ -821,16 +921,29 @@
             <li class="timeline-item animate-on-scroll">
               <div class="timeline-marker" aria-hidden="true"></div>
               <div class="timeline-card">
-                <span class="timeline-era">3.9 · 2026 年 8 月最新</span>
+                <span class="timeline-era">3.9 · 2026 年 8 月</span>
                 <h3 class="timeline-title">Grok 4.6、Swarm 蜂群与 JetBrains ACP 跨生态</h3>
                 <p class="timeline-body">重磅发布 Grok 4.6（4 档思考深度）、开放 ACP 协议支持 JetBrains 全系 IDE、Swarm 蜂群多智能体协作与 Side Chats 独立对话。</p>
+              </div>
+            </li>
+
+            <li class="timeline-item animate-on-scroll">
+              <div class="timeline-marker" aria-hidden="true"></div>
+              <div class="timeline-card">
+                <span class="timeline-era">3.10 / 4.0 前瞻 · 2026 年 9 月最新</span>
+                <h3 class="timeline-title">自托管算力、Origin 原生托管与 Harness 自治纪元</h3>
+                <p class="timeline-body">从单纯 IDE 客户端跃迁为端云一体平台：推出 Origin 原生代码托管与 GitHub 实时双向镜像、企业自建网络算力池 (Self-hosted Machines)、Linux/Mac 计算机原生操作 (Computer Use)、免 Git 零仓库启动与 Subscriptions 事件驱动自治。</p>
               </div>
             </li>
           </ol>
         </div>
       </section>
 
+      <!-- TEMPLATE:OPTIONAL END — Roadmap / Timeline Milestones -->
+
       <!-- Pricing -->
+      <!-- TEMPLATE:OPTIONAL START — Pricing Plans -->
+      <!-- DEMO:CURSOR — Replace with your product pricing tiers or safely delete -->
       <section id="pricing" class="section">
         <div class="container">
           <p class="section-label">方案与价格</p>
@@ -937,6 +1050,8 @@
       </section>
 
       <!-- Compare Section -->
+      <!-- TEMPLATE:OPTIONAL START — Competitive Analysis Matrix -->
+      <!-- DEMO:CURSOR — Replace with your competitor comparison table or safely delete -->
       <section id="compare" class="section section-tint">
         <div class="container">
           <p class="section-label">横向对比</p>
@@ -1019,6 +1134,8 @@
       </section>
 
       <!-- CTA -->
+      <!-- TEMPLATE:OPTIONAL START — Call-To-Action (CTA) -->
+      <!-- TEMPLATE:EDIT — Final conversion banner and getting started steps -->
       <section id="start" class="section">
         <div class="container" style="text-align:center; max-width:680px;">
           <h2 class="section-title">立即开启 Cursor 3 体验</h2>
@@ -1029,9 +1146,14 @@
           </div>
         </div>
       </section>
+      <!-- TEMPLATE:OPTIONAL END — Call-To-Action (CTA) -->
     </main>
 
     <!-- Footer -->
+    <!-- ==========================================================================
+     TEMPLATE:CORE — Footer Structure
+     TEMPLATE:EDIT — Footer links, copyright, and disclaimer
+     ========================================================================== -->
     <footer class="site-footer">
       <div class="container footer-inner">
         <p>数据源引自 <a href="https://cursor.com/changelog" target="_blank" rel="noopener noreferrer">Cursor 官方 Changelog</a> 与官方博客。视频教程版权归属第三方创作者。</p>
@@ -1062,6 +1184,6 @@
     <!-- Back to Top -->
     <button class="back-to-top" id="backToTop" aria-label="返回顶部" title="返回顶部">↑</button>
 
-    <script src="assets/js/main.js?v=3.9.5"></script>
+    <script src="assets/js/main.js?v=3.10.0"></script>
   </body>
 </html>

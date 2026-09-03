@@ -1,14 +1,20 @@
 /**
- * Cursor 3.x Visual Introduction - Modern Design System
+ * Cursor 3.x Visual Introduction & Production-Ready Static Landing Page Template
  * Built on ui-ux-pro-max + web-design-guidelines standards
- * Optimized, Modular, Accessible & High Aesthetic
+ * Optimized, Modular, Accessible (WCAG 2.2 AA) & Zero-Build Vanilla Architecture
+ * 
+ * 💡 [TEMPLATE RE-SKINNING GUIDE / 二次开发换肤指引]:
+ * 1. Brand Accent: Change --blue, --blue-hover, --blue-glow for primary brand color.
+ * 2. Backgrounds: Adjust --bg-app, --bg-surface (Light Mode) and [data-theme="dark"] tokens below.
+ * 3. Typography: Change --font-sans and --font-mono to your product font stack.
+ * 4. Cards & Borders: Adjust --radius-*, --glass-bg, and --shadow-* variables.
  */
 
 /* ==========================================================================
-   1. Design Tokens & CSS Variables
+   1. Design Tokens & CSS Variables (Template Theme System)
    ========================================================================== */
 :root {
-  /* Brand Accent Colors */
+  /* Brand Accent Colors (Customizable) */
   --blue: #0071e3;
   --blue-hover: #0077ed;
   --blue-glow: rgba(0, 113, 227, 0.3);
