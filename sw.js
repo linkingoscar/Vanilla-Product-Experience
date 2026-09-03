@@ -1,6 +1,6 @@
 // TEMPLATE:CORE — Service Worker Cache Engine
 // TEMPLATE:EDIT — Bump CACHE_NAME whenever you deploy new asset versions
-const CACHE_NAME = 'static-landing-v6-product-ui-010';
+const CACHE_NAME = 'static-landing-v7-release-polish-011';
 
 // Scope-aware base path for GitHub Pages subpaths and custom domains.
 const BASE_SCOPE = self.registration.scope;
@@ -15,15 +15,16 @@ const STATIC_ASSETS = [
   new URL('./assets/css/style.css?v=3.10.0', BASE_SCOPE).href,
   new URL('./assets/js/main.js?v=3.10.0', BASE_SCOPE).href,
   new URL('./assets/css/style-base.css?v=3.10.0', BASE_SCOPE).href,
-  new URL('./assets/css/liquid-glass.css?v=0.1.0', BASE_SCOPE).href,
+  new URL('./assets/css/liquid-glass.css?v=0.1.2', BASE_SCOPE).href,
   new URL('./assets/css/liquid-glass-v2.css?v=0.2.0', BASE_SCOPE).href,
   new URL('./assets/css/liquid-glass-components.css?v=0.3.0', BASE_SCOPE).href,
   new URL('./assets/css/ambient-particles.css?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/css/site-motion.css?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/css/product-ui.css?v=0.1.0', BASE_SCOPE).href,
+  new URL('./assets/css/release-polish.css?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/css/product-ui-media.css?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/js/main-base.js?v=3.10.0', BASE_SCOPE).href,
-  new URL('./assets/js/liquid-glass.js?v=0.1.1', BASE_SCOPE).href,
+  new URL('./assets/js/liquid-glass.js?v=0.1.2', BASE_SCOPE).href,
   new URL('./assets/js/liquid-glass-v2.js?v=0.2.1', BASE_SCOPE).href,
   new URL('./assets/js/liquid-glass-components.js?v=0.3.1', BASE_SCOPE).href,
   new URL('./assets/js/ambient/particle-renderer-webgl.js?v=0.1.0', BASE_SCOPE).href,
@@ -33,7 +34,7 @@ const STATIC_ASSETS = [
   new URL('./assets/js/motion/layout-motion.js?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/js/motion/number-motion.js?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/js/motion/site-motion.js?v=0.1.0', BASE_SCOPE).href,
-  new URL('./assets/js/product-ui.js?v=0.1.0', BASE_SCOPE).href,
+  new URL('./assets/js/product-ui.js?v=0.1.1', BASE_SCOPE).href,
   new URL('./assets/icons/favicon.svg', BASE_SCOPE).href,
   new URL('./assets/icons/icon-192.png', BASE_SCOPE).href,
   new URL('./assets/icons/icon-512.png', BASE_SCOPE).href,
