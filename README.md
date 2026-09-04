@@ -4,7 +4,7 @@
 >
 > 仓库中的 **Cursor 3.x** 页面是 Reference Demo，不再是项目本身的身份。
 
-[Live Demo](https://linkingoscar.github.io/Vanilla-Product-Experience/) · [English](README.en.md) · [Documentation](docs/README.md) · [Customize](docs/CUSTOMIZE.md)
+[Live Demo](https://linkingoscar.github.io/Vanilla-Product-Experience/) · [v1.0.0 Release Notes](docs/releases/v1.0.0.md) · [English](README.en.md) · [Documentation](docs/README.md) · [Customize](docs/CUSTOMIZE.md)
 
 [![Version](https://img.shields.io/badge/VPE-v1.0.0-6366f1)](VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
