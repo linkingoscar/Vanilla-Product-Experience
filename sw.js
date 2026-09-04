@@ -1,6 +1,6 @@
 // TEMPLATE:CORE — Service Worker Cache Engine
 // TEMPLATE:EDIT — Bump CACHE_NAME whenever you deploy new asset versions
-const CACHE_NAME = 'static-landing-v8-feature-grid-011';
+const CACHE_NAME = 'static-landing-v9-feature-grid-cache-0111';
 
 // Scope-aware base path for GitHub Pages subpaths and custom domains.
 const BASE_SCOPE = self.registration.scope;
@@ -31,7 +31,7 @@ const STATIC_ASSETS = [
   new URL('./assets/js/ambient/interaction-field.js?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/js/ambient/particle-field.js?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/js/motion/spring.js?v=0.1.0', BASE_SCOPE).href,
-  new URL('./assets/js/motion/layout-motion.js?v=0.1.0', BASE_SCOPE).href,
+  new URL('./assets/js/motion/layout-motion.js?v=0.1.1', BASE_SCOPE).href,
   new URL('./assets/js/motion/number-motion.js?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/js/motion/site-motion.js?v=0.1.0', BASE_SCOPE).href,
   new URL('./assets/js/product-ui.js?v=0.1.1', BASE_SCOPE).href,
@@ -70,8 +70,21 @@ self.addEventListener('fetch', (event) => {
   if (request.method !== 'GET') return;
   if (url.origin !== self.location.origin && !url.hostname.includes('bunny.net')) return;
 
+  // The main loader and the Feature Grid layout helper changed under URLs that
+  // previously kept the same query string. Force a network revalidation for
+  // these two runtime files so an already-installed browser cannot keep serving
+  // the pre-fix motion code from its HTTP cache. Offline fallback still uses the
+  // versioned Cache Storage entries below.
+  const forceFreshRuntime = url.origin === self.location.origin && (
+    url.pathname.endsWith('/assets/js/main.js') ||
+    url.pathname.endsWith('/assets/js/motion/layout-motion.js')
+  );
+  const networkRequest = forceFreshRuntime
+    ? new Request(request, { cache: 'reload' })
+    : request;
+
   event.respondWith(
-    fetch(request)
+    fetch(networkRequest)
       .then((response) => {
         if (response && response.status === 200) {
           const clone = response.clone();
