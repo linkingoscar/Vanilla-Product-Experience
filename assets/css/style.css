@@ -21,6 +21,89 @@
 @import url("./product-ui-media.css?v=0.1.0");
 @import url("./release-polish.css?v=0.1.0");
 
+/* Navigation capacity / browser-zoom resilience.
+   English labels are materially wider than Chinese labels. Keep the language
+   switcher as a non-negotiable control: expand the desktop rail, progressively
+   remove non-essential runtime status, then enter Mobile Island before the
+   navigation can push the language control beyond the viewport. */
+@media (min-width: 1121px) {
+  .island {
+    width: min(1160px, calc(100% - 32px));
+  }
+}
+
+@media (min-width: 1121px) and (max-width: 1240px) {
+  .island-nav a {
+    padding-inline: 8px;
+    font-size: 12.5px;
+  }
+
+  .island-status > .is-dot,
+  .island-status > span:not(.is-dot) {
+    display: none !important;
+  }
+
+  .island-status {
+    gap: 6px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .island-search-btn {
+    padding-inline: 8px;
+  }
+
+  .lang-badge {
+    display: inline-flex !important;
+    flex-shrink: 0 !important;
+  }
+}
+
+@media (max-width: 1120px) {
+  .island {
+    width: calc(100% - 24px) !important;
+    padding-inline: 10px !important;
+  }
+
+  .island-inner {
+    gap: 8px !important;
+  }
+
+  .island-nav {
+    display: none !important;
+  }
+
+  .product-mobile-menu-btn {
+    display: inline-flex !important;
+  }
+
+  .island-status > span:not(.is-dot),
+  .island-status > .is-dot {
+    display: none !important;
+  }
+
+  .island-status {
+    gap: 5px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .island-search-btn {
+    width: 34px;
+    height: 34px;
+    padding: 0 !important;
+    justify-content: center;
+  }
+
+  .island-search-btn > span,
+  .island-search-btn > kbd {
+    display: none !important;
+  }
+
+  .lang-badge {
+    display: inline-flex !important;
+    flex-shrink: 0 !important;
+  }
+}
+
 /* iOS can keep :hover sticky after a tap; do not let the generic touch rule
    erase the desktop centering transform of the Hero glass controller. */
 html[data-lg-device="touch"] .lg-hero-controller.lg-surface:hover {
