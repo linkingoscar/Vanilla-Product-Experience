@@ -157,7 +157,7 @@ jobs:
             grep -F 'product-ui.css?v=0.1.0' assets/css/style.css
             grep -F 'product-ui.js?v=0.1.1' assets/js/main.js
             grep -F 'release-polish.css?v=0.1.0' assets/css/style.css
-            grep -F 'static-landing-v7-release-polish-011' sw.js
+            grep -F 'static-landing-v8-feature-grid-011' sw.js
           elif [ -f assets/css/site-motion.css ]; then
             grep -F 'static-landing-v5-site-motion-010' sw.js
           elif [ -f assets/js/ambient/particle-field.js ]; then
@@ -189,6 +189,9 @@ jobs:
           if [ -f assets/js/motion/site-motion.js ]; then
             grep -F 'CursorMotionPhysics' assets/js/motion/spring.js
             grep -F 'animateFlip' assets/js/motion/layout-motion.js
+            grep -F 'version: "0.1.1"' assets/js/motion/layout-motion.js
+            grep -F 'naturalTarget >= startHeight' assets/js/motion/layout-motion.js
+            grep -F 'cancelContainerHeight' assets/js/motion/layout-motion.js
             grep -F 'CursorNumberMotion' assets/js/motion/number-motion.js
             grep -F 'installFeatureLayoutMotion' assets/js/motion/site-motion.js
             grep -F 'installTimelineMotion' assets/js/motion/site-motion.js
