@@ -1,5 +1,5 @@
 /**
- * Cursor 3.x JavaScript entrypoint.
+ * Vanilla Product Experience v1.0.0 JavaScript entrypoint.
  *
  * main-base.js contains the production Static Landing Page Template behavior.
  * Enhancement layers load afterwards and stay independently removable:
@@ -10,10 +10,11 @@
  *   Site Motion v0.1.x page choreography + FLIP + spring interaction physics
  *   Product UI v0.1.x mobile IA + art direction + proof/media/conversion systems
  */
-(function bootstrapCursorExperience() {
+(function bootstrapVanillaProductExperience() {
   "use strict";
 
   const root = document.documentElement;
+  const PROJECT_VERSION = "1.0.0";
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   if (!reducedMotion.matches) root.classList.add("site-motion-pending");
 
@@ -105,14 +106,10 @@
       });
     }
 
-    // Registered after main-base.js, so this RAF becomes the final active-state
-    // decision for each scroll frame.
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule, { passive: true });
     window.addEventListener("hashchange", schedule);
 
-    // If another subsystem changes nav classes asynchronously, normalize the
-    // state again before it can become persistent.
     const classObserver = new MutationObserver(() => {
       if (!correcting) schedule();
     });
@@ -149,8 +146,31 @@
     applyCurrent();
   }
 
+  function publishVpeFacade() {
+    const facade = {};
+    Object.defineProperties(facade, {
+      version: { value: PROJECT_VERSION, enumerable: true },
+      glass: { enumerable: true, get: () => Object.freeze({
+        core: window.CursorLiquidGlass || null,
+        crossBrowser: window.CursorLiquidGlassV2 || null,
+        components: window.CursorGlassUI || null
+      }) },
+      ambient: { enumerable: true, get: () => window.CursorAmbientField || null },
+      motion: { enumerable: true, get: () => Object.freeze({
+        physics: window.CursorMotionPhysics || null,
+        layout: window.CursorLayoutMotion || null,
+        numbers: window.CursorNumberMotion || null,
+        site: window.CursorSiteMotion || null
+      }) },
+      ui: { enumerable: true, get: () => window.CursorProductUI || null }
+    });
+    window.VPE = Object.freeze(facade);
+    root.dataset.vpeVersion = PROJECT_VERSION;
+    window.dispatchEvent(new CustomEvent("vpe:ready", { detail: { version: PROJECT_VERSION } }));
+  }
+
   function loadProductUi() {
-    loadScript("product-ui.js?v=0.1.1");
+    loadScript("product-ui.js?v=0.1.1", publishVpeFacade);
   }
 
   function loadSiteMotion() {

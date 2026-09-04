@@ -1,9 +1,8 @@
 /**
- * Release Visual Polish v0.1
- * --------------------------
- * Integration-only overrides validated against the deployed GitHub Pages build.
- * Fixes hierarchy, responsive composition and visual-system collisions without
- * introducing a new design system.
+ * Vanilla Product Experience — Integration Layer v1.0.0
+ * -----------------------------------------------------
+ * Cross-layer hierarchy, responsive composition and compatibility rules that
+ * genuinely belong to the integrated experience rather than one subsystem.
  */
 
 :root {
@@ -161,8 +160,6 @@ body.product-mobile-nav-open { overflow: hidden; }
   .feature-tabs.lg-has-shared-lens::-webkit-scrollbar { display: none; }
   .feature-tabs.lg-has-shared-lens .tab-btn { flex: 0 0 auto; white-space: nowrap; }
 
-  /* Theme is already available in Mobile Island; floating orbs only obscure
-     cards and tables on narrow screens. */
   .theme-toggle,
   .back-to-top { display: none !important; }
 

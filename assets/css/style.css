@@ -1,5 +1,5 @@
 /*
- * Cursor 3.x stylesheet entrypoint.
+ * Vanilla Product Experience v1.0.0 stylesheet entrypoint.
  *
  * The production template stylesheet is preserved in style-base.css.
  * Enhancement layers are removable and ordered by responsibility:
@@ -9,7 +9,7 @@
  *   4) Ambient Particle Interaction Field beneath the functional layer
  *   5) Site Motion choreography coordinating the entire experience
  *   6) Product UI / Art Direction layer for IA, brand, proof, media & conversion
- *   7) Release-only hierarchy and integration polish
+ *   7) Cross-layer experience integration and responsive hardening
  */
 @import url("./style-base.css?v=3.10.0");
 @import url("./liquid-glass.css?v=0.1.2");
@@ -19,7 +19,7 @@
 @import url("./site-motion.css?v=0.1.0");
 @import url("./product-ui.css?v=0.1.0");
 @import url("./product-ui-media.css?v=0.1.0");
-@import url("./release-polish.css?v=0.1.0");
+@import url("./experience-integration.css?v=1.0.0");
 
 /* Navigation capacity / browser-zoom resilience.
    English labels are materially wider than Chinese labels. Keep the language

@@ -1,0 +1,157 @@
+name: Experience integrity
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - 'assets/css/**'
+      - 'assets/js/**'
+      - 'index.html'
+      - 'en/index.html'
+      - 'liquid-glass-lab.html'
+      - 'ambient-particle-lab.html'
+      - 'manifest.json'
+      - 'sw.js'
+      - 'VERSION'
+      - 'README*.md'
+      - 'docs/**'
+      - 'CONTRIBUTING.md'
+      - '.github/**'
+
+permissions:
+  contents: read
+
+jobs:
+  static-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: JavaScript syntax
+        run: |
+          set -euxo pipefail
+          node --check assets/js/main-base.js
+          node --check assets/js/main.js
+          node --check assets/js/liquid-glass.js
+          node --check assets/js/liquid-glass-v2.js
+          node --check assets/js/liquid-glass-components.js
+          node --check assets/js/ambient/particle-renderer-webgl.js
+          node --check assets/js/ambient/interaction-field.js
+          node --check assets/js/ambient/particle-field.js
+          node --check assets/js/motion/spring.js
+          node --check assets/js/motion/layout-motion.js
+          node --check assets/js/motion/number-motion.js
+          node --check assets/js/motion/site-motion.js
+          node --check assets/js/product-ui.js
+          node --check sw.js
+
+      - name: HTML and manifest integrity
+        run: |
+          set -euxo pipefail
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import json
+
+          class Inspector(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.ids = []
+                  self.inline_scripts = []
+                  self._in_script = False
+                  self._script_src = False
+                  self._chunks = []
+
+              def handle_starttag(self, tag, attrs):
+                  attrs = dict(attrs)
+                  if 'id' in attrs:
+                      self.ids.append(attrs['id'])
+                  if tag == 'script':
+                      self._in_script = True
+                      self._script_src = bool(attrs.get('src'))
+                      self._chunks = []
+
+              def handle_data(self, data):
+                  if self._in_script and not self._script_src:
+                      self._chunks.append(data)
+
+              def handle_endtag(self, tag):
+                  if tag == 'script' and self._in_script:
+                      if not self._script_src:
+                          self.inline_scripts.append(''.join(self._chunks))
+                      self._in_script = False
+                      self._script_src = False
+                      self._chunks = []
+
+          files = ['index.html', 'en/index.html', 'liquid-glass-lab.html', 'ambient-particle-lab.html']
+          for filename in files:
+              parser = Inspector()
+              parser.feed(Path(filename).read_text(encoding='utf-8'))
+              duplicates = sorted({x for x in parser.ids if parser.ids.count(x) > 1})
+              if duplicates:
+                  raise SystemExit(f'{filename}: duplicate IDs: {duplicates}')
+
+          json.loads(Path('manifest.json').read_text(encoding='utf-8'))
+          assert Path('VERSION').read_text(encoding='utf-8').strip() == '1.0.0'
+          PY
+
+      - name: Project identity and documentation
+        run: |
+          set -euxo pipefail
+          grep -F 'Vanilla Product Experience' README.md
+          grep -F 'Vanilla Product Experience' README.en.md
+          grep -F 'Reference Demo' README.md
+          grep -F 'Reference Demo' CHANGELOG.md
+          grep -F 'window.VPE' assets/js/main.js
+          grep -F 'vpe:ready' assets/js/main.js
+          test -s docs/README.md
+          test -s docs/ARCHITECTURE.md
+          test -s docs/BROWSER_SUPPORT.md
+          test -s docs/VERSIONING.md
+          test -s CONTRIBUTING.md
+
+      - name: Entrypoint dependency graph
+        run: |
+          set -euxo pipefail
+          grep -F 'style-base.css?v=3.10.0' assets/css/style.css
+          grep -F 'liquid-glass.css?v=0.1.2' assets/css/style.css
+          grep -F 'liquid-glass-v2.css?v=0.2.0' assets/css/style.css
+          grep -F 'liquid-glass-components.css?v=0.3.0' assets/css/style.css
+          grep -F 'ambient-particles.css?v=0.1.0' assets/css/style.css
+          grep -F 'site-motion.css?v=0.1.0' assets/css/style.css
+          grep -F 'product-ui.css?v=0.1.0' assets/css/style.css
+          grep -F 'experience-integration.css?v=1.0.0' assets/css/style.css
+          grep -F 'main-base.js?v=3.10.0' assets/js/main.js
+          grep -F 'liquid-glass.js?v=0.1.3' assets/js/main.js
+          grep -F 'motion/layout-motion.js?v=0.1.1' assets/js/main.js
+          grep -F 'product-ui.js?v=0.1.1' assets/js/main.js
+          test ! -f assets/css/release-polish.css
+          grep -F "vpe-v1.0.0-cache-001" sw.js
+          grep -F 'style.css?v=3.10.0' sw.js
+          grep -F 'main.js?v=3.10.0' sw.js
+          grep -F 'experience-integration.css?v=1.0.0' sw.js
+          grep -F 'layout-motion.js?v=0.1.1' sw.js
+
+      - name: Experience invariants
+        run: |
+          set -euxo pipefail
+          grep -F 'feDisplacementMap' assets/js/liquid-glass.js
+          grep -F 'content-copy-svg' assets/js/liquid-glass-v2.js
+          grep -F 'CursorAmbientField' assets/js/ambient/particle-field.js
+          grep -F 'animateFlip' assets/js/motion/layout-motion.js
+          grep -F 'version: "0.1.1"' assets/js/motion/layout-motion.js
+          grep -F 'naturalTarget >= startHeight' assets/js/motion/layout-motion.js
+          grep -F 'prefers-reduced-motion' assets/css/site-motion.css
+          grep -F 'prefers-reduced-transparency' assets/css/liquid-glass.css
+          grep -F 'installMobileIa' assets/js/product-ui.js
+          grep -F 'feature-tabs.lg-has-shared-lens' assets/css/experience-integration.css
