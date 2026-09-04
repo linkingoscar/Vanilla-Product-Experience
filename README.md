@@ -1,273 +1,163 @@
-# Cursor 3.x 介绍页 & Static Product Landing Page Template
+# Vanilla Product Experience
 
-> 🖥️ 一个以 **Cursor 3.x** 为高质量 Demo Content 的纯静态产品宣传页模板。  
-> ⚡ **零框架、零打包构建**，Fork 后直接修改 HTML / CSS / JavaScript 即可部署自己的 AI / SaaS / 开源产品 Landing Page。
+> **零构建的产品体验系统。** 使用原生 HTML、CSS 与 JavaScript，提供真实折射 Liquid Glass、WebGL Ambient Field、整站 Motion Choreography、响应式 Product UI、PWA 与 Accessibility。
+>
+> 仓库中的 **Cursor 3.x** 页面是 Reference Demo，不再是项目本身的身份。
 
+[Live Demo](https://linkingoscar.github.io/Vanilla-Product-Experience/) · [English](README.en.md) · [Documentation](docs/README.md) · [Customize](docs/CUSTOMIZE.md)
+
+[![Version](https://img.shields.io/badge/VPE-v1.0.0-6366f1)](VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
-[![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
-[![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![PWA](https://img.shields.io/badge/PWA-Supported-5A0FC8?logo=pwa&logoColor=white)](https://web.dev/progressive-web-apps/)
-[![Accessibility](https://img.shields.io/badge/Accessibility-ARIA-005A9C?logo=w3c&logoColor=white)](#)
-[![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-222222?logo=github&logoColor=white)](https://pages.github.com/)
+[![Zero Build](https://img.shields.io/badge/build-zero-10b981)](#quickstart)
+[![PWA](https://img.shields.io/badge/PWA-ready-5A0FC8)](manifest.json)
+[![Accessibility](https://img.shields.io/badge/accessibility-reduced%20motion%20%2F%20transparency-005A9C)](docs/BROWSER_SUPPORT.md)
 
-> 🌐 **[English Documentation](README.en.md)**
+## 这是什么
 
----
-
-## 🧭 两种使用方式
-
-### ① Cursor 3.x Showcase
-
-- 了解 Cursor 1.x → 3.x / 2026 年 9 月前沿生态；
-- 浏览 **31 项功能矩阵**、版本时间线、定价与竞品对比；
-- 体验多 Agent 模拟器、Command Palette 与 ROI 计算器。
-
-### ② Static Product Landing Page Template
-
-- 无 React / Vue / Vite / Webpack；
-- 无需 Node.js 即可运行；
-- 中英文、暗色模式、PWA、SEO、无障碍能力开箱即用；
-- `TEMPLATE:EDIT` / `TEMPLATE:OPTIONAL` / `DEMO:CURSOR` 注释帮助快速 Fork；
-- 自带一套可独立拆除的 **Liquid Glass Optical Design System**。
-
----
-
-## 🫧 Real Liquid Glass — 不是 blur 冒充玻璃
-
-当前 `feat/liquid-glass-design-system` 分支引入真实位移折射实验实现，而不是只做：
-
-```css
-backdrop-filter: blur(20px);
-```
-
-光学链路包含：
+Vanilla Product Experience（**VPE**）不是另一个 CSS 组件库，也不是一个 React/Vite Starter。它是一套可以直接部署的静态 Product Experience Runtime：
 
 ```text
-Rounded-Rect SDF
-      ↓
-RG Displacement Map
-      ↓
-SVG feDisplacementMap
-      ↓
-Edge Lensing / Refraction
-      ↓
-Material Tint
-      ↓
-Directional Specular Highlight
-      ↓
-Foreground Content
-```
-
-### Renderer
-
-- **Chromium**：`backdrop-svg`，直接对玻璃背后的实际像素做 SVG displacement；
-- **Safari / Firefox**：`content-copy-svg`，同步真实 DOM 的非交互副本，再通过 `filter:url(#feDisplacementMap)` 折射；
-- **Reduce Transparency**：切换为高不透明度、可读性优先的 `accessible-solid` 材质；
-- Video / Canvas 暂不强行 DOM Rasterize，后续需要时走独立 WebGL renderer。
-
-### 已升级的 Functional Layer
-
-Liquid Glass 主要用于操作层，而不是把所有内容卡片都做成毛玻璃：
-
-- Floating Island Navigation
-- Shared Active Lens
-- Primary / Secondary CTA
-- Command Palette
-- Search → Palette shared-geometry morph
-- Feature Segmented Tabs
-- ROI Liquid Range Thumb
-- Status / Badge / Floating Controls
-
-专门的光学验收与参数页：
-
-```text
-/liquid-glass-lab.html
-```
-
-它提供普通 blur 与真实 displacement 的并排比较，以及 Refraction / Bezel / Radius / Specular / Tint 调节。
-
-详细工程说明见：[`docs/LIQUID_GLASS_IMPLEMENTATION.md`](docs/LIQUID_GLASS_IMPLEMENTATION.md)。
-
-> 当前分支已经通过仓库级静态 CI；Chrome / Safari / Firefox 的最终视觉参数仍应在合并前按 QA Checklist 做真人浏览器验收。
-
----
-
-## ⚡ 5 分钟 Fork Quickstart
-
-```text
-Fork / Use this template
-       ↓
-搜索 TEMPLATE:EDIT
-       ↓
-替换品牌、文案、链接
-       ↓
-修改 Design Tokens
-       ↓
-替换 Icons / manifest
-       ↓
-部署
-```
-
-1. Fork 本仓库或使用 **Use this template**；
-2. 全局搜索 `TEMPLATE:EDIT`，替换品牌、Hero、功能、定价与外链；
-3. 修改 `assets/css/style-base.css` 顶部 Design Tokens；
-4. 如需修改 Command Palette 搜索数据或 Demo 行为，编辑 `assets/js/main-base.js`；
-5. 替换 `assets/icons/` 和 `manifest.json`；
-6. 根据 [`docs/DEPLOY.md`](docs/DEPLOY.md) 发布。
-
----
-
-## 🧩 文件职责与修改地图
-
-Liquid Glass 分支将“模板内容层”和“光学增强层”明确拆开：
-
-| 文件 | 职责 | Fork 时通常需要修改？ |
-| :--- | :--- | :---: |
-| `index.html` | 中文品牌、Hero、Feature、Pricing、SEO | ✅ |
-| `en/index.html` | 英文内容；单语言项目可删除 | 可选 |
-| `assets/css/style-base.css` | **模板 Design Tokens 与主体组件样式** | 🎨 推荐 |
-| `assets/css/style.css` | CSS 薄入口，加载 Base + Glass + Ambient + Motion + Product UI | 通常不用 |
-| `assets/css/liquid-glass.css` | v0.1 光学材质、Shared Lens、Specular | 高级定制 |
-| `assets/css/liquid-glass-v2.css` | content-copy、Palette Morph、Liquid Slider | 高级定制 |
-| `assets/css/liquid-glass-components.css` | v0.3 业务组件液态化视觉覆盖 (Hero/定价/模拟器) | 高级定制 |
-| `assets/css/ambient-particles.css` | 空间环境粒子场样式 | 高级定制 |
-| `assets/css/site-motion.css` | 全站动效编排与时间连续性样式 | 高级定制 |
-| `assets/css/product-ui.css` | 移动端导航面板、视觉叙事槽与证明数据样式 | 高级定制 |
-| `assets/css/product-ui-media.css` | 媒体播放槽、视频控制与阴影质感 | 高级定制 |
-| `assets/js/main-base.js` | **模板原始行为、searchIndex、模拟器、ROI** | 💡 视情况 |
-| `assets/js/main.js` | JS 薄入口，按顺序加载各增强层 | 通常不用 |
-| `assets/js/liquid-glass.js` | SDF / Displacement Map / Filter / Shared Spring | 高级定制 |
-| `assets/js/liquid-glass-v2.js` | Safari/Firefox content-copy、Palette、Range | 高级定制 |
-| `assets/js/liquid-glass-components.js` | v0.3 Hero 控制器、定价/模拟器透镜业务装配 | 高级定制 |
-| `assets/js/ambient/` | WebGL2 粒子模拟与交互场 (Canvas2D 自动降级) | 高级定制 |
-| `assets/js/motion/` | 物理 Spring、FLIP 布局过渡、数字连续动画与全站编排 | 高级定制 |
-| `assets/js/product-ui.js` | 移动端 IA、产品叙事槽、证明条、ROI 图表与媒体绑定 | 高级定制 |
-| `liquid-glass-lab.html` | Glass 参数实验与光学验收 | 可选 |
-| `ambient-particle-lab.html` | 粒子场动态参数实验与调试 | 可选 |
-| `assets/icons/` | Favicon 与 PWA icons | ✅ |
-| `manifest.json` | PWA 名称、主题、图标 | PWA 项目 |
-| `sw.js` | 离线缓存与版本失效 | 部署更新时 |
-
-### 为什么保留 `*-base`？
-
-因为模板主体与 Liquid Glass 是两个不同生命周期：
-
-```text
+Static Content
+    ↓
 Template Core
-style-base.css + main-base.js
-        │
-        ├── 可独立工作
-        │
-        ▼
-Liquid Glass Enhancement
-liquid-glass*.css + liquid-glass*.js
+    ↓
+Optical Material System
+    ↓
+Ambient Interaction Field
+    ↓
+Site Motion System
+    ↓
+Product UI / Art Direction
+    ↓
+Experience Integration + PWA
 ```
 
-这样光学实验可以快速升级、回滚或移除，不需要重写稳定的 Landing Page 内容层。
+它的目标是：在 **不引入框架、打包器或运行时依赖** 的前提下，仍然做出高级产品官网需要的材质、空间、动效、信息架构和响应式交互。
 
-### 不想使用 Liquid Glass？
+## What ships
 
-删除 `assets/css/style.css` 中两个 `liquid-glass*.css` import，并删除 `assets/js/main.js` 中两个 Liquid Glass loader 即可；`style-base.css + main-base.js` 仍保持原站完整功能。
+| 系统 | 作用 |
+| --- | --- |
+| **Template Core** | 双语页面、Theme、Command Palette、Feature Matrix、Simulator、ROI、Pricing、Comparison、SEO 基础 |
+| **Real Liquid Glass** | SDF displacement map、`feDisplacementMap`、shared lens、specular、cross-browser content-copy renderer |
+| **Ambient Field** | WebGL2 粒子场、Canvas2D fallback、pointer wake、scroll energy、Glass mirror bridge |
+| **Site Motion** | Spring physics、FLIP、数字连续动画、section choreography、Timeline progress |
+| **Product UI** | Mobile Island、Typography、Proof、Media Surface、Conversion、Light Mode art direction |
+| **Integration** | 响应式 hardening、浏览器 zoom/window resilience、PWA cache/version integrity |
 
----
+核心原则不是“特效越多越好”，而是：**内容优先，动效保持连续，Glass 只服务功能控件，Ambient 只负责空间感。**
 
-## 🎨 最常用的 Design Tokens
+## Reference Demo: Cursor 3.x
 
-在 `assets/css/style-base.css` 中修改品牌基础视觉：
+根目录与 `/en/` 当前使用 Cursor 3.x 作为高保真 Reference Experience，用来展示 VPE 在真实产品信息密度下的表现：
 
-```css
-:root {
-  --blue: #0071e3;
-  --indigo: #6366f1;
-  --bg-app: #fbfbfd;
-  --bg-surface: #ffffff;
-  --text-main: #1d1d1f;
-  --font-sans: "Inter", system-ui, sans-serif;
-}
+- 31 项可筛选 Feature Matrix；
+- Floating Island + Command Palette；
+- Local / Cloud / Private Workspace 控制；
+- Composer workflow simulator 与 ROI calculator；
+- Timeline、Pricing、Comparison；
+- 中英文、Dark / Light、PWA、响应式布局。
 
-[data-theme="dark"] {
-  --bg-app: #08090e;
-  --bg-surface: #141724;
-  --text-main: #f5f5f7;
-}
+Fork 时可以完整替换这些 `DEMO:CURSOR` 内容，而保留 VPE runtime。
+
+## Quickstart
+
+无需安装 Node.js 或 npm：
+
+```bash
+git clone https://github.com/linkingoscar/Vanilla-Product-Experience.git
+cd Vanilla-Product-Experience
+python -m http.server 8000
 ```
 
-Liquid Glass 的高级参数位于 `assets/css/liquid-glass.css`：
+然后打开 `http://localhost:8000`。
 
-```css
-:root {
-  --lg-ior: 1.48;
-  --lg-refraction: 9px;
-  --lg-bezel: 15px;
-  --lg-specular-alpha: 0.52;
-}
+用于二次开发时：
+
+1. 全局搜索 `TEMPLATE:EDIT`；
+2. 替换品牌、Hero、Feature、Pricing、链接与 SEO；
+3. 修改 `assets/css/style-base.css` 的基础 Design Tokens；
+4. 修改 `assets/css/product-ui.css` 的品牌/排版 tokens；
+5. 替换 `assets/icons/` 与 `manifest.json`；
+6. 按 [`docs/DEPLOY.md`](docs/DEPLOY.md) 部署。
+
+## Runtime architecture
+
+正式入口保持很薄：
+
+```text
+assets/css/style.css
+├── style-base.css
+├── liquid-glass*.css
+├── ambient-particles.css
+├── site-motion.css
+├── product-ui*.css
+└── experience-integration.css
+
+assets/js/main.js
+├── main-base.js
+├── liquid-glass*.js
+├── ambient/*
+├── motion/*
+└── product-ui.js
 ```
 
-建议先在 `liquid-glass-lab.html` 调整，再复制参数。
+项目级版本从 **v1.0.0** 开始。内部模块仍保留自己的小版本用于诊断，但 public entrypoint、PWA cache 和 Release 以项目版本为准。详见 [`docs/VERSIONING.md`](docs/VERSIONING.md)。
 
----
+## Public API
 
-## 🔎 模板搜索标记
+v1 提供中性的 `window.VPE` facade：
 
-全局搜索：
+```js
+VPE.version
+VPE.glass
+VPE.ambient
+VPE.motion
+VPE.ui
+```
 
-- `TEMPLATE:EDIT`：品牌、文案与配置；
-- `TEMPLATE:OPTIONAL`：可安全删除的独立模块；
-- `TEMPLATE:CORE`：模板运行基础能力；
-- `DEMO:CURSOR`：Cursor 专属 Demo 内容。
+历史 `CursorLiquidGlass`、`CursorAmbientField`、`CursorProductUI` 等全局对象在 v1 继续作为兼容 alias 保留，不要求现有集成立即迁移。
 
----
+## Browser & accessibility policy
 
-## 🏛️ 页面模块
+- Chromium：真实 backdrop displacement 主路径；
+- Safari / Firefox：content-copy SVG displacement 路径；
+- 无 WebGL2：Ambient 自动回退 Canvas2D；
+- `prefers-reduced-motion`：停止或显著降低持续运动；
+- `prefers-reduced-transparency`：切换高可读性 solid material；
+- Touch / coarse pointer：降低视觉预算并保留原生交互目标；
+- Responsive：支持窗口连续 resize、zoom breakpoint、Mobile Island 与横向 segmented controls。
 
-| 模块 | 容器 | 可复用场景 |
-| :--- | :--- | :--- |
-| Floating Island | `header.island` | 浮动导航、搜索、语言切换 |
-| Hero | `section.hero` | 产品定位 + CTA |
-| Highlights | `section#highlights` | Bento 核心卖点 |
-| Feature Matrix | `section#new-features` | 可筛选功能矩阵 |
-| Interactive Demo | `section#composer-25` | 模拟器 / Calculator |
-| Media | `section#media` | 视频 / 产品演示 |
-| Timeline | `section#timeline` | Changelog / Roadmap |
-| Pricing | `section#pricing` | SaaS 价格方案 |
-| Comparison | `section#compare` | 竞品矩阵 |
-| CTA | `section#start` | 最终转化区 |
-| Command Palette | `div#cmdPalette` | ⌘K / Ctrl+K 快捷搜索 |
+当前仓库拥有静态完整性 CI 和 Chromium 集成调校；Safari / Firefox 的最终视觉参数仍建议在目标版本原生浏览器上做人工验收。完整矩阵见 [`docs/BROWSER_SUPPORT.md`](docs/BROWSER_SUPPORT.md)。
 
----
+## Documentation
 
-## 📚 文档
+从 [`docs/README.md`](docs/README.md) 开始：
 
-- [`docs/CUSTOMIZE.md`](docs/CUSTOMIZE.md) — Fork / Rebrand / Design Tokens
-- [`docs/SECTIONS.md`](docs/SECTIONS.md) — 模块依赖与安全删除
-- [`docs/DEPLOY.md`](docs/DEPLOY.md) — GitHub Pages / Vercel / Cloudflare / Netlify
-- [`docs/LIQUID_GLASS_IMPLEMENTATION.md`](docs/LIQUID_GLASS_IMPLEMENTATION.md) — Liquid Glass 光学架构、浏览器策略与 QA
+- [`ARCHITECTURE.md`](docs/ARCHITECTURE.md) — 系统边界、加载顺序与依赖；
+- [`CUSTOMIZE.md`](docs/CUSTOMIZE.md) — Fork / Rebrand / tokens；
+- [`SECTIONS.md`](docs/SECTIONS.md) — 页面模块、依赖与安全删除；
+- [`BROWSER_SUPPORT.md`](docs/BROWSER_SUPPORT.md) — renderer、responsive、accessibility；
+- [`VERSIONING.md`](docs/VERSIONING.md) — 项目/模块/资源/PWA 版本规则；
+- [`DEPLOY.md`](docs/DEPLOY.md) — GitHub Pages / Vercel / Cloudflare / Netlify；
+- [`LIQUID_GLASS_IMPLEMENTATION.md`](docs/LIQUID_GLASS_IMPLEMENTATION.md) — 光学系统；
+- [`AMBIENT_PARTICLE_FIELD.md`](docs/AMBIENT_PARTICLE_FIELD.md) — 环境粒子场；
+- [`SITE_MOTION_SYSTEM.md`](docs/SITE_MOTION_SYSTEM.md) — 全站动效；
+- [`PRODUCT_UI_SYSTEM.md`](docs/PRODUCT_UI_SYSTEM.md) — Product UI / Art Direction。
 
----
+## Project rules
 
-## 🧪 静态 CI
+贡献代码前请阅读 [`CONTRIBUTING.md`](CONTRIBUTING.md)。几个不可退让的约束：
 
-Liquid Glass 分支提供 `.github/workflows/liquid-glass-checks.yml`，无需安装 npm 依赖，检查：
+- 不为普通功能引入 React / Vue / Vite / Webpack；
+- 不劫持原生滚动；
+- 不用 blur-only 冒充真实折射；
+- 不允许 motion/layout 压缩或裁剪可读内容；
+- 所有响应式交互必须覆盖 keyboard / touch / reduced-motion；
+- 修改版本化资源时必须同步入口 query 与 Service Worker cache key。
 
-- JavaScript / Service Worker 语法；
-- HTML 重复 ID；
-- CSS/JS 入口依赖图；
-- `feDisplacementMap` / content-copy renderer 是否仍存在；
-- reduced-motion / reduced-transparency 可访问性路径。
+## License & demo attribution
 
----
+VPE 代码以 [MIT License](LICENSE) 发布。
 
-## ⚖️ Disclaimer
-
-1. 仓库中的 Cursor 名称、特性、定价与商标只作为高质量 Demo Content；Fork 用于自己的项目时请替换。
-2. 本项目与 **Cursor / Anysphere, Inc.** 无官方隶属、赞助或背书关系；相关商标归各自权利人所有。
-
----
-
-## 📄 License
-
-MIT License。可用于个人学习、开源项目和商业 Landing Page。
-
-⭐ 如果这个模板或 Liquid Glass 实现对你有帮助，欢迎 Star / Fork / PR。
+Cursor 3.x 仅作为 Reference Demo 内容与外部产品示例；本仓库不是 Cursor 官方项目，也不代表 Cursor/Anysphere。Fork 项目应替换 `DEMO:CURSOR` 标记内容、品牌与产品声明。
