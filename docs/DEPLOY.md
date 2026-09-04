@@ -55,6 +55,23 @@
 
 ---
 
+## 部署后必须更新的生产 URL / SEO
+
+Reference Demo 为了正确支持 GitHub Pages 项目子路径，`index.html`、`en/index.html` 与 `sitemap.xml` 使用了当前 VPE 的**绝对生产 URL**。Fork 后不要原样保留。
+
+全局搜索：
+
+```text
+TEMPLATE:EDIT — Site Metadata & SEO
+linkingoscar.github.io/Vanilla-Product-Experience
+```
+
+至少替换 canonical、hreflang、`og:url`、`og:image`、JSON-LD 与 `sitemap.xml`。详细规则见 [`SEO.md`](SEO.md)。
+
+如果从 GitHub Pages 项目子路径迁移到自定义根域名，也要把这些 URL 从 `https://user.github.io/repo/` 改为最终域名。
+
+---
+
 ## 本地开发与测试
 
 无需安装任何 npm 包或前端依赖，以下任意命令均可启动本地实时预览服务器：
