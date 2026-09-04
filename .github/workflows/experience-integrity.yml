@@ -13,6 +13,7 @@ on:
       - 'liquid-glass-lab.html'
       - 'ambient-particle-lab.html'
       - 'manifest.json'
+      - 'sitemap.xml'
       - 'sw.js'
       - 'VERSION'
       - 'README*.md'
@@ -55,30 +56,54 @@ jobs:
           node --check assets/js/product-ui.js
           node --check sw.js
 
-      - name: HTML and manifest integrity
+      - name: HTML, SEO and manifest integrity
         run: |
           set -euxo pipefail
           python3 - <<'PY'
           from html.parser import HTMLParser
           from pathlib import Path
           import json
+          import xml.etree.ElementTree as ET
+
+          BASE = 'https://linkingoscar.github.io/Vanilla-Product-Experience/'
+          EXPECTED = {
+              'index.html': {
+                  'canonical': BASE,
+                  'lang': 'zh-CN',
+                  'alternate': {'zh-CN': BASE, 'en': BASE + 'en/', 'x-default': BASE},
+              },
+              'en/index.html': {
+                  'canonical': BASE + 'en/',
+                  'lang': 'en',
+                  'alternate': {'en': BASE + 'en/', 'zh-CN': BASE, 'x-default': BASE},
+              },
+          }
 
           class Inspector(HTMLParser):
               def __init__(self):
                   super().__init__()
                   self.ids = []
-                  self.inline_scripts = []
+                  self.links = []
+                  self.metas = []
+                  self.inline_js = []
+                  self.ld_json = []
                   self._in_script = False
                   self._script_src = False
+                  self._script_type = ''
                   self._chunks = []
 
               def handle_starttag(self, tag, attrs):
                   attrs = dict(attrs)
                   if 'id' in attrs:
                       self.ids.append(attrs['id'])
-                  if tag == 'script':
+                  if tag == 'link':
+                      self.links.append(attrs)
+                  elif tag == 'meta':
+                      self.metas.append(attrs)
+                  elif tag == 'script':
                       self._in_script = True
                       self._script_src = bool(attrs.get('src'))
+                      self._script_type = attrs.get('type', '').lower()
                       self._chunks = []
 
               def handle_data(self, data):
@@ -86,24 +111,59 @@ jobs:
                       self._chunks.append(data)
 
               def handle_endtag(self, tag):
-                  if tag == 'script' and self._in_script:
-                      if not self._script_src:
-                          self.inline_scripts.append(''.join(self._chunks))
-                      self._in_script = False
-                      self._script_src = False
-                      self._chunks = []
+                  if tag != 'script' or not self._in_script:
+                      return
+                  body = ''.join(self._chunks).strip()
+                  if body and not self._script_src:
+                      if self._script_type == 'application/ld+json':
+                          self.ld_json.append(json.loads(body))
+                      elif self._script_type in ('', 'text/javascript', 'application/javascript', 'module'):
+                          self.inline_js.append(body)
+                  self._in_script = False
+                  self._script_src = False
+                  self._script_type = ''
+                  self._chunks = []
 
-          files = ['index.html', 'en/index.html', 'liquid-glass-lab.html', 'ambient-particle-lab.html']
-          for filename in files:
+          for filename in ['index.html', 'en/index.html', 'liquid-glass-lab.html', 'ambient-particle-lab.html']:
               parser = Inspector()
               parser.feed(Path(filename).read_text(encoding='utf-8'))
               duplicates = sorted({x for x in parser.ids if parser.ids.count(x) > 1})
               if duplicates:
                   raise SystemExit(f'{filename}: duplicate IDs: {duplicates}')
 
-          json.loads(Path('manifest.json').read_text(encoding='utf-8'))
+              out = Path('/tmp') / (filename.replace('/', '-') + '-inline.js')
+              out.write_text('\n;\n'.join(parser.inline_js), encoding='utf-8')
+
+              if filename in EXPECTED:
+                  expected = EXPECTED[filename]
+                  canonical = [x.get('href') for x in parser.links if x.get('rel') == 'canonical']
+                  assert canonical == [expected['canonical']], (filename, canonical)
+                  alternates = {x.get('hreflang'): x.get('href') for x in parser.links if x.get('rel') == 'alternate'}
+                  assert alternates == expected['alternate'], (filename, alternates)
+                  og_url = [x.get('content') for x in parser.metas if x.get('property') == 'og:url']
+                  assert og_url == [expected['canonical']], (filename, og_url)
+                  assert len(parser.ld_json) == 1, (filename, len(parser.ld_json))
+                  ld = parser.ld_json[0]
+                  assert ld.get('@type') == 'WebPage'
+                  assert ld.get('url') == expected['canonical']
+                  assert ld.get('inLanguage') == expected['lang']
+                  assert ld.get('isPartOf', {}).get('name') == 'Vanilla Product Experience'
+
+          manifest = json.loads(Path('manifest.json').read_text(encoding='utf-8'))
+          assert manifest['id'] == './'
+          assert manifest['start_url'] == './'
+          assert manifest['scope'] == './'
           assert Path('VERSION').read_text(encoding='utf-8').strip() == '1.0.0'
+
+          ns = {'sm': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+          sitemap = ET.parse('sitemap.xml').getroot()
+          locs = {el.text for el in sitemap.findall('sm:url/sm:loc', ns)}
+          assert locs == {BASE, BASE + 'en/'}, locs
           PY
+
+          for file in /tmp/*-inline.js; do
+            if [ -s "$file" ]; then node --check "$file"; fi
+          done
 
       - name: Project identity and documentation
         run: |
@@ -114,10 +174,17 @@ jobs:
           grep -F 'Reference Demo' CHANGELOG.md
           grep -F 'window.VPE' assets/js/main.js
           grep -F 'vpe:ready' assets/js/main.js
+          grep -F 'Vanilla Product Experience' liquid-glass-lab.html
+          grep -F 'Vanilla Product Experience' ambient-particle-lab.html
+          grep -F 'VPE.ambient' ambient-particle-lab.html
+          ! grep -R -F 'cursor3-static' liquid-glass-lab.html ambient-particle-lab.html
           test -s docs/README.md
           test -s docs/ARCHITECTURE.md
           test -s docs/BROWSER_SUPPORT.md
           test -s docs/VERSIONING.md
+          test -s docs/SEO.md
+          test -s docs/RELEASE_CHECKLIST.md
+          test -s docs/releases/v1.0.0.md
           test -s CONTRIBUTING.md
 
       - name: Entrypoint dependency graph
@@ -136,7 +203,8 @@ jobs:
           grep -F 'motion/layout-motion.js?v=0.1.1' assets/js/main.js
           grep -F 'product-ui.js?v=0.1.1' assets/js/main.js
           test ! -f assets/css/release-polish.css
-          grep -F "vpe-v1.0.0-cache-001" sw.js
+          grep -F "vpe-v1.0.0-cache-002" sw.js
+          grep -F "new URL('./sitemap.xml', BASE_SCOPE).href" sw.js
           grep -F 'style.css?v=3.10.0' sw.js
           grep -F 'main.js?v=3.10.0' sw.js
           grep -F 'experience-integration.css?v=1.0.0' sw.js
