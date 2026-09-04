@@ -1,6 +1,6 @@
 // VPE:CORE — Service Worker Cache Engine
 // Bump CACHE_NAME whenever the exact precache dependency graph changes.
-const CACHE_NAME = 'vpe-v1.0.0-cache-001';
+const CACHE_NAME = 'vpe-v1.0.0-cache-002';
 
 const BASE_SCOPE = self.registration.scope;
 
@@ -11,6 +11,7 @@ const STATIC_ASSETS = [
   new URL('./index.html', BASE_SCOPE).href,
   new URL('./en/', BASE_SCOPE).href,
   new URL('./en/index.html', BASE_SCOPE).href,
+  new URL('./sitemap.xml', BASE_SCOPE).href,
   new URL('./assets/css/style.css?v=3.10.0', BASE_SCOPE).href,
   new URL('./assets/js/main.js?v=3.10.0', BASE_SCOPE).href,
   new URL('./assets/css/style-base.css?v=3.10.0', BASE_SCOPE).href,
