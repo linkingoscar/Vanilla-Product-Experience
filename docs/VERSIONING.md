@@ -14,35 +14,45 @@ Example: `1.0.0`.
 
 The bundled Cursor site has its own timeline (Cursor 3.x / September 2026). Those product-version labels are demo data, not the VPE project version.
 
-### 3. Internal module versions
+### 3. Runtime/module asset versions
 
-Liquid Glass, Ambient, Motion and Product UI retain small internal versions such as `0.1.1`. These help diagnose runtime/cache mismatches and do not imply separate package releases.
+The static site predates project-level SemVer, so some public entrypoint URLs still carry the historical runtime revision `3.10.0`, while Liquid Glass, Ambient, Motion and Product UI use smaller internal versions such as `0.1.1`.
+
+These query strings are **cache/dependency graph revisions**, not the VPE release version. VPE v1 keeps them for backward compatibility with existing deployed Reference Demo URLs.
 
 ### 4. Service Worker cache revision
 
 `CACHE_NAME` is an implementation revision. It changes whenever precached dependency keys change. It is not a semantic project version by itself.
 
-## Public entrypoint policy
+## Current entrypoint graph
 
-The HTML should load project-level entrypoints with the project version:
+The Reference Demo currently requests:
 
 ```text
-assets/css/style.css?v=1.0.0
-assets/js/main.js?v=1.0.0
+assets/css/style.css?v=3.10.0
+assets/js/main.js?v=3.10.0
 ```
 
-Those entrypoints may load internal modules with their module versions.
+`main.js` reports the independent project version through:
+
+```js
+VPE.version // "1.0.0"
+```
+
+Future VPE releases may consolidate public query strings, but a project SemVer bump does not require mechanically renaming every internal module URL.
 
 ## Critical cache rule
 
-**If the contents of a versioned runtime asset change, the request key must change too.**
+**If the contents of a versioned runtime asset change, its delivery path must be invalidated deliberately.**
 
-For every runtime version bump, update all relevant locations together:
+Preferred approach: bump the relevant loader/import query string. Then update all relevant locations together:
 
 1. loader/import query string;
 2. Service Worker precache query string;
 3. integrity CI expectation;
 4. module-reported version when applicable.
+
+For historical entrypoint URLs that must remain stable, VPE may use explicit Service Worker `cache: 'reload'` revalidation during a migration. This is a compatibility mechanism, not a substitute for normal version bumps.
 
 Do not change `layout-motion.js` to v0.1.2 while leaving the loader and SW at `?v=0.1.1`. A stale query key can keep pre-fix code alive even after deployment.
 
