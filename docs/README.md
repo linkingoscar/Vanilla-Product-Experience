@@ -12,6 +12,12 @@ VPE is organized as a stable static core plus removable enhancement systems. Use
 | [BROWSER_SUPPORT.md](BROWSER_SUPPORT.md) | renderer paths, responsive policy, accessibility and known QA boundaries |
 | [VERSIONING.md](VERSIONING.md) | project versions, internal modules, asset query strings and Service Worker rules |
 | [DEPLOY.md](DEPLOY.md) | static hosting and GitHub Pages project-path deployment |
+| [SEO.md](SEO.md) | canonical, hreflang, social metadata, structured data and sitemap |
+| [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md) | project release gates, browser pass and tagging checklist |
+
+## Releases
+
+- [v1.0.0 release notes](releases/v1.0.0.md)
 
 ## Experience systems
 
