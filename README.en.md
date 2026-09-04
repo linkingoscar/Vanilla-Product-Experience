@@ -4,7 +4,7 @@
 >
 > The bundled **Cursor 3.x** site is the reference demo, not the identity of the project.
 
-[Live Demo](https://linkingoscar.github.io/Vanilla-Product-Experience/) · [中文](README.md) · [Documentation](docs/README.md) · [Customize](docs/CUSTOMIZE.md)
+[Live Demo](https://linkingoscar.github.io/Vanilla-Product-Experience/) · [v1.0.0 Release Notes](docs/releases/v1.0.0.md) · [中文](README.md) · [Documentation](docs/README.md) · [Customize](docs/CUSTOMIZE.md)
 
 [![Version](https://img.shields.io/badge/VPE-v1.0.0-6366f1)](VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)

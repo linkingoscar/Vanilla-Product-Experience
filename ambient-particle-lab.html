@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Ambient Particle Field Lab · cursor3-static</title>
+  <title>Ambient Particle Field Lab · Vanilla Product Experience</title>
   <link rel="stylesheet" href="assets/css/style.css?v=3.10.0" />
   <style>
     body { min-height: 100vh; }
@@ -59,7 +59,7 @@
               </div>
               <div class="ide-editor">
                 <div class="code-area">
-                  <div class="code-line"><span class="code-num">1</span><span><span class="code-kw">const</span> field = CursorAmbientField;</span></div>
+                  <div class="code-line"><span class="code-num">1</span><span><span class="code-kw">const</span> field = VPE.ambient;</span></div>
                   <div class="code-line"><span class="code-num">2</span><span>field.<span class="code-fn">setMode</span>(<span class="code-str">'cloud'</span>);</span></div>
                   <div class="code-line"><span class="code-num">3</span><span>field.<span class="code-fn">setDensity</span>(<span class="code-str">1.0</span>);</span></div>
                   <div class="code-line"><span class="code-num">4</span><span>field.<span class="code-fn">pulse</span>(x, y, energy, radius);</span></div>
@@ -102,35 +102,38 @@
       const modeOut = document.getElementById('modeOut');
       const density = document.getElementById('density');
       const densityOut = document.getElementById('densityOut');
+      const ambient = () => window.VPE?.ambient || window.CursorAmbientField || null;
 
       function refreshStats() {
-        if (!window.CursorAmbientField) return;
+        const field = ambient();
+        if (!field) return;
         stats.textContent = [
           `renderer: ${document.documentElement.dataset.ambientRenderer || 'unknown'}`,
-          `quality: ${CursorAmbientField.quality}`,
-          `particles: ${CursorAmbientField.count}`,
-          `mode: ${CursorAmbientField.mode}`,
+          `quality: ${field.quality}`,
+          `particles: ${field.count}`,
+          `mode: ${field.mode}`,
           `glass: ${document.documentElement.dataset.lgRenderer || 'unknown'}`
         ].join('\n');
-        modeOut.textContent = CursorAmbientField.mode;
+        modeOut.textContent = field.mode;
       }
 
       window.addEventListener('cursor:ambient-particles-ready', refreshStats);
       document.querySelectorAll('[data-mode]').forEach((button) => {
         button.addEventListener('click', () => {
-          CursorAmbientField?.setMode(button.dataset.mode);
-          CursorAmbientField?.pulse(button, 0.55, 210);
+          const field = ambient();
+          field?.setMode(button.dataset.mode);
+          field?.pulse(button, 0.55, 210);
           refreshStats();
         });
       });
       density.addEventListener('input', () => {
         const value = Number(density.value);
         densityOut.value = `${value.toFixed(2)}×`;
-        CursorAmbientField?.setDensity(value);
+        ambient()?.setDensity(value);
         refreshStats();
       });
       document.getElementById('pulseBtn').addEventListener('click', () => {
-        CursorAmbientField?.pulse(innerWidth * .5, innerHeight * .48, .95, 300);
+        ambient()?.pulse(innerWidth * .5, innerHeight * .48, .95, 300);
       });
       setInterval(refreshStats, 1000);
     })();
