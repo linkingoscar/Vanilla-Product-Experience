@@ -1,51 +1,39 @@
 # Site Motion System
 
-`feat/site-motion-system` adds a page-level motion language above the existing Liquid Glass and Ambient Particle layers.
+> Ships as part of Vanilla Product Experience v1.0.0.
 
-The goal is not to maximize animation count. The goal is to make the page feel like one continuous spatial system:
+Site Motion gives navigation, layout changes and product storytelling one temporal language. The goal is not to maximize animation count; it is to maintain hierarchy and spatial continuity while native scrolling remains authoritative.
+
+## Stack relationship
 
 ```text
 Ambient Field
-  -> gives the page a living environment
+  → gives the page a living environment
 
 Site Motion
-  -> gives navigation, layout and storytelling temporal continuity
+  → gives state/layout/storytelling temporal continuity
 
 Liquid Glass
-  -> gives the functional controls a physical material
+  → gives functional controls material behavior
 ```
 
-The implementation stays zero-build and framework-free. It uses the Web Animations API, `requestAnimationFrame`, `IntersectionObserver`, DOM geometry measurement and small spring helpers.
-
----
+The implementation stays zero-build and framework-free. It uses Web Animations API, `requestAnimationFrame`, `IntersectionObserver`, DOM geometry and small native spring helpers.
 
 ## Reference mechanisms studied
 
-The implementation is original to this template, but several mature open-source projects were studied for their interaction mechanics:
+The implementation is original to VPE, but the following mature projects informed specific mechanics:
 
-- **Motion** — https://github.com/motiondivision/motion
-  - physics vocabulary based on stiffness / damping / mass
-  - interruptible motion rather than queued decorative transitions
-  - separating value generation from DOM rendering
-- **Auto Animate** — https://github.com/formkit/auto-animate
-  - continuity across layout changes by measuring geometry before and after DOM updates
-  - useful precedent for framework-independent layout animation
-- **Lenis** — https://github.com/darkroomengineering/lenis
-  - scroll velocity as useful interaction state
-  - explicit RAF-driven temporal state
-  - this template deliberately does **not** adopt scroll hijacking; native browser scrolling remains authoritative
-- **Number Flow** — https://github.com/barvian/number-flow
-  - numeric changes should maintain visual continuity rather than snap between unrelated text states
+- Motion — stiffness / damping / mass vocabulary and interruptible motion;
+- Auto Animate — geometry before/after DOM mutation;
+- Lenis — velocity as interaction state, without adopting scroll hijacking;
+- Number Flow — continuous numeric state rather than unrelated snapping text.
 
-The project does not ship any of these libraries. The useful mechanisms were reduced into small Vanilla modules appropriate for a static template.
-
----
+None of those libraries are shipped as runtime dependencies.
 
 ## Files
 
 ```text
 assets/css/site-motion.css
-
 assets/js/motion/
 ├── spring.js
 ├── layout-motion.js
@@ -53,372 +41,111 @@ assets/js/motion/
 └── site-motion.js
 ```
 
-### Responsibility split
+### `spring.js`
 
-`spring.js`
-: Interruptible scalar spring and sampled spring keyframes.
+Interruptible scalar spring values and sampled spring keyframes.
 
-`layout-motion.js`
-: FLIP-style layout measurement, moving-card animation, entering elements, disappearing ghosts and container-height continuity.
+### `layout-motion.js`
 
-`number-motion.js`
-: Interruptible numeric interpolation for values that change faster than an animation can finish.
+FLIP geometry capture, entering elements, moving elements, leaving ghosts and safe container-height continuity.
 
-`site-motion.js`
-: The actual page choreography. It coordinates Hero, Island, sections, Feature Matrix, Simulator, ROI, Timeline, Comparison, primary CTAs and the Ambient field.
+### `number-motion.js`
 
----
+Interruptible numeric interpolation for rapidly changing values such as ROI output.
+
+### `site-motion.js`
+
+Coordinates Hero, Island, sections, Feature Matrix, Simulator, ROI, Timeline, Comparison, primary actions and Ambient energy.
 
 ## Motion principles
 
-### 1. Motion follows hierarchy
+### Motion follows hierarchy
 
-Large motion is reserved for structural transitions. Small controls receive small motion.
+Structural changes may have obvious spatial motion. Small controls get small feedback; reading surfaces get almost none.
 
-Good:
+### Native scrolling stays native
 
-```text
-Feature Grid layout change -> obvious spatial continuity
-Primary CTA press          -> small material response
-Comparison row hover       -> almost no movement
-```
+VPE measures scroll velocity and direction but does not interpolate or replace browser scroll position.
 
-Bad:
+### Motion is interruptible
 
-```text
-every card -> strong 3D tilt
-all buttons -> particle explosion
-all section titles -> identical dramatic entrance
-```
+A→B→C input before B finishes should redirect from the current visual state instead of queuing stale transitions.
 
-### 2. Keep native scrolling
+### Spatial continuity without content damage
 
-The site does not interpolate or replace browser scroll position.
-
-Scroll velocity is measured and used as input for:
-
-- Dynamic Island compression
-- scroll direction state
-- Ambient particle energy
-- Timeline progress
-- active section choreography
-
-The user still gets native touch scrolling, browser navigation behavior and platform accessibility semantics.
-
-### 3. Prefer interruptible physics
-
-A user can click A -> B -> C before B finishes animating. Motion must redirect from the current visual state rather than queue stale animations.
-
-`SpringValue` therefore maintains current value + velocity and simply accepts a new target.
-
-### 4. Preserve spatial continuity
-
-Filtering a 31-card grid should not look like one page disappearing and another page appearing.
-
-Feature Matrix uses:
+Feature filtering uses FLIP:
 
 ```text
 First geometry
-  -> base filter mutates DOM
-  -> Last geometry
-  -> Invert surviving cards
-  -> spring to new positions
+→ base filter mutates DOM
+→ Last geometry
+→ Invert surviving cards
+→ spring to new positions
 ```
 
-Cards leaving the filter get short-lived visual ghosts so disappearance also has continuity.
+Leaving cards receive short-lived visual ghosts.
 
-### 5. Motion is part of accessibility
+**Readable natural height is a hard invariant.** When a category expands from fewer cards to more cards, the live grid adopts its natural target height immediately. VPE does not animate the real grid through a too-small explicit height, because CSS Grid rows can compress and `.feature-card { overflow: hidden }` would clip text. Only safe contraction of extra empty space may animate.
 
-`prefers-reduced-motion: reduce` is not implemented as a random collection of CSS overrides. The motion controller changes behavior:
+Rapid repeated category changes cancel stale height animation state before remeasurement.
 
-- no Hero choreography
-- no spring layout movement
-- no pointer-card physics
-- no Ambient energy pulses
-- native content remains immediately readable
-- Timeline and Simulator still communicate state without relying on motion
+### Accessibility is behavior, not a CSS afterthought
 
----
+`prefers-reduced-motion: reduce` removes Hero choreography, spring layout movement, pointer-card physics and decorative Ambient pulses. State remains understandable without movement.
 
 ## Page choreography
 
-### Hero — establish space
+### Hero
 
-Entrance sequence:
+Eyebrow → headline → supporting copy → CTA → product visual → workspace control, with overlapping timing rather than slide-deck sequencing.
 
-```text
-Eyebrow
-  -> headline
-  -> supporting copy
-  -> CTA group
-  -> IDE/workspace visual
-  -> Liquid Glass workspace controller
-```
+### Floating Island
 
-The sequence overlaps. It is not a slow presentation-style one-item-at-a-time animation.
+Real scroll velocity drives very small squash/stretch and top-position changes. The spring returns immediately to rest when scrolling stops.
 
-The visual enters with slightly greater depth than the copy so the Hero feels spatial without excessive parallax.
+### Highlights
 
-### Dynamic Island — react to scroll energy
+Compact staggered entrance plus very low-amplitude elevation on fine pointers. It intentionally avoids large 3D tilt.
 
-The Island reads real scroll velocity.
+### Feature Matrix
 
-At rest:
+1. capture visible-card geometry;
+2. create ghosts for leaving cards;
+3. let the base filter remain source of truth;
+4. measure new geometry;
+5. FLIP surviving cards;
+6. animate newly visible cards in;
+7. keep natural readable grid height;
+8. animate only safe extra-space contraction when appropriate;
+9. resynchronize Glass content copies.
 
-```text
-scaleX 1
-scaleY 1
-```
+Shared Lens and a small Ambient pulse happen at the same state transition.
 
-During a fast scroll:
+### Composer Simulator
 
-```text
-slight horizontal stretch
-slight vertical compression
-```
+Architect → Coder → Tester is represented as one pipeline with a progress path, active/completed nodes, compact status response and subtle Ambient transfer.
 
-A spring immediately returns it to rest when scroll energy stops.
+### ROI
 
-It also moves a few pixels closer to the viewport edge after leaving the Hero area and increases material density slightly.
+Native range inputs remain real controls. Liquid thumb response and number interpolation are interruptible so rapid dragging never creates a stale animation queue.
 
-### Highlights / Bento — progressive expansion
+### Timeline
 
-Bento cards use a compact staggered entrance.
+Viewport progress drives a separate progress line and completed/current/upcoming marker states. Completed milestones remain completed rather than switching off again.
 
-Fine-pointer hover uses very low-amplitude spring elevation:
+### Pricing / Comparison
 
-- about 3px vertical lift
-- sub-1-degree rotation
-- shadow / luminance response
+Pricing uses restrained entry/elevation around its existing segmented selector. Comparison remains reading-first with only low-intensity row/scroll affordances.
 
-This is deliberately not a large 3D tilt effect.
+## Public API
 
-### Feature Matrix — FLIP layout morph
-
-This is one of the strongest structural motions on the page.
-
-When a category changes:
-
-1. capture current visible card geometry
-2. create visual ghosts for cards that will disappear
-3. let the existing filter logic remain the source of truth
-4. measure new geometry
-5. spring surviving cards from old positions to new positions
-6. animate newly visible cards in
-7. animate grid height to its new value
-8. remove ghosts
-9. resynchronize Safari/Firefox Liquid Glass content copies
-
-The existing Shared Liquid Lens and Ambient field pulse at the same transition point.
-
-### Composer Simulator — energy transfer
-
-The Architect -> Coder -> Tester sequence becomes one visual pipeline.
-
-- a vertical progress path connects stages
-- stage status mutations drive the path through a spring
-- the active node receives a small material emphasis
-- code changes crossfade instead of snapping
-- status-pill changes have a compact spring response
-- active stage changes emit a very small Ambient pulse
-
-### ROI Calculator — continuous values
-
-The native range inputs remain the actual controls.
-
-During drag:
-
-- the Liquid Glass thumb receives a small specular / scale response
-- annual savings animates from the value currently visible on screen toward the newest target
-- a new input interrupts the previous number animation
-- cost comparison text uses a quieter micro-transition
-
-This prevents rapid slider input from creating a queue of stale number animations.
-
-### Timeline — scroll narrative
-
-The Timeline contains a separate active progress line above the static baseline.
-
-Viewport progress drives:
-
-- progress-line scale
-- completed milestones
-- current milestone
-- upcoming milestones
-
-The current marker receives the strongest state; completed markers remain visibly completed instead of turning off again.
-
-### Pricing — restrained motion
-
-Pricing already has a Liquid Glass Monthly / Annualized selector.
-
-Site Motion adds only:
-
-- staggered card entrance
-- low-amplitude pointer elevation on fine-pointer devices
-- existing number swap remains the main pricing transition
-
-Content cards remain content surfaces rather than becoming animated glass panels.
-
-### Comparison — reading first
-
-Comparison tables intentionally use the smallest motion budget.
-
-- subtle row luminance on fine-pointer hover
-- left/right overflow cues appear only when horizontal scrolling is possible
-- section entrance is shallow and short
-
-No large transforms are applied to dense comparison data.
-
----
-
-## Ambient integration
-
-Site Motion does not reseed the particle simulation when sections change.
-
-Instead it changes one visual presence token:
-
-```css
---sm-ambient-presence
-```
-
-Default choreography:
-
-```text
-Hero          1.00
-Highlights    0.82
-Composer      0.72
-Feature Grid  0.62
-Media         0.50
-Timeline      0.46
-Pricing       0.34
-Comparison    0.28
-CTA           0.48
-```
-
-The Ambient simulation therefore remains continuous while the page changes its visual energy.
-
-Structural events can emit controlled pulses through:
+VPE aggregates motion modules under:
 
 ```js
-CursorSiteMotion.pulse(element, energy, radius)
+VPE.motion.physics
+VPE.motion.layout
+VPE.motion.numbers
+VPE.motion.site
 ```
 
-Only meaningful actions use this bridge. Ordinary text links and table rows do not produce particle effects.
-
----
-
-## Public APIs
-
-### Physics
-
-```js
-const x = new CursorMotionPhysics.SpringValue(0, {
-  stiffness: 360,
-  damping: 36,
-  onUpdate(value) {
-    // render value
-  }
-});
-
-x.set(1);
-x.set(0.5); // redirects the same spring while it is moving
-```
-
-### Sample spring keyframes
-
-```js
-const motion = CursorMotionPhysics.springFrames(
-  (progress) => ({
-    transform: `translateY(${20 * (1 - progress)}px)`
-  }),
-  { stiffness: 320, damping: 34 }
-);
-
-element.animate(motion.keyframes, {
-  duration: motion.duration,
-  easing: 'linear'
-});
-```
-
-### Layout continuity
-
-```js
-const before = CursorLayoutMotion.capture(cards);
-
-// mutate DOM/layout here
-
-CursorLayoutMotion.animateFlip(before, cards);
-```
-
-### Numbers
-
-```js
-CursorNumberMotion.animate(output, 128400, {
-  format: (value) => `$${Math.round(value).toLocaleString()}`
-});
-```
-
-### Site controller
-
-```js
-CursorSiteMotion.section
-CursorSiteMotion.reveal(element, options)
-CursorSiteMotion.pulse(element, 0.05, 140)
-CursorSiteMotion.refresh()
-```
-
----
-
-## Runtime state
-
-The controller exposes useful state through `<html>` attributes:
-
-```text
-data-site-motion-section
-data-site-motion-scrolled
-data-site-scroll-direction
-```
-
-These are intentionally CSS-friendly so a fork can change visual behavior without rewriting the motion engine.
-
----
-
-## Performance rules
-
-1. Native scrolling is never replaced.
-2. Scroll handlers schedule visual work with `requestAnimationFrame` where continuous work is required.
-3. Large layout transitions happen only on discrete actions such as feature filtering.
-4. Pointer-card physics is disabled on coarse/touch pointers.
-5. Card rotation stays below one degree.
-6. Ambient particle count is controlled by the separate Ambient quality policy.
-7. Reduced Motion bypasses non-essential springs and pulses.
-8. Motion modules have no third-party runtime dependency.
-
----
-
-## Layer order
-
-```text
-style-base.css / main-base.js
-        ↓
-Liquid Glass optical system
-        ↓
-Liquid Glass product components
-        ↓
-Ambient Particle Interaction Field
-        ↓
-Site Motion System
-```
-
-Site Motion loads last because it coordinates the states produced by the other layers. It does not replace their implementation.
-
----
-
-## Design target
-
-The intended result is not “a website with many animations.”
-
-The target is:
-
-> The user should be able to understand where an object came from, where it moved, what changed, and what currently deserves attention — while the page still feels calm enough to read.
+Historical `CursorMotion*` / `CursorSiteMotion` globals remain v1 compatibility aliases where present.
