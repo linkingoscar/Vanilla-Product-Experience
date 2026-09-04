@@ -1,16 +1,15 @@
 # Ambient Particle Interaction Field
 
-> Branch: `feat/ambient-particle-field`  
-> Base: `feat/liquid-glass-design-system`
+> Ships as part of Vanilla Product Experience v1.0.0.
 
-This layer turns the page background into an interactive digital medium beneath the Liquid Glass functional layer. It is inspired by modern particle-field landing pages, but it is implemented as a reusable part of this static template rather than a copy of any specific site.
+The Ambient Field turns the page background into a responsive digital medium beneath the functional Liquid Glass layer. It is a reusable runtime, not a copy of a specific product website.
 
 ## Layer model
 
 ```text
 Background Base
   ↓
-Low-frequency Gradient Blobs
+Low-frequency Gradient Lighting
   ↓
 Ambient Particle Interaction Field
   ↓
@@ -19,7 +18,7 @@ Content Layer
 Liquid Glass Functional Layer
 ```
 
-The particle field is intentionally strongest around the Hero and fades toward a low-intensity ambient state as the user scrolls into dense content.
+The field is strongest around the Hero and becomes quieter in dense reading sections.
 
 ## Files
 
@@ -31,81 +30,46 @@ assets/js/ambient/
 └── particle-field.js
 ```
 
-### `particle-renderer-webgl.js`
+### Renderer
 
-Small WebGL2 point-sprite renderer. It only renders positions/depth/opacity; physics stay on the CPU so the same state can be reused elsewhere.
-
-### `interaction-field.js`
-
-Collects:
-
-- pointer position
-- pointer velocity
-- pointer wake energy
-- scroll velocity
-- Command Palette focus state
-- Shared Liquid Lens movement pulses
-
-### `particle-field.js`
-
-Owns one particle simulation and feeds multiple renderers.
+The preferred renderer is small custom WebGL2 point rendering. Physics remain on the CPU so **one particle state** can feed multiple outputs. If WebGL2 is unavailable, the main renderer falls back to Canvas2D.
 
 ```text
 Particle State
-   ├── WebGL2 background renderer
-   └── Safari/Firefox glass mirror canvases
+   ├── WebGL2 / Canvas2D background
+   └── Safari/Firefox local Glass mirrors
 ```
 
-If WebGL2 is unavailable, the main renderer falls back to Canvas2D with the same state/API.
+No second physics simulation is created for mirrors.
 
-## Particle behavior
+## Interaction field
 
-The field is not a random particle rain.
+Inputs include:
 
-Each particle has:
+- pointer position and velocity;
+- pointer wake / pressure;
+- scroll velocity;
+- Shared Liquid Lens movement;
+- Command Palette focus state;
+- Hero Workspace mode.
 
-- stable normalized anchor
-- current position
-- velocity
-- depth
-- deterministic seed
-- cluster assignment
-
-Forces include:
-
-1. low-frequency vector-field drift
-2. spring return toward a stable anchor
-3. pointer pressure / radial displacement
-4. pointer-velocity wake
-5. scroll energy
-6. Shared Lens energy pulses
-7. Workspace-mode-specific forces
+Each particle has a stable anchor, current position, velocity, depth, deterministic seed and optional cluster assignment. Forces combine low-frequency drift, spring return, pointer pressure/wake, scroll energy and local pulses.
 
 ## Workspace modes
 
-The existing Hero Workspace Controller drives the particle field.
-
 ### Local
 
-- tighter return spring
-- lower flow strength
-- smaller pointer influence radius
-- visually stable/localized
+Tighter spring and lower flow. The field feels stable and localized.
 
 ### Cloud
 
-- looser spring
-- higher flow strength
-- slow anchor drift
-- broader spatial feeling
+Looser spring and broader slow drift.
 
 ### Private Pool
 
-- particles pull toward four soft cluster centers
-- moderate flow
-- represents pooled/self-hosted machines without changing the page into a different theme
+Particles are attracted toward soft cluster centers to suggest pooled/self-hosted machines without changing the entire theme.
 
-The current mode is exposed on:
+Current state is exposed as:
 
 ```html
 <html data-ambient-mode="local|cloud|private">
@@ -115,48 +79,21 @@ The current mode is exposed on:
 
 ### Chromium
 
-The main WebGL canvas sits below the content layer, so the existing `backdrop-svg` Liquid Glass renderer sees and refracts the actual particle pixels.
+The main WebGL canvas is behind content, so `backdrop-svg` sees and refracts actual particle pixels.
 
 ### Safari / Firefox
 
-The content-copy renderer cannot clone a WebGL canvas as live pixels. The ambient field therefore creates small Canvas2D mirror renderers inside selected Liquid Glass refraction surfaces.
+The content-copy renderer cannot clone live WebGL pixels. VPE therefore creates small local Canvas2D mirror renderers inside selected Glass surfaces. They consume the shared particle state and reuse the surface's existing SVG displacement filter.
 
-All mirrors reuse the same CPU particle state. They do **not** run another physics simulation.
+Typical mirror targets include the Floating Island, Command Palette, Hero controls, pricing segmented controls, range thumbs and shared lenses.
 
-Each mirror copies the glass surface's current SVG displacement filter:
+## Focus behavior
 
-```text
-shared particle state
-    ↓
-local mirror canvas
-    ↓
-existing feDisplacementMap filter
-    ↓
-refracted particles inside glass
-```
-
-Mirror targets currently include:
-
-- Floating Island
-- Command Palette
-- Hero workspace glass
-- Pricing segmented glass
-- Liquid Range thumbs
-- Shared lenses
-
-## Command Palette behavior
-
-When Command Palette opens:
-
-- particle simulation force is reduced
-- visual opacity drops
-- pointer wake is suppressed
-
-This keeps the background alive without competing with the search surface.
+When Command Palette opens, particle force/opacity are reduced and pointer wake is suppressed. Ambient remains alive but stops competing with the search surface.
 
 ## Quality policy
 
-The ambient field consumes the existing Liquid Glass quality tier when available.
+Typical budgets:
 
 ```text
 high      ~1100 particles, DPR cap 1.5
@@ -164,83 +101,34 @@ balanced  ~560 particles,  DPR cap 1.25
 low       ~220 particles,  DPR cap 1.0
 ```
 
-Narrow/mobile screens apply additional particle-count caps.
-
-`prefers-reduced-motion` keeps a static particle field instead of continuously animating it.
-
-When the tab becomes hidden, `requestAnimationFrame` is stopped.
+Narrow/coarse-pointer screens apply additional caps. Hidden tabs stop continuous RAF work. `prefers-reduced-motion` keeps a static/very quiet field rather than requiring a blank background.
 
 ## Public API
 
-```js
-CursorAmbientField.version
-CursorAmbientField.quality
-CursorAmbientField.mode
-CursorAmbientField.count
-```
-
-### Change mode
+New integrations can access the field through:
 
 ```js
-CursorAmbientField.setMode('local');
-CursorAmbientField.setMode('cloud');
-CursorAmbientField.setMode('private');
+VPE.ambient
 ```
 
-### Change density
+The v1 compatibility alias remains:
 
 ```js
-CursorAmbientField.setDensity(0.7);
+CursorAmbientField
 ```
 
-Accepted range is clamped to `0.25`–`1.5`.
-
-### Add an energy pulse
-
-By coordinates:
+Examples:
 
 ```js
-CursorAmbientField.pulse(600, 320, 0.7, 240);
+VPE.ambient?.setMode('cloud');
+VPE.ambient?.setDensity(0.7);
+VPE.ambient?.pulse(document.querySelector('.btn-primary'), 0.7, 240);
+VPE.ambient?.pause();
+VPE.ambient?.resume();
 ```
 
-By element:
+Accepted density is clamped internally. `destroy()` removes runtime resources when the module is no longer needed.
 
-```js
-CursorAmbientField.pulse(document.querySelector('.btn-primary'), 0.7, 240);
-```
+## Design rule
 
-### Pause / resume
-
-```js
-CursorAmbientField.pause();
-CursorAmbientField.resume();
-```
-
-### Remove the module at runtime
-
-```js
-CursorAmbientField.destroy();
-```
-
-## Runtime diagnostics
-
-The root element exposes:
-
-```text
-data-ambient-renderer="webgl2|canvas2d"
-data-ambient-quality="high|balanced|low"
-data-ambient-mode="local|cloud|private"
-data-ambient-focus="page|palette"
-data-ambient-particles="<count>"
-```
-
-## Design constraints
-
-- no Three.js
-- no npm dependency
-- no bundler
-- no random connection-line network aesthetic
-- no full-page high-opacity particle storm
-- particle behavior supports Liquid Glass instead of competing with it
-- existing Gradient Blobs are reduced to a lighting role
-- Noise remains a subtle texture layer
+Ambient is page atmosphere, not foreground content. Do not add strong particles, strong glow, strong Glass and strong 3D motion to the same section. Section energy is coordinated by Site Motion.
