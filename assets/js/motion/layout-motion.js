@@ -1,5 +1,5 @@
 /**
- * Cursor Layout Motion v0.1
+ * Cursor Layout Motion v0.1.1
  * -------------------------
  * Small FLIP/layout continuity helper for a framework-free static page.
  */
@@ -7,6 +7,7 @@
   "use strict";
 
   const Physics = () => window.CursorMotionPhysics;
+  const containerHeightAnimations = new WeakMap();
 
   function rectSnapshot(elements) {
     const snapshot = new Map();
@@ -119,32 +120,89 @@
     return { animations, moved, entered };
   }
 
+  function clearContainerHeightState(container, expectedAnimation) {
+    if (!container) return;
+    if (expectedAnimation && containerHeightAnimations.get(container) !== expectedAnimation) return;
+    if (!expectedAnimation || containerHeightAnimations.get(container) === expectedAnimation) {
+      containerHeightAnimations.delete(container);
+    }
+    container.style.removeProperty("height");
+    container.style.removeProperty("overflow");
+    container.style.removeProperty("align-content");
+  }
+
+  function cancelContainerHeight(container) {
+    if (!container) return;
+    const running = containerHeightAnimations.get(container);
+    if (running) {
+      containerHeightAnimations.delete(container);
+      try { running.cancel(); } catch (_) {}
+    }
+    clearContainerHeightState(container);
+  }
+
+  /**
+   * Animate only safe contractions.
+   *
+   * Expanding a live CSS Grid from a short explicit height to a taller one can
+   * force auto rows below their content size while the transition is running.
+   * Feature cards intentionally clip their visual surface, so that temporary
+   * row compression used to cut off titles/body copy. Expansion now adopts the
+   * natural height immediately and leaves spatial continuity to FLIP/enter
+   * animations. Contraction may animate the extra empty height because all
+   * remaining rows already fit at their natural size.
+   */
   function animateContainerHeight(container, fromHeight, toHeight, options) {
-    if (!container || Math.abs(fromHeight - toHeight) < 1) return null;
+    if (!container) return null;
     const opts = options || {};
-    container.style.height = `${fromHeight}px`;
+
+    // A fast second filter click can arrive before the previous height animation
+    // settles. Remove that constraint first, then measure the current DOM state
+    // instead of trusting a stale toHeight captured from an animated container.
+    const running = containerHeightAnimations.get(container);
+    if (running) {
+      containerHeightAnimations.delete(container);
+      try { running.cancel(); } catch (_) {}
+    }
+    clearContainerHeightState(container);
+
+    const naturalTarget = container.getBoundingClientRect().height;
+    const startHeight = Number.isFinite(fromHeight) ? fromHeight : naturalTarget;
+    if (Math.abs(startHeight - naturalTarget) < 1) return null;
+
+    // Content expansion must never constrain the real grid. Cards become fully
+    // readable immediately; FLIP and enter animations still provide continuity.
+    if (naturalTarget >= startHeight) return null;
+
+    container.style.height = `${startHeight}px`;
     container.style.overflow = "clip";
+    // Prevent CSS Grid's default stretch behavior from making rows absorb the
+    // temporary extra container height while it contracts.
+    container.style.alignContent = "start";
+
     const animation = container.animate([
-      { height: `${fromHeight}px` },
-      { height: `${toHeight}px` }
+      { height: `${startHeight}px` },
+      { height: `${naturalTarget}px` }
     ], {
       duration: opts.duration || 460,
       easing: opts.easing || "cubic-bezier(.2,.78,.18,1)",
       fill: "forwards"
     });
-    animation.finished.finally(() => {
-      container.style.removeProperty("height");
-      container.style.removeProperty("overflow");
-    });
+
+    containerHeightAnimations.set(container, animation);
+    animation.finished
+      .catch(() => {})
+      .finally(() => clearContainerHeightState(container, animation));
     return animation;
   }
 
   window.CursorLayoutMotion = Object.freeze({
-    version: "0.1.0",
+    version: "0.1.1",
     capture: rectSnapshot,
     createGhost,
     animateGhostOut,
     animateFlip,
-    animateContainerHeight
+    animateContainerHeight,
+    cancelContainerHeight
   });
 })();
