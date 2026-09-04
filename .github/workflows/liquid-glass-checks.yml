@@ -146,7 +146,7 @@ jobs:
             test -s assets/js/motion/site-motion.js
             grep -F 'site-motion.css?v=0.1.0' assets/css/style.css
             grep -F 'motion/spring.js?v=0.1.0' assets/js/main.js
-            grep -F 'motion/layout-motion.js?v=0.1.0' assets/js/main.js
+            grep -F 'motion/layout-motion.js?v=0.1.1' assets/js/main.js
             grep -F 'motion/number-motion.js?v=0.1.0' assets/js/main.js
             grep -F 'motion/site-motion.js?v=0.1.0' assets/js/main.js
           fi
@@ -157,7 +157,9 @@ jobs:
             grep -F 'product-ui.css?v=0.1.0' assets/css/style.css
             grep -F 'product-ui.js?v=0.1.1' assets/js/main.js
             grep -F 'release-polish.css?v=0.1.0' assets/css/style.css
-            grep -F 'static-landing-v8-feature-grid-011' sw.js
+            grep -F 'static-landing-v9-feature-grid-cache-0111' sw.js
+            grep -F "./assets/js/motion/layout-motion.js?v=0.1.1" sw.js
+            grep -F 'forceFreshRuntime' sw.js
           elif [ -f assets/css/site-motion.css ]; then
             grep -F 'static-landing-v5-site-motion-010' sw.js
           elif [ -f assets/js/ambient/particle-field.js ]; then

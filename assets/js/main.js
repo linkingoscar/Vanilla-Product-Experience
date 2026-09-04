@@ -155,7 +155,7 @@
 
   function loadSiteMotion() {
     loadScript("motion/spring.js?v=0.1.0", function loadLayoutMotion() {
-      loadScript("motion/layout-motion.js?v=0.1.0", function loadNumberMotion() {
+      loadScript("motion/layout-motion.js?v=0.1.1", function loadNumberMotion() {
         loadScript("motion/number-motion.js?v=0.1.0", function loadSiteMotionController() {
           loadScript("motion/site-motion.js?v=0.1.0", loadProductUi);
         });
